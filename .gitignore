@@ -1,0 +1,39 @@
+# ===== 机密（作业要求：不提交密码或访问令牌）=====
+db.env
+*.key
+*.pem
+
+# ===== 虚拟环境与 Python 缓存 =====
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# ===== data/raw：大文件不进仓库，只留下载元数据 =====
+data/raw/*
+!data/raw/download_meta.json
+
+# ===== snapshots：页面快照不进仓库，只留哈希索引 =====
+snapshots/pages/
+snapshots/*.html
+snapshots/*.htm
+snapshots/*.gz
+
+# ===== logs：大日志不进仓库，只留汇总与 README =====
+logs/**
+!logs/README.md
+!logs/summary/
+!logs/summary/**
+
+# ===== 数据库转储 =====
+*.dump
+*.backup
+*.sql.gz
+*.sqlite
+*.db
+
+# ===== 系统/编辑器杂项 =====
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
