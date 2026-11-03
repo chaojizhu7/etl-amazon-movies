@@ -12,6 +12,10 @@ __pycache__/
 # ===== data/raw：大文件不进仓库，只留下载元数据 =====
 data/raw/*
 !data/raw/download_meta.json
+!data/raw/imdb/
+data/raw/imdb/*
+!data/raw/imdb/checksums.sha256
+!data/raw/imdb/download_meta.json
 
 # ===== snapshots：页面快照不进仓库，只留哈希索引 =====
 snapshots/pages/
@@ -37,3 +41,4 @@ Thumbs.db
 .DS_Store
 .vscode/
 .idea/
+.scrapy/

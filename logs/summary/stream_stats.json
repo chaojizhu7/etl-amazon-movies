@@ -1,0 +1,23 @@
+{
+  "records_read": 7911684,
+  "valid_records": 7911684,
+  "quarantined_records": 0,
+  "q_reason": {},
+  "empty_user_id": 0,
+  "bad_score": 0,
+  "encoding_replaced": 63567,
+  "time_min": 872035200,
+  "time_max": 1351123200,
+  "parser_version": "v0.1",
+  "distinct_asin": 253059,
+  "distinct_user": 889176,
+  "elapsed_seconds": 66.1,
+  "official": {
+    "reviews": 7911684,
+    "products": 253059,
+    "users": 889176,
+    "time_range": "1997-08 .. 2012-10"
+  },
+  "overall_match": true,
+  "record_boundary": "line starting with product/productId:"
+}

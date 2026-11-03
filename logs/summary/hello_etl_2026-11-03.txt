@@ -1,0 +1,3 @@
+run_id=manual__2026-11-03T00:00:00+00:00
+value=EXTRACTED
+parser=v0.1

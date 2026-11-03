@@ -1,0 +1,11 @@
+{
+  "download_url": "https://snap.stanford.edu/data/movies.txt.gz",
+  "download_time_local": "2026-11-03T12:30:28+0800",
+  "download_time_utc": "2026-11-03T04:30:28Z",
+  "file_name": "movies.txt.gz",
+  "file_size_bytes": 3321791660,
+  "sha256": "4b6ee09ea4880f3fb197b1407d45dfb08a892fbb48a9e7a2d74aa0572cdcc715",
+  "parser_version": "v0.1",
+  "meta_recorded_at_utc": "2026-11-03T04:36:44Z",
+  "sha256_compute_seconds": 2.53
+}

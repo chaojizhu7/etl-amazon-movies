@@ -1,0 +1,44 @@
+{
+  "dataset": "IMDb Non-Commercial Datasets",
+  "source_page": "https://data.imdb.com/non-commercial-datasets/",
+  "batch_date": "2026-11-03",
+  "license": "IMDb non-commercial terms; course coursework use only; do not redistribute raw files",
+  "files": [
+    {
+      "file_name": "title.basics.tsv.gz",
+      "download_url": "https://datasets.imdbws.com/title.basics.tsv.gz",
+      "file_size_bytes": 229636410,
+      "sha256": "e059faada0999ab8a4a554e99d630c0ededc1ecec9f0a2aadf5188cc1ddd1f5f",
+      "download_time_utc": "2026-11-03T05:25:21Z"
+    },
+    {
+      "file_name": "title.crew.tsv.gz",
+      "download_url": "https://datasets.imdbws.com/title.crew.tsv.gz",
+      "file_size_bytes": 83877657,
+      "sha256": "7604013ef81b95b005077da956a24535efff24eef285d8e51ce04214dd97a66c",
+      "download_time_utc": "2026-11-03T05:23:36Z"
+    },
+    {
+      "file_name": "name.basics.tsv.gz",
+      "download_url": "https://datasets.imdbws.com/name.basics.tsv.gz",
+      "file_size_bytes": 312306248,
+      "sha256": "05efa4b7d3a347a08163bce2936c0527281b871905ee67af72d1ee79288fe45b",
+      "download_time_utc": "2026-11-03T05:27:32Z"
+    },
+    {
+      "file_name": "title.principals.tsv.gz",
+      "download_url": "https://datasets.imdbws.com/title.principals.tsv.gz",
+      "file_size_bytes": 789511688,
+      "sha256": "bd4fa69d2d4577b87f46506aa25eac68d1eb0c1a49695280fac45ceb6766da6d",
+      "download_time_utc": "2026-11-03T05:32:11Z"
+    },
+    {
+      "file_name": "title.ratings.tsv.gz",
+      "download_url": "https://datasets.imdbws.com/title.ratings.tsv.gz",
+      "file_size_bytes": 8732618,
+      "sha256": "c400a7e073be972f0d9bb3d74ea00983f728ca7a8fca29c705a3fc44d93baf09",
+      "download_time_utc": "2026-11-03T05:22:55Z"
+    }
+  ],
+  "meta_recorded_at_utc": "2026-11-03T05:52:15Z"
+}

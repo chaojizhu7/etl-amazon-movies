@@ -1,0 +1,88 @@
+{
+  "basics": {
+    "header": [
+      "tconst",
+      "titleType",
+      "primaryTitle",
+      "originalTitle",
+      "isAdult",
+      "startYear",
+      "endYear",
+      "runtimeMinutes",
+      "genres"
+    ],
+    "rows": 12921360,
+    "rows_with_startYear": 11435899,
+    "rows_with_genres": 12374753,
+    "type_movie_rows": 759812,
+    "type_movie_with_startYear": 647293,
+    "top_types": {
+      "tvEpisode": 9998878,
+      "short": 1166985,
+      "movie": 759812,
+      "video": 333013,
+      "tvSeries": 307637,
+      "tvMovie": 156863
+    },
+    "file_bytes": 229636410,
+    "profile_seconds": 9.9
+  },
+  "crew": {
+    "header": [
+      "tconst",
+      "directors",
+      "writers"
+    ],
+    "rows": 12918857,
+    "rows_value_present": 7157755,
+    "file_bytes": 83877657,
+    "profile_seconds": 4.6
+  },
+  "name_basics": {
+    "header": [
+      "nconst",
+      "primaryName",
+      "birthYear",
+      "deathYear",
+      "primaryProfession",
+      "knownForTitles"
+    ],
+    "rows": 15783070,
+    "file_bytes": 312306248,
+    "profile_seconds": 6.3
+  },
+  "principals": {
+    "header": [
+      "tconst",
+      "ordering",
+      "nconst",
+      "category",
+      "job",
+      "characters"
+    ],
+    "rows": 102659089,
+    "category_counts": {
+      "actor": 24258542,
+      "actress": 18322762,
+      "self": 15701000,
+      "writer": 12192808,
+      "director": 8662739,
+      "producer": 7558518,
+      "editor": 5560313,
+      "cinematographer": 4110433
+    },
+    "file_bytes": 789511688,
+    "profile_seconds": 53.1
+  },
+  "ratings": {
+    "header": [
+      "tconst",
+      "averageRating",
+      "numVotes"
+    ],
+    "rows": 1728260,
+    "file_bytes": 8732618,
+    "profile_seconds": 0.2
+  },
+  "total_profile_seconds": 74.2
+}
