@@ -78,6 +78,7 @@ COMPLETE_SERIES_RE = re.compile(
 AKA_RE = re.compile(r"\baka\s+([^()\[\]]+)", re.I)
 PHRASE_STRIP = [
     re.compile(p, re.I) for p in [
+        r"\b\d{1,2}(?:st|nd|rd|th)\s+Anniversary(?:\s+Edition)?\b",
         r"\b(?:Ultimate|Special|Deluxe|Limited|Extended|Uncut|Unrated|Remastered|Restored)"
         r"\s+(?:Collector'?s?\s+)?(?:Edition|Cut|Version)\b",
         r"\bCollector'?s?\s+Edition\b",
@@ -96,7 +97,6 @@ PHRASE_STRIP = [
         r"\bSubtitles?\b",
         r"\bRequires?\s+a\s+Multi[- ]?Region\s+Player\b",
         r"\s*:\s*The\s+Movie\b",
-        r"\b\d{1,2}(?:st|nd|rd|th)\s+Anniversary\b",
         r"\b(?:Full[- ]?Screen|Fullscreen|Widescreen|Letterbox)\b",
         r"\bUMD(?:\s+for\s+PSP)?(?:\s+Pack)?\b",
         r"\s+(?:Ultimate|Special|Deluxe|Collectors?)\s*$",
@@ -783,6 +783,10 @@ def main():
                  for r in conn.execute(
                      "SELECT asin, review_count, priority, priority_tier, status "
                      "FROM product_crawl_queue")}
+        # 人工复核标记跨重跑保留（不被证据重建覆盖）
+        review_marks = {r[0]: r[1] for r in conn.execute(
+            "SELECT asin, evidence->'manual_review' FROM product_classification "
+            "WHERE evidence ? 'manual_review'")}
 
     print(f"queue rows: {len(queue):,}  run_id={run_id}  rules={RULES_VERSION}")
 
@@ -885,6 +889,8 @@ def main():
         }
         if res.get("candidate_movie_titles") is not None:
             evidence["candidate_movie_titles"] = res["candidate_movie_titles"]
+        if asin in review_marks:
+            evidence["manual_review"] = review_marks[asin]
         rows.append((
             asin, res["classification"], res["status"],
             float(res["confidence"]) if res.get("confidence") is not None else None,

@@ -211,6 +211,25 @@
       "runtime_min": 30,
       "genre": "Horror",
       "department": "movies & tv"
+    },
+    {
+      "asin": "6301996135",
+      "review_count": 297,
+      "title_raw": "The Civil War - A Film by Ken Burns (Boxed Set) [VHS]",
+      "classification_status": "inferred",
+      "confidence": 0.6,
+      "pending_reason": null,
+      "rules_fired": [
+        "P3"
+      ],
+      "rationale": "标题多片标记（Trilogy/Collection 等），候选影片标题未逐一列出，留任务4 映射",
+      "imdb_match": "none",
+      "imdb_types": [],
+      "imdb_tconsts": [],
+      "imdb_resolution": null,
+      "runtime_min": null,
+      "genre": "Military & War",
+      "department": "movies & tv"
     }
   ],
   "tv_series": [
