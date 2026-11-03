@@ -39,3 +39,11 @@
 - **原始提示词**：复核结果 6 项（Soy leyenda 确认错配→tt0780504 留任务4；Jaws 确认剥离 bug→修复重跑刷新 4.3；Les Mis tconst 标 unverified 留任务4/5；Ben-Hur 标 version_unverified 留任务4；Spark of Insanity 标 no_match+seller_title_missing_artist_prefix 不硬匹；修复只影响分类/匹配统计、不影响高置信与评论数据；复核结果写 report/人工复核记录.md）
 - **被采纳的输出**：`src/classify_products.py` 剥离表修复+标记保留逻辑；`run_20261103-02` 统计刷新（movie 316/tv_series 25/collection 4/concert 1/other 7/pending_review 252,706）；10 条 `manual_review` 标记；`report/人工复核记录.md`；报告 4.3 同步
 - **人工验证方式**：①Jaws 重跑后查 `product_classification` 确认 tt0073195/movie/0.9；②高置信 5 条修复前后 psql 对拍零变化；③`Get-FileHash movies.txt.gz` 核对 SHA-256 `4b6ee09e…cdcc715` 不变、stream_stats 7,911,684 MATCH 不变；④重跑后查 `evidence ? 'manual_review'` 确认 10 条标记存续
+
+## 2026-11-03 · 任务4 合并规则设计（v1.0→v1.1）与合并预估
+
+- **工具/模型**：MiMoCode（mimo agent）+ Python 3.14.7 venv + psql/PG 17.11
+- **用途**：设计电影实体合并规则（同一电影定义/候选生成/6 信号验证/置信度公式/三级判定/链一致性/ProductMovie 评论归属）；按审核意见修订 v1.1（S2 年份硬冲突两档化 + 阈值校准流程）；实现 `src/merge_movies.py --estimate` 跑合并预估报告（只算不写库）
+- **原始提示词**：任务4 第一步 7 项要求 + 审核结论 6 项（含 |Δ年|≥10 两档修改、manual>50 则放宽 V≥0.55 或 known≥2）+ 收尾指令（更新 CONTEXT.md、TODO 记录、git commit [win2-dev]、今日总结）
+- **被采纳的输出**：`rules/merge_rules_v1.md`（v1.1 草案）；`src/merge_movies.py`（预估模式）；`logs/summary/merge_estimate_report.json`（152 对：auto 125 / manual 1 / no_merge 26，链检 0 拒边）；CONTEXT.md §9 进展+TODO；`src/classify_products.py` canon 变音符号修复
+- **人工验证方式**：①对照预估样例抽查 auto/no_merge 判定（Iron Man vs Iron Man 2 序数拦截、Watchmen 同片归并、Dracula/Scrooge 别名疑点）；②`Get-Content logs/summary/merge_estimate_report.json` 核对计数与原因分布；③明日按修改确认复核 v1.1 定稿项

@@ -110,6 +110,7 @@ def canon(title: str) -> str:
     letter/digit boundary, comma-inversion, no leading article."""
     t = html_mod.unescape(title or "")
     t = unicodedata.normalize("NFKD", t)
+    t = "".join(ch for ch in t if not unicodedata.combining(ch))
     t = t.replace("&", " and ")
     t = re.sub(r"[-–—:/|,]", " ", t)
     t = re.sub(r"\bvol\b\.?", "volume", t, flags=re.I)

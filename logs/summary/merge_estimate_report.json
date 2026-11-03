@@ -1,0 +1,241 @@
+{
+  "rules_version": "merge_v1.1",
+  "generated_at_utc": "2026-11-03T12:15:55Z",
+  "elapsed_seconds": 0.1,
+  "scope": {
+    "movie_editions": 316,
+    "collection_candidates": 6,
+    "edition_pairs": 152,
+    "collection_pairs": 0
+  },
+  "bucket_edition": {
+    "counts": {
+      "auto_merge": 125,
+      "manual_review": 1,
+      "no_merge": 26
+    },
+    "reason_breakdown": {
+      "all_gates_pass": 125,
+      "hard:director_diff_cast_empty": 14,
+      "hard:sequel_ordinal_mismatch": 7,
+      "partial_signals": 1,
+      "title_conflict": 5
+    },
+    "chain_check": {
+      "auto_edges": 125,
+      "accepted_after_chain": 125,
+      "rejected_by_chain": 0
+    },
+    "relaxed_variants": {}
+  },
+  "bucket_collection_member": {
+    "counts": {
+      "auto_merge": 0,
+      "manual_review": 0,
+      "no_merge": 0
+    },
+    "samples": []
+  },
+  "samples": {
+    "auto_merge": [
+      {
+        "pair": "B000W4KT64 × B000WAGVHE",
+        "titles": "Hairspray (Full-Screen Edition) × Hairspray (Musical) (BD)",
+        "conf": 1.0,
+        "V": 1.0,
+        "known": 5,
+        "strong": 3,
+        "reason": "all_gates_pass",
+        "signals": {
+          "title": 1.0,
+          "year": 1.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 1.0,
+          "genre": 1.0
+        }
+      },
+      {
+        "pair": "6304198523 × 6304493738",
+        "titles": "Usual Suspects/Collector's Gift Set [VHS] × Usual Suspects",
+        "conf": 1.0,
+        "V": 1.0,
+        "known": 4,
+        "strong": 3,
+        "reason": "all_gates_pass",
+        "signals": {
+          "title": 1.0,
+          "year": 1.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 0.0,
+          "genre": 1.0
+        }
+      },
+      {
+        "pair": "B0006Z2KIY × B0036JQ7S6",
+        "titles": "The Notebook × VERSAINSECT asion (The Notebook) aka El diario de Noa [NTSC/Region 1&4 dvd. Import - Latin America] (Spanish subtitles)",
+        "conf": 1.0,
+        "V": 1.0,
+        "known": 3,
+        "strong": 2,
+        "reason": "all_gates_pass",
+        "signals": {
+          "title": 1.0,
+          "year": 0.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 0.0,
+          "genre": 1.0
+        }
+      },
+      {
+        "pair": "B0034ZTVO4 × B003DBCXF8",
+        "titles": "Twilight Saga: New Moon Blu-ray (2 Disc) × The Twilight Saga: New Moon Two-Disc DVD Gift Set with Charm Necklace and Bonus Features Year 2009",
+        "conf": 1.0,
+        "V": 1.0,
+        "known": 4,
+        "strong": 3,
+        "reason": "all_gates_pass",
+        "signals": {
+          "title": 1.0,
+          "year": 1.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 0.0,
+          "genre": 1.0
+        }
+      },
+      {
+        "pair": "B000AARKOO × B000AARKOY",
+        "titles": "Kingdom of Heaven (2-Disc Widescreen Edition) × Kingdom of Heaven",
+        "conf": 1.0,
+        "V": 1.0,
+        "known": 5,
+        "strong": 3,
+        "reason": "all_gates_pass",
+        "signals": {
+          "title": 1.0,
+          "year": 1.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 1.0,
+          "genre": 1.0
+        }
+      }
+    ],
+    "manual_review": [
+      {
+        "pair": "B002ZG98VE × B006WXHJGC",
+        "titles": "Robin Hood × Robin Hood [Blu-ray]",
+        "conf": 0.72,
+        "V": 0.6,
+        "known": 4,
+        "strong": 2,
+        "reason": "partial_signals",
+        "signals": {
+          "title": 1.0,
+          "year": 0.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": -1.0,
+          "genre": 0.5
+        }
+      }
+    ],
+    "no_merge": [
+      {
+        "pair": "B00005JPS8 × B003UYV08E",
+        "titles": "Iron Man (Ultimate 2 Disc Edition) × Iron Man 2 (Single-Disc Edition)",
+        "conf": 0.537,
+        "V": 0.85,
+        "known": 5,
+        "strong": 2,
+        "reason": "hard:sequel_ordinal_mismatch",
+        "signals": {
+          "title": 0.5,
+          "year": 0.5,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 1.0,
+          "genre": 1.0
+        }
+      },
+      {
+        "pair": "B00005JPS8 × B0021L8V1G",
+        "titles": "Iron Man (Ultimate 2 Disc Edition) × Iron Man 2 (Two-Disc Special Edition)",
+        "conf": 0.521,
+        "V": 0.812,
+        "known": 3,
+        "strong": 2,
+        "reason": "hard:sequel_ordinal_mismatch",
+        "signals": {
+          "title": 0.5,
+          "year": 0.5,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 0.0,
+          "genre": 0.0
+        }
+      },
+      {
+        "pair": "B00004CYNY × B000TGJ7ZY",
+        "titles": "Dracula × Bram Stoker's Dracula",
+        "conf": 0.5,
+        "V": 1.0,
+        "known": 5,
+        "strong": 3,
+        "reason": "title_conflict",
+        "signals": {
+          "title": -1.0,
+          "year": 1.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 1.0,
+          "genre": 1.0
+        }
+      },
+      {
+        "pair": "6302914485 × B00005NBBJ",
+        "titles": "A Christmas Carol [VHS] × Scrooge",
+        "conf": 0.476,
+        "V": 0.931,
+        "known": 3,
+        "strong": 2,
+        "reason": "title_conflict",
+        "signals": {
+          "title": -1.0,
+          "year": 0.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 0.0,
+          "genre": 0.5
+        }
+      },
+      {
+        "pair": "B00005NBBJ × B00005TPCG",
+        "titles": "Scrooge × A Christmas Carol (50th Anniversary Edition)",
+        "conf": 0.476,
+        "V": 0.931,
+        "known": 3,
+        "strong": 2,
+        "reason": "title_conflict",
+        "signals": {
+          "title": -1.0,
+          "year": 0.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 0.0,
+          "genre": 0.5
+        }
+      }
+    ]
+  },
+  "thresholds_base": {
+    "T": 0.85,
+    "V": 0.65,
+    "conf": 0.5,
+    "strong": 2,
+    "known": 3
+  }
+}
