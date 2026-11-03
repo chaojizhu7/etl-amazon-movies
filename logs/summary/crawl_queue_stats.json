@@ -1,0 +1,16 @@
+{
+  "rules_version": "v0.1",
+  "built_at_utc": "2026-11-03T06:14:49Z",
+  "source_reviews": 7911684,
+  "distinct_asin": 253059,
+  "expected_asin": 253059,
+  "count_match": true,
+  "elapsed_seconds": 55.9,
+  "total": 253059,
+  "tier_high": 20985,
+  "tier_medium": 83345,
+  "tier_low": 148729,
+  "status_pending": 253059,
+  "max_reviews": 957,
+  "min_reviews": 1
+}

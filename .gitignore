@@ -23,11 +23,13 @@ snapshots/*.html
 snapshots/*.htm
 snapshots/*.gz
 
-# ===== logs：大日志不进仓库，只留汇总与 README =====
+# ===== logs：大日志不进仓库，只留汇总、审计与 README =====
 logs/**
 !logs/README.md
 !logs/summary/
 !logs/summary/**
+!logs/audit/
+!logs/audit/**
 
 # ===== 数据库转储 =====
 *.dump
