@@ -1,0 +1,584 @@
+{
+  "movie": [
+    {
+      "asin": "B00005JPS8",
+      "review_count": 925,
+      "title_raw": "Iron Man (Ultimate 2 Disc Edition)",
+      "classification_status": "evidence",
+      "confidence": 0.9,
+      "pending_reason": null,
+      "rules_fired": [
+        "P6"
+      ],
+      "rationale": "IMDb titleType=['movie']（tt0371746）",
+      "imdb_match": "unique",
+      "imdb_types": [
+        "movie"
+      ],
+      "imdb_tconsts": [
+        "tt0371746"
+      ],
+      "imdb_resolution": {
+        "method": "cast_match",
+        "detail": "页面署名与 IMDb 演职员重名 11 人（Robert Downey Jr., Gwyneth Paltrow, Terrence Howard, Jeff Bridges, Leslie Bibb, Shaun Toub），次优候选仅 0 人",
+        "tconst": "tt0371746",
+        "original_status": "ambiguous"
+      },
+      "runtime_min": 126,
+      "genre": "Action & Adventure",
+      "department": "movies & tv"
+    },
+    {
+      "asin": "B000AM6MKU",
+      "review_count": 865,
+      "title_raw": "The Polar Express Gift Set (Two-Disc Widescreen Edition with Snow Globe and Toy)",
+      "classification_status": "evidence",
+      "confidence": 0.9,
+      "pending_reason": null,
+      "rules_fired": [
+        "P6"
+      ],
+      "rationale": "IMDb titleType=['movie']（tt0338348）",
+      "imdb_match": "unique",
+      "imdb_types": [
+        "movie"
+      ],
+      "imdb_tconsts": [
+        "tt0338348"
+      ],
+      "imdb_resolution": {
+        "method": "cast_match",
+        "detail": "页面署名与 IMDb 演职员重名 5 人（Tom Hanks, Nona Gaye, Peter Scolari, Leslie Zemeckis, Robert Zemeckis），次优候选仅 1 人",
+        "tconst": "tt0338348",
+        "original_status": "ambiguous"
+      },
+      "runtime_min": 100,
+      "genre": "Kids & Family, Music Videos & Concerts",
+      "department": "movies & tv"
+    },
+    {
+      "asin": "B000I2JKCO",
+      "review_count": 865,
+      "title_raw": "The Polar Express",
+      "classification_status": "evidence",
+      "confidence": 0.9,
+      "pending_reason": null,
+      "rules_fired": [
+        "P6"
+      ],
+      "rationale": "IMDb titleType=['movie']（tt0338348）",
+      "imdb_match": "unique",
+      "imdb_types": [
+        "movie"
+      ],
+      "imdb_tconsts": [
+        "tt0338348"
+      ],
+      "imdb_resolution": {
+        "method": "cast_match",
+        "detail": "页面署名与 IMDb 演职员重名 10 人（Tom Hanks, Chris Coppola, Michael Jeter, Leslie Zemeckis, Eddie Deezen, Nona Gaye），次优候选仅 2 人",
+        "tconst": "tt0338348",
+        "original_status": "ambiguous"
+      },
+      "runtime_min": 100,
+      "genre": "Animation, Anime & Manga",
+      "department": "movies & tv"
+    },
+    {
+      "asin": "B000V7O0GM",
+      "review_count": 847,
+      "title_raw": "The Departed [HD DVD]",
+      "classification_status": "evidence",
+      "confidence": 0.9,
+      "pending_reason": null,
+      "rules_fired": [
+        "P6"
+      ],
+      "rationale": "IMDb titleType=['movie']（tt0407887）",
+      "imdb_match": "unique",
+      "imdb_types": [
+        "movie"
+      ],
+      "imdb_tconsts": [
+        "tt0407887"
+      ],
+      "imdb_resolution": {
+        "method": "cast_match",
+        "detail": "页面署名与 IMDb 演职员重名 11 人（Leonardo DiCaprio, Matt Damon, Jack Nicholson, Mark Wahlberg, Martin Sheen, Ray Winstone），次优候选仅 0 人",
+        "tconst": "tt0407887",
+        "original_status": "ambiguous"
+      },
+      "runtime_min": 151,
+      "genre": "Drama, Mystery & Thrillers",
+      "department": "movies & tv"
+    },
+    {
+      "asin": "B004OOJ1Y4",
+      "review_count": 826,
+      "title_raw": "Harry Potter and the Order of the Phoenix 2-pack Gift Set with Bookmarks Full Screen",
+      "classification_status": "evidence",
+      "confidence": 0.9,
+      "pending_reason": null,
+      "rules_fired": [
+        "P6"
+      ],
+      "rationale": "IMDb titleType=['movie']（tt0373889）",
+      "imdb_match": "unique",
+      "imdb_types": [
+        "movie"
+      ],
+      "imdb_tconsts": [
+        "tt0373889"
+      ],
+      "imdb_resolution": {
+        "method": "cast_match",
+        "detail": "页面署名与 IMDb 演职员重名 3 人（Daniel Radcliffe, Rupert Grint, Emma Watson），次优候选仅 1 人",
+        "tconst": "tt0373889",
+        "original_status": "ambiguous"
+      },
+      "runtime_min": 139,
+      "genre": "",
+      "department": "movies & tv"
+    }
+  ],
+  "non_movie": [],
+  "collection": [
+    {
+      "asin": "B00198X0UO",
+      "review_count": 653,
+      "title_raw": "Back to the Future 25th Anniversary Trilogy [Blu-ray]",
+      "classification_status": "evidence",
+      "confidence": 0.85,
+      "pending_reason": null,
+      "rules_fired": [
+        "P3"
+      ],
+      "rationale": "标题多片标记 + Genre 列出 3 部候选影片",
+      "imdb_match": "unique_class",
+      "imdb_types": [
+        "tvepisode"
+      ],
+      "imdb_tconsts": [
+        "tt1720771",
+        "tt31639098",
+        "tt5933714"
+      ],
+      "imdb_resolution": null,
+      "runtime_min": 343,
+      "genre": "Action & Adventure, Back to the Future, Back to the Future Part II, Back to the Future Part III, Blu-ray Movie, Comedy, DVD Movie, Kids & Family, Science Fiction & Fantasy",
+      "department": "movies & tv"
+    },
+    {
+      "asin": "B003U6SJUY",
+      "review_count": 653,
+      "title_raw": "Back to the Future 25th Anniversary Trilogy",
+      "classification_status": "evidence",
+      "confidence": 0.85,
+      "pending_reason": null,
+      "rules_fired": [
+        "P3"
+      ],
+      "rationale": "标题多片标记 + Genre 列出 3 部候选影片",
+      "imdb_match": "unique_class",
+      "imdb_types": [
+        "tvepisode"
+      ],
+      "imdb_tconsts": [
+        "tt1720771",
+        "tt31639098",
+        "tt5933714"
+      ],
+      "imdb_resolution": null,
+      "runtime_min": 343,
+      "genre": "Action & Adventure, Back to the Future, Back to the Future Part II, Back to the Future Part III, Blu-ray Movie, Comedy, DVD Movie, Kids & Family, Science Fiction & Fantasy",
+      "department": "movies & tv"
+    },
+    {
+      "asin": "B003PIUINS",
+      "review_count": 326,
+      "title_raw": "4 Film Favorites: Final Destination (Final Destination, Final Destination 2, Final Destination 3: Special Edition, The Final Destination)",
+      "classification_status": "inferred",
+      "confidence": 0.6,
+      "pending_reason": null,
+      "rules_fired": [
+        "P3"
+      ],
+      "rationale": "标题多片标记（Trilogy/Collection 等），候选影片标题未逐一列出，留任务4 映射",
+      "imdb_match": "none",
+      "imdb_types": [],
+      "imdb_tconsts": [],
+      "imdb_resolution": null,
+      "runtime_min": 30,
+      "genre": "Horror",
+      "department": "movies & tv"
+    }
+  ],
+  "tv_series": [
+    {
+      "asin": "B004YPED14",
+      "review_count": 709,
+      "title_raw": "Moonlight: The Complete Series",
+      "classification_status": "evidence",
+      "confidence": 0.9,
+      "pending_reason": null,
+      "rules_fired": [
+        "P5"
+      ],
+      "rationale": "页面剧集标记 ['complete_series'] + IMDb ['tvseries']",
+      "imdb_match": "unique",
+      "imdb_types": [
+        "tvseries"
+      ],
+      "imdb_tconsts": [
+        "tt0955346"
+      ],
+      "imdb_resolution": {
+        "method": "cast_match",
+        "detail": "页面署名与 IMDb 演职员重名 6 人（Alex O&#x27;Loughlin, Sophia Myles, Jason Dohring, Rod Holcomb, Shannyn Sossamon, Alex O'Loughlin），次优候选仅 1 人",
+        "tconst": "tt0955346",
+        "original_status": "ambiguous"
+      },
+      "runtime_min": null,
+      "genre": "Drama",
+      "department": "movies & tv"
+    },
+    {
+      "asin": "B000Q6GUW0",
+      "review_count": 593,
+      "title_raw": "Dexter: Season 1",
+      "classification_status": "evidence",
+      "confidence": 0.9,
+      "pending_reason": null,
+      "rules_fired": [
+        "P5"
+      ],
+      "rationale": "页面剧集标记 ['season'] + IMDb ['tvepisode']",
+      "imdb_match": "unique",
+      "imdb_types": [
+        "tvepisode"
+      ],
+      "imdb_tconsts": [
+        "tt0785280"
+      ],
+      "imdb_resolution": {
+        "method": "cast_match",
+        "detail": "页面署名与 IMDb 演职员重名 8 人（Michael C. Hall, Erik King, James Remar, Julie Benz, Jennifer Carpenter, C. S. Lee），次优候选仅 6 人",
+        "tconst": "tt0785280",
+        "original_status": "ambiguous"
+      },
+      "runtime_min": null,
+      "genre": "Television, Television/Crime",
+      "department": "movies & tv"
+    },
+    {
+      "asin": "B00005JKTY",
+      "review_count": 589,
+      "title_raw": "Schoolhouse Rock! (Special 30th Anniversary Edition)",
+      "classification_status": "evidence",
+      "confidence": 0.8,
+      "pending_reason": null,
+      "rules_fired": [
+        "P5"
+      ],
+      "rationale": "IMDb titleType=['tvepisode', 'tvseries']（tt0069627,tt21621436,tt27903527）",
+      "imdb_match": "unique_class",
+      "imdb_types": [
+        "tvepisode",
+        "tvseries"
+      ],
+      "imdb_tconsts": [
+        "tt0069627",
+        "tt21621436",
+        "tt27903527"
+      ],
+      "imdb_resolution": null,
+      "runtime_min": null,
+      "genre": "Anime & Manga",
+      "department": "movies & tv"
+    },
+    {
+      "asin": "B0006IO778",
+      "review_count": 518,
+      "title_raw": "Buffy: Season 1-7 TV DVD Megapack",
+      "classification_status": "inferred",
+      "confidence": 0.7,
+      "pending_reason": null,
+      "rules_fired": [
+        "P5"
+      ],
+      "rationale": "页面剧集标记 ['season']",
+      "imdb_match": "none",
+      "imdb_types": [],
+      "imdb_tconsts": [],
+      "imdb_resolution": null,
+      "runtime_min": null,
+      "genre": "",
+      "department": "movies & tv"
+    },
+    {
+      "asin": "B001ECQ4DA",
+      "review_count": 474,
+      "title_raw": "The Big Bang Theory: Season 1 [Blu-ray]",
+      "classification_status": "evidence",
+      "confidence": 0.9,
+      "pending_reason": null,
+      "rules_fired": [
+        "P5"
+      ],
+      "rationale": "页面剧集标记 ['season'] + IMDb ['tvepisode', 'tvseries']",
+      "imdb_match": "unique_class",
+      "imdb_types": [
+        "tvepisode",
+        "tvseries"
+      ],
+      "imdb_tconsts": [
+        "tt0537168",
+        "tt0590241",
+        "tt0646136",
+        "tt0655282"
+      ],
+      "imdb_resolution": {
+        "method": "collision_filter",
+        "detail": "同名碰撞候选（tvEpisode/short/video 等 1 个）无页面信号佐证，过滤后类别唯一：tv_series",
+        "tconst": null,
+        "original_status": "ambiguous"
+      },
+      "runtime_min": null,
+      "genre": "Comedy",
+      "department": "movies & tv"
+    }
+  ],
+  "concert": [
+    {
+      "asin": "B004I2K4E8",
+      "review_count": 400,
+      "title_raw": "Les Misérables in Concert [Blu-ray]",
+      "classification_status": "inferred",
+      "confidence": 0.6,
+      "pending_reason": null,
+      "rules_fired": [
+        "P4"
+      ],
+      "rationale": "演唱会/音乐现场信号（genre=art house & international, drama, musicals & performing arts, musicals & performing arts/musicals, title_markers={'concert_title': True}）",
+      "imdb_match": "unique",
+      "imdb_types": [
+        "tvepisode"
+      ],
+      "imdb_tconsts": [
+        "tt0113637"
+      ],
+      "imdb_resolution": null,
+      "runtime_min": 170,
+      "genre": "Art House & International, Drama, Musicals & Performing Arts, Musicals & Performing Arts/Musicals",
+      "department": "movies & tv"
+    }
+  ],
+  "other": [
+    {
+      "asin": "B001DWNUE2",
+      "review_count": 886,
+      "title_raw": "Spark of Insanity [Blu-ray]",
+      "classification_status": "inferred",
+      "confidence": 0.7,
+      "pending_reason": null,
+      "rules_fired": [
+        "P7"
+      ],
+      "rationale": "教学/健身/喜剧特辑等信号（genre=comedy/stand-up, markers={}）",
+      "imdb_match": "none",
+      "imdb_types": [],
+      "imdb_tconsts": [],
+      "imdb_resolution": null,
+      "runtime_min": 80,
+      "genre": "Comedy/Stand-Up",
+      "department": "movies & tv"
+    },
+    {
+      "asin": "B001NFNFMQ",
+      "review_count": 648,
+      "title_raw": "Jillian Michaels: No More Trouble Zones - DVD",
+      "classification_status": "inferred",
+      "confidence": 0.7,
+      "pending_reason": null,
+      "rules_fired": [
+        "P7"
+      ],
+      "rationale": "教学/健身/喜剧特辑等信号（genre=fitness, markers={}）",
+      "imdb_match": "unique",
+      "imdb_types": [
+        "video"
+      ],
+      "imdb_tconsts": [
+        "tt4294108"
+      ],
+      "imdb_resolution": null,
+      "runtime_min": null,
+      "genre": "Fitness",
+      "department": "movies & tv"
+    },
+    {
+      "asin": "B00064VQWQ",
+      "review_count": 522,
+      "title_raw": "Carmen Electra's Aerobic Striptease",
+      "classification_status": "inferred",
+      "confidence": 0.7,
+      "pending_reason": null,
+      "rules_fired": [
+        "P7"
+      ],
+      "rationale": "教学/健身/喜剧特辑等信号（genre=无, markers={}）",
+      "imdb_match": "unique",
+      "imdb_types": [
+        "video"
+      ],
+      "imdb_tconsts": [
+        "tt0387814"
+      ],
+      "imdb_resolution": null,
+      "runtime_min": 53,
+      "genre": "",
+      "department": "movies & tv"
+    },
+    {
+      "asin": "B000ACQXJU",
+      "review_count": 398,
+      "title_raw": "The Biggest Winner - How to Win by Losing - Shape Up Complete (2-Disc DVD Set - Front & Backside)",
+      "classification_status": "inferred",
+      "confidence": 0.7,
+      "pending_reason": null,
+      "rules_fired": [
+        "P7"
+      ],
+      "rationale": "教学/健身/喜剧特辑等信号（genre=无, markers={}）",
+      "imdb_match": "none",
+      "imdb_types": [],
+      "imdb_tconsts": [],
+      "imdb_resolution": null,
+      "runtime_min": null,
+      "genre": "",
+      "department": "movies & tv"
+    },
+    {
+      "asin": "0937611417",
+      "review_count": 384,
+      "title_raw": "You Can Heal Your Life",
+      "classification_status": "evidence",
+      "confidence": 0.8,
+      "pending_reason": null,
+      "rules_fired": [
+        "P7"
+      ],
+      "rationale": "IMDb titleType=['short', 'video']（短片等非正片）",
+      "imdb_match": "unique_class",
+      "imdb_types": [
+        "short",
+        "video"
+      ],
+      "imdb_tconsts": [
+        "tt1277154",
+        "tt6320190"
+      ],
+      "imdb_resolution": null,
+      "runtime_min": null,
+      "genre": "",
+      "department": "movies & tv"
+    }
+  ],
+  "pending_review": [
+    {
+      "asin": "B002QZ1RS6",
+      "review_count": 957,
+      "title_raw": null,
+      "classification_status": "pending",
+      "confidence": null,
+      "pending_reason": "access_restricted",
+      "rules_fired": [
+        "P0"
+      ],
+      "rationale": "采集状态=access_restricted，无可用 success 快照，按 R2 不猜",
+      "imdb_match": "not_attempted",
+      "imdb_types": [],
+      "imdb_tconsts": [],
+      "imdb_resolution": null,
+      "runtime_min": null,
+      "genre": null,
+      "department": null
+    },
+    {
+      "asin": "B007FQDPL8",
+      "review_count": 956,
+      "title_raw": null,
+      "classification_status": "pending",
+      "confidence": null,
+      "pending_reason": "access_restricted",
+      "rules_fired": [
+        "P0"
+      ],
+      "rationale": "采集状态=access_restricted，无可用 success 快照，按 R2 不猜",
+      "imdb_match": "not_attempted",
+      "imdb_types": [],
+      "imdb_tconsts": [],
+      "imdb_resolution": null,
+      "runtime_min": null,
+      "genre": null,
+      "department": null
+    },
+    {
+      "asin": "B001C08RHA",
+      "review_count": 925,
+      "title_raw": null,
+      "classification_status": "pending",
+      "confidence": null,
+      "pending_reason": "access_restricted",
+      "rules_fired": [
+        "P0"
+      ],
+      "rationale": "采集状态=access_restricted，无可用 success 快照，按 R2 不猜",
+      "imdb_match": "not_attempted",
+      "imdb_types": [],
+      "imdb_tconsts": [],
+      "imdb_resolution": null,
+      "runtime_min": null,
+      "genre": null,
+      "department": null
+    },
+    {
+      "asin": "B001FD5KJM",
+      "review_count": 925,
+      "title_raw": null,
+      "classification_status": "pending",
+      "confidence": null,
+      "pending_reason": "access_restricted",
+      "rules_fired": [
+        "P0"
+      ],
+      "rationale": "采集状态=access_restricted，无可用 success 快照，按 R2 不猜",
+      "imdb_match": "not_attempted",
+      "imdb_types": [],
+      "imdb_tconsts": [],
+      "imdb_resolution": null,
+      "runtime_min": null,
+      "genre": null,
+      "department": null
+    },
+    {
+      "asin": "B001GAPC1K",
+      "review_count": 925,
+      "title_raw": null,
+      "classification_status": "pending",
+      "confidence": null,
+      "pending_reason": "access_restricted",
+      "rules_fired": [
+        "P0"
+      ],
+      "rationale": "采集状态=access_restricted，无可用 success 快照，按 R2 不猜",
+      "imdb_match": "not_attempted",
+      "imdb_types": [],
+      "imdb_tconsts": [],
+      "imdb_resolution": null,
+      "runtime_min": null,
+      "genre": null,
+      "department": null
+    }
+  ]
+}
