@@ -1,0 +1,442 @@
+{
+  "rules_version": "person_merge_v1.1",
+  "run_id": "run_20261104-04",
+  "generated_at_utc": "2026-11-04T06:25:33Z",
+  "elapsed_seconds": 54.1,
+  "before": {
+    "nodes_imdb": 4386,
+    "nodes_page": 571,
+    "candidate_pairs": 842
+  },
+  "decision_counts": {
+    "auto_merge": 362,
+    "no_merge": 102,
+    "manual_review": 378
+  },
+  "reason_breakdown": {
+    "hard:death_before_other_works": 26,
+    "partial_signals": 202,
+    "conf_below_floor": 73,
+    "all_gates_pass": 362,
+    "initial_compatible_ceiling": 109,
+    "hard:death_before_other_works+exclusive_works": 1,
+    "hard:exclusive_works": 2,
+    "chain_inconsistency": 67
+  },
+  "chain_check": {
+    "auto_edges": 429,
+    "accepted": 362,
+    "rejected": 67,
+    "note": "拒边已降级 manual_review(reason=chain_inconsistency)"
+  },
+  "after": {
+    "person_entity_by_status": {
+      "merged": 362,
+      "singleton": 4233
+    },
+    "person_entity_total": 4595,
+    "merged_clusters": 362,
+    "movie_person_rows": 5770
+  },
+  "eval_sample": {
+    "file": "C:\\Users\\28746\\Desktop\\etl-amazon\\logs\\summary\\person_eval_sample.csv",
+    "n": 100
+  },
+  "merged_examples": [
+    {
+      "person_id": "p_000001",
+      "members": [
+        "nm0000004",
+        "pg:john belushi:mv_000350"
+      ],
+      "names": [
+        "John Belushi"
+      ],
+      "nconsts": [
+        "nm0000004"
+      ],
+      "shared_works_evidence": [
+        "mv_000350"
+      ],
+      "era": [
+        {
+          "start": 1949,
+          "end": 1982,
+          "basis": "lifespan",
+          "inferred": false,
+          "confidence": 0.95,
+          "n_works": 1
+        },
+        {
+          "start": null,
+          "end": null,
+          "basis": "unknown",
+          "inferred": true,
+          "confidence": 0.0,
+          "n_works": 1
+        }
+      ]
+    },
+    {
+      "person_id": "p_000002",
+      "members": [
+        "nm0000006",
+        "pg:ingrid bergman:mv_000028"
+      ],
+      "names": [
+        "Ingrid Bergman"
+      ],
+      "nconsts": [
+        "nm0000006"
+      ],
+      "shared_works_evidence": [
+        "mv_000028"
+      ],
+      "era": [
+        {
+          "start": 1915,
+          "end": 1982,
+          "basis": "lifespan",
+          "inferred": false,
+          "confidence": 0.95,
+          "n_works": 1
+        },
+        {
+          "start": null,
+          "end": null,
+          "basis": "unknown",
+          "inferred": true,
+          "confidence": 0.0,
+          "n_works": 1
+        }
+      ]
+    },
+    {
+      "person_id": "p_000003",
+      "members": [
+        "nm0000007",
+        "pg:humphrey bogart:mv_000028"
+      ],
+      "names": [
+        "Humphrey Bogart"
+      ],
+      "nconsts": [
+        "nm0000007"
+      ],
+      "shared_works_evidence": [
+        "mv_000028"
+      ],
+      "era": [
+        {
+          "start": 1899,
+          "end": 1957,
+          "basis": "lifespan",
+          "inferred": false,
+          "confidence": 0.95,
+          "n_works": 2
+        },
+        {
+          "start": null,
+          "end": null,
+          "basis": "unknown",
+          "inferred": true,
+          "confidence": 0.0,
+          "n_works": 1
+        }
+      ]
+    },
+    {
+      "person_id": "p_000004",
+      "members": [
+        "nm0000040",
+        "pg:stanley kubrick:mv_000019"
+      ],
+      "names": [
+        "Stanley Kubrick"
+      ],
+      "nconsts": [
+        "nm0000040"
+      ],
+      "shared_works_evidence": [
+        "mv_000019"
+      ],
+      "era": [
+        {
+          "start": 1928,
+          "end": 2021,
+          "basis": "lifespan",
+          "inferred": false,
+          "confidence": 0.95,
+          "n_works": 4
+        },
+        {
+          "start": null,
+          "end": null,
+          "basis": "unknown",
+          "inferred": true,
+          "confidence": 0.0,
+          "n_works": 1
+        }
+      ]
+    },
+    {
+      "person_id": "p_000005",
+      "members": [
+        "nm0000058",
+        "pg:maureen o'hara:mv_000249"
+      ],
+      "names": [
+        "Maureen O'Hara"
+      ],
+      "nconsts": [
+        "nm0000058"
+      ],
+      "shared_works_evidence": [
+        "mv_000249"
+      ],
+      "era": [
+        {
+          "start": 1920,
+          "end": 2015,
+          "basis": "lifespan",
+          "inferred": false,
+          "confidence": 0.95,
+          "n_works": 1
+        },
+        {
+          "start": null,
+          "end": null,
+          "basis": "unknown",
+          "inferred": true,
+          "confidence": 0.0,
+          "n_works": 1
+        }
+      ]
+    }
+  ],
+  "not_merged_examples": [
+    {
+      "pair": "errol flynn × errol flynn",
+      "keys": [
+        "nm0001224",
+        "pg:errol flynn:mv_000317"
+      ],
+      "decision": "manual_review",
+      "reason": "partial_signals",
+      "V": 1.0,
+      "conf": 1.0,
+      "signals": {
+        "name": 1.0,
+        "works": 0.0,
+        "profession": 1.0,
+        "era": 0.0
+      },
+      "works": [
+        [
+          "mv_000315"
+        ],
+        [
+          "mv_000317"
+        ]
+      ],
+      "era": [
+        {
+          "start": 1909,
+          "end": 1985,
+          "basis": "lifespan",
+          "inferred": false,
+          "confidence": 0.95,
+          "n_works": 1
+        },
+        {
+          "start": null,
+          "end": null,
+          "basis": "unknown",
+          "inferred": true,
+          "confidence": 0.0,
+          "n_works": 1
+        }
+      ]
+    },
+    {
+      "pair": "paul verhoeven × paul verhoeven",
+      "keys": [
+        "nm0000682",
+        "nm0894204"
+      ],
+      "decision": "no_merge",
+      "reason": "hard:death_before_other_works",
+      "V": 1.0,
+      "conf": 1.0,
+      "signals": {
+        "name": 1.0,
+        "works": 0.0,
+        "profession": 1.0,
+        "era": 1.0
+      },
+      "works": [
+        [
+          "mv_000246",
+          "mv_000326"
+        ],
+        [
+          "mv_000355"
+        ]
+      ],
+      "era": [
+        {
+          "start": 1938,
+          "end": 2026,
+          "basis": "lifespan",
+          "inferred": false,
+          "confidence": 0.95,
+          "n_works": 2
+        },
+        {
+          "start": 1901,
+          "end": 2011,
+          "basis": "lifespan",
+          "inferred": false,
+          "confidence": 0.95,
+          "n_works": 1
+        }
+      ]
+    },
+    {
+      "pair": "lilly wachowski × lana wachowski",
+      "keys": [
+        "nm0905152",
+        "nm0905154"
+      ],
+      "decision": "manual_review",
+      "reason": "initial_compatible_ceiling",
+      "V": 0.925,
+      "conf": 0.474,
+      "signals": {
+        "name": 0.5,
+        "works": 1.0,
+        "profession": 1.0,
+        "era": 1.0
+      },
+      "works": [
+        [
+          "mv_000158",
+          "mv_000289",
+          "mv_000347"
+        ],
+        [
+          "mv_000158",
+          "mv_000289",
+          "mv_000347"
+        ]
+      ],
+      "era": [
+        {
+          "start": 1967,
+          "end": 2026,
+          "basis": "lifespan",
+          "inferred": false,
+          "confidence": 0.95,
+          "n_works": 3
+        },
+        {
+          "start": 1965,
+          "end": 2026,
+          "basis": "lifespan",
+          "inferred": false,
+          "confidence": 0.95,
+          "n_works": 3
+        }
+      ]
+    },
+    {
+      "pair": "w w young × william young",
+      "keys": [
+        "nm0950148",
+        "nm0950158"
+      ],
+      "decision": "no_merge",
+      "reason": "conf_below_floor",
+      "V": 0.75,
+      "conf": 0.412,
+      "signals": {
+        "name": 0.5,
+        "works": 0.0,
+        "profession": 0.5,
+        "era": 1.0
+      },
+      "works": [
+        [
+          "mv_000112"
+        ],
+        [
+          "mv_000034"
+        ]
+      ],
+      "era": [
+        {
+          "start": 1915,
+          "end": 1999,
+          "basis": "work_years",
+          "inferred": true,
+          "confidence": 0.4,
+          "n_works": 1
+        },
+        {
+          "start": 1931,
+          "end": 2020,
+          "basis": "lifespan",
+          "inferred": false,
+          "confidence": 0.95,
+          "n_works": 1
+        }
+      ]
+    },
+    {
+      "pair": "trevor howard × terrence howard",
+      "keys": [
+        "nm0002145",
+        "nm0005024"
+      ],
+      "decision": "no_merge",
+      "reason": "hard:death_before_other_works+exclusive_works",
+      "V": 0.125,
+      "conf": 0.194,
+      "signals": {
+        "name": 0.5,
+        "works": -1.0,
+        "profession": 1.0,
+        "era": 1.0
+      },
+      "works": [
+        [
+          "mv_000023",
+          "mv_000048",
+          "mv_000254"
+        ],
+        [
+          "mv_000078",
+          "mv_000186"
+        ]
+      ],
+      "era": [
+        {
+          "start": 1913,
+          "end": 2002,
+          "basis": "lifespan",
+          "inferred": false,
+          "confidence": 0.95,
+          "n_works": 3
+        },
+        {
+          "start": 1969,
+          "end": 2026,
+          "basis": "lifespan",
+          "inferred": false,
+          "confidence": 0.95,
+          "n_works": 2
+        }
+      ]
+    }
+  ]
+}

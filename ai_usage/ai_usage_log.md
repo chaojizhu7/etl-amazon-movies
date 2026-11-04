@@ -55,3 +55,11 @@
 - **原始提示词**：v1.2 决策 2 项（Dracula/Scrooge 人工判；分类刷新后预估 ±10 门槛）；选 B 三类样例+直接执行；6 对裁定（5 合并+Robin Hood 补充证据后合并，含 dual_cut_bundle 标注）；交付前后统计/复核记录/AI 记录
 - **被采纳的输出**：`rules/merge_rules_v1.md` v1.3；`sql/04_movie_merge.sql`（含 manual_merge 枚举）；run_20261104-02 合并落库（447 版本→363 实体/64 簇）+ run_20261104-03 人工判定（manual_merge 6、mv_000006=5 成员、别名 2、dual_cut_bundle）；`merge_eval_sample.csv`（100 对待标注）；`merge_final_stats.json`；`report/人工复核记录.md` 6 对全量判定
 - **人工验证方式**：①psql 查 `movie_merge_decision WHERE run_id='run_20261104-03'`（6 行）与 mv_000006 成员数=5；②`movie_alias WHERE source='manual'`=2（Scrooge、Bram Stoker's Dracula）；③B002ZG98VE 的 `product_movie.evidence` 核对 dual_cut_bundle(conf 0.85)；④解压两件 Robin Hood 快照核对 Runtime 原文 4h57m/2h36m
+
+## 2026-11-04 · 任务5 人物姓名归一与消歧（v1.0→v1.1 + 执行）
+
+- **工具/模型**：MiMoCode（mimo agent）+ psql/PG 17.11 + Python 3.14.7 venv + IMDb（title.principals/title.crew/name.basics 离线）
+- **用途**：人物消歧规则设计与 v1.1 修订（年代硬冲突加 ≥5 部作品门槛、era_basis=inferred 口径）；执行人物合并（4,957 个人员记录 → person_id；S1–S5 信号；姓名相同≠同一人/缩写封顶 manual 红线；链一致性拒边降级）；movie_person 多角色建模；5+5 实例与 100 对评价样本
+- **原始提示词**：任务5 七项要求 + 审核意见 6 项（年代硬冲突加作品数门槛、稀疏降 manual；生卒年缺失用作品 startYear 推算标 inferred；其余维持）+ 直接执行免预估 + 交付 5+5/前后统计/100 对
+- **被采纳的输出**：`rules/person_merge_rules_v1.md` v1.1；`sql/05_person_merge.sql`；`src/merge_persons.py`；run_20261104-04（842 对：auto 362/manual 378/no_merge 102；person_entity 4,595；movie_person 5,770）；`person_eval_sample.csv` 100 对；`person_merge_stats.json`
+- **人工验证方式**：①核验 5 组合并实例共同作品/年代证据（John Belushi/Ingrid Bergman 等页面署名→nconst）；②核验 5 组不合并实例（Lilly vs Lana Wachowski 近似名封顶 manual、Paul Verhoeven/Trevor Howard 同名不同人硬冲突）；③psql 查 `person_merge_decision WHERE run_id='run_20261104-04'` 分布与 `movie_person` 角色行；④标注 person_eval_sample.csv 后出 P/R/F1
