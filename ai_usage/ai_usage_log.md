@@ -95,3 +95,11 @@
 - **原始提示词**：A 类三规则（同 tconst 同年份/同年缺失→合并、puss 不合并）+ B 类 5 对证据 + 任务8 八项要求直接执行
 - **被采纳的输出**：run_20261104-08 落库（movie_entity 363→330）；5 对证据表；`sql/08_review_mapping.sql`、`src/clean_reviews.py`；run_20261104-09（7,911,684 记录：候选 13,893 组/19,098 对、确认重复 4,566 组/5,146 副本、判不同 10,041 组、异常 43、mapping unique 7,901,972+primary 4,566+copy 5,146）；`review_cleaning_stats.json`
 - **人工验证方式**：①`SELECT map_status,count(*) FROM review_mapping GROUP BY 1` 合计=7,911,684；②抽 duplicate_copy 与 primary 同 logical_id 核对逐字符一致；③抽"判不同"组核对差异字段；④43 条 helpfulness_num_gt_den 异常可查 review_anomaly
+
+## 2026-11-04 · 任务8 收尾（B 类 4 对落库）+ 任务9 字段级数据血缘
+
+- **工具/模型**：MiMoCode（mimo agent）+ psql/PG 17.11 + git
+- **用途**：B 类 4 对合并落库（Notebook/Snow White/Braveheart/Aliens，Metropolis 维持）；任务9 血缘模型——SourceRecord/FieldAssertion/最终值/处理链四表、18,405 断言装配、四种查询脚本（movie+字段/评论→作品/源记录→影响/人物→别名与作品）与示例运行
+- **原始提示词**：4 对合并裁定 + Metropolis 维持 + 56 对最终汇总 + 任务9 六项要求（OpenLineage 字段级模型/最终值可解释/未采用可查/多源多值/四种查询/DDL+脚本+示例）直接执行
+- **被采纳的输出**：run_20261104-10 合并（movie_entity 326）；56 对终版（44/1/11）；`sql/09_lineage.sql`、`src/build_lineage.py`、`lineage/query_0[1-4]_*.sql`；run_20261104-11 血缘层（源 519/断言 18,405/最终值 2,076/步骤 11,589）
+- **人工验证方式**：①query_01 查 mv_000198 release_year 看 conflict 两候选与理由；②query_02 查 B00005JPS8/序号 5853365 走通评论→作品链；③query_03 查 sr_page_B00005JPS8 看 7 条影响与 in_final 标志；④query_04 查 p_000001 看双来源别名+merge 步骤+作品角色
