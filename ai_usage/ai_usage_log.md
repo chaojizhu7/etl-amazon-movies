@@ -79,3 +79,11 @@
 - **原始提示词**：落库 2 对；回填 6.2；任务6 六项要求（语义分层三层/仅年份不补日期/补全留来源原始值抽取时间规则置信度/评论时间只作 earliest_review_time+条件上界另存 inferred/查不到 NULL+missing_reason/输出补全统计）直接执行
 - **被采纳的输出**：`sql/06_release_completion.sql`、`src/complete_release_info.py`、run_20261104-05（release_year 260/363 补全=255 resolved+5 候选一致、precision year=260、inferred_bound 360、edition_sale_date 243/447、earliest_review 360）、`release_completion_stats.json`、报告 6.2 回填
 - **人工验证方式**：①psql 查 `release_facts WHERE run_id='run_20261104-05'` 抽样核对 value_raw/value_norm/match_rule/置信度；②确认 release_year 全为 YYYY（无 1 月 1 日补全）；③抽查 edition_sale_date 行 asin 级且未混入 release_year；④Wachowski/Errol Flynn 决策行 manual_confirm 2 条
+
+## 2026-11-04 · 任务7 字段级来源冲突选择 + LXG 合并与同 tconst 排查
+
+- **工具/模型**：MiMoCode（mimo agent）+ psql/PG 17.11 + git
+- **用途**：mv_000256/257 manual_merge（同名同 tconst 同年份）；排查同 tconst 未合并实体对（56 对清单）；任务7 来源冲突选择——规则链 R1–R7（语义边界/匹配可靠性/来源权威/语义一致/日期精度/采集时间仅平局/人工继承）、候选全保留三态留痕、多值字段角色分离、conflict 不编造；5+ 冲突案例与决策统计
+- **原始提示词**：抽查判定（组1 维持 pending_review、组2 年份确认、LXG 合并 manual_merge）+ 排查同 tconst 对 + 任务7 六项要求与三件交付（规则文档含阈值版本/≥5 冲突实例/自动人工冲突统计）直接执行
+- **被采纳的输出**：LXG 合并（merged 簇 65）；56 对清单；`rules/field_selection_rules_v1.md` v1.0；`sql/07_field_selection.sql`；`src/select_fields.py`；run_20261104-07（断言 5,368：自动 4,432/人工 37/冲突 396）；`field_selection_stats.json`
+- **人工验证方式**：①`SELECT status,decision_basis,count(*) FROM field_assertion WHERE run_id='run_20261104-07' GROUP BY 1,2` 对照统计；②抽 conflict 行核对"不删不编造"（候选值与来源俱在）；③Cinderella Man 1917/2005 两行均保留；④Sound of Music genres 双角色行（work_genre vs seller_category_tag）

@@ -1,0 +1,70 @@
+{
+  "run_id": "run_20261104-07",
+  "rules_version": "field_sel_v1.0",
+  "generated_at_utc": "2026-11-04T07:05:59Z",
+  "elapsed_seconds": 2.8,
+  "assertions_total": 5697,
+  "by_field": {
+    "release_year": {
+      "conflict": {
+        "-": 350
+      },
+      "selected": {
+        "manual_inherit": 2,
+        "rule_auto": 257
+      }
+    },
+    "directors": {
+      "candidate": {
+        "-": 16
+      },
+      "selected": {
+        "manual_inherit": 3,
+        "rule_auto": 407
+      },
+      "conflict": {
+        "-": 8
+      }
+    },
+    "title": {
+      "candidate": {
+        "-": 439,
+        "manual_inherit": 2
+      },
+      "selected": {
+        "manual_inherit": 2,
+        "rule_auto": 360
+      }
+    },
+    "starring": {
+      "selected": {
+        "manual_inherit": 24,
+        "rule_auto": 2705
+      },
+      "conflict": {
+        "-": 38
+      },
+      "candidate": {
+        "-": 48
+      }
+    },
+    "genres": {
+      "selected": {
+        "rule_auto": 703,
+        "manual_inherit": 4
+      }
+    }
+  },
+  "decision_stats": {
+    "auto_rule_auto_selected": 4432,
+    "manual_inherit": 37,
+    "conflict_retained": 396
+  },
+  "queryability_check": {
+    "product_movie_rows": 453,
+    "release_facts_rows": 1530,
+    "movie_alias_rows": 948,
+    "movie_person_rows": 5770,
+    "decision_rows": 483
+  }
+}
