@@ -1,0 +1,21 @@
+{
+  "run_id": "scan_wave_029",
+  "wave_size": 387,
+  "wave_counts": {
+    "parse_failed": 2,
+    "success": 26,
+    "access_restricted": 356,
+    "fetch_failed": 3
+  },
+  "attempted_total": 11168,
+  "queue_states": {
+    "access_restricted": 10242,
+    "fetch_failed": 89,
+    "parse_failed": 17,
+    "pending": 241881,
+    "success": 830
+  },
+  "next_wave_pending": 9807,
+  "elapsed_seconds": 589.4,
+  "finished_at_utc": "2026-11-04T07:42:36Z"
+}

@@ -25,8 +25,8 @@ from datetime import datetime, timezone
 import psycopg
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-MAX_BATCH = 500
-WAVE_BUDGET_S = 900          # 15 min hard budget per wave
+MAX_BATCH = 2000             # 2026-11-04 调整：500 -> 2000/波
+WAVE_BUDGET_S = 4800         # 80 min budget（2000 × 2.3s ≈ 77 min）
 DELAY = 1.5                  # seconds between requests (scrapy DOWNLOAD_DELAY)
 AVG_FETCH_S = 0.8            # estimated per-request transfer+processing time
 MOVIE_LIST = os.path.join(ROOT, "data", "raw", "asin_movies.txt")  # from task 3 (optional)
