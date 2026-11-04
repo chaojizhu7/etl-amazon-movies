@@ -1,7 +1,7 @@
 {
   "rules_version": "merge_v1.2",
-  "generated_at_utc": "2026-11-04T05:43:20Z",
-  "elapsed_seconds": 54.1,
+  "generated_at_utc": "2026-11-04T05:53:12Z",
+  "elapsed_seconds": 0.2,
   "scope": {
     "movie_editions": 447,
     "collection_candidates": 6,
@@ -10,23 +10,42 @@
   },
   "bucket_edition": {
     "counts": {
-      "auto_merge": 188,
-      "manual_review": 6,
-      "no_merge": 44
+      "auto_merge": 113,
+      "manual_review": 66,
+      "no_merge": 59
     },
     "reason_breakdown": {
-      "all_gates_pass": 188,
+      "all_gates_pass": 113,
+      "ambiguous_node_ceiling": 51,
+      "conf_below_floor": 29,
       "hard:sequel_ordinal_mismatch": 14,
-      "hard:director_diff_cast_empty": 30,
-      "partial_signals": 1,
+      "hard:director_diff_cast_empty": 16,
+      "known_signals_lt_3": 9,
+      "strong_signals_lt_2": 1,
       "title_conflict_high_v": 5
     },
     "chain_check": {
-      "auto_edges": 188,
-      "accepted_after_chain": 188,
+      "auto_edges": 113,
+      "accepted_after_chain": 113,
       "rejected_by_chain": 0
     },
-    "relaxed_variants": {}
+    "relaxed_variants": {
+      "V>=0.55": {
+        "auto_merge": 113,
+        "manual_review": 66,
+        "no_merge": 59
+      },
+      "known>=2": {
+        "auto_merge": 113,
+        "manual_review": 66,
+        "no_merge": 59
+      },
+      "both": {
+        "auto_merge": 113,
+        "manual_review": 66,
+        "no_merge": 59
+      }
+    }
   },
   "bucket_collection_member": {
     "counts": {
@@ -72,16 +91,16 @@
         }
       },
       {
-        "pair": "B00004RLDX × B003C6JZ6E",
-        "titles": "The Abyss [VHS] × The Abyss (Special Edition)",
+        "pair": "B0034ZTVO4 × B003DBCXF8",
+        "titles": "Twilight Saga: New Moon Blu-ray (2 Disc) × The Twilight Saga: New Moon Two-Disc DVD Gift Set with Charm Necklace and Bonus Features Year 2009",
         "conf": 1.0,
         "V": 1.0,
-        "known": 3,
-        "strong": 2,
+        "known": 4,
+        "strong": 3,
         "reason": "all_gates_pass",
         "signals": {
           "title": 1.0,
-          "year": 0.0,
+          "year": 1.0,
           "director": 1.0,
           "cast": 1.0,
           "runtime": 0.0,
@@ -89,33 +108,33 @@
         }
       },
       {
-        "pair": "B00004CJJQ × B00004CZ1R",
-        "titles": "Metropolis × Metropolis",
+        "pair": "B000AARKOO × B000AARKOY",
+        "titles": "Kingdom of Heaven (2-Disc Widescreen Edition) × Kingdom of Heaven",
         "conf": 1.0,
         "V": 1.0,
-        "known": 3,
-        "strong": 2,
+        "known": 5,
+        "strong": 3,
         "reason": "all_gates_pass",
         "signals": {
           "title": 1.0,
-          "year": 0.0,
+          "year": 1.0,
           "director": 1.0,
           "cast": 1.0,
-          "runtime": 0.0,
+          "runtime": 1.0,
           "genre": 1.0
         }
       },
       {
-        "pair": "B0006Z2KIY × B0036JQ7S6",
-        "titles": "The Notebook × VERSAINSECT asion (The Notebook) aka El diario de Noa [NTSC/Region 1&4 dvd. Import - Latin America] (Spanish subtitles)",
+        "pair": "B00004RSA9 × B0030IIZ4M",
+        "titles": "Toy Story [VHS] × Toy Story",
         "conf": 1.0,
         "V": 1.0,
-        "known": 3,
-        "strong": 2,
+        "known": 4,
+        "strong": 3,
         "reason": "all_gates_pass",
         "signals": {
           "title": 1.0,
-          "year": 0.0,
+          "year": 1.0,
           "director": 1.0,
           "cast": 1.0,
           "runtime": 0.0,
@@ -125,88 +144,88 @@
     ],
     "manual_review": [
       {
-        "pair": "B002ZG98VE × B006WXHJGC",
-        "titles": "Robin Hood × Robin Hood [Blu-ray]",
-        "conf": 0.72,
-        "V": 0.6,
+        "pair": "6301681363 × B00004CJJQ",
+        "titles": "Metropolis VHS × Metropolis",
+        "conf": 1.0,
+        "V": 1.0,
         "known": 4,
-        "strong": 2,
-        "reason": "partial_signals",
+        "strong": 3,
+        "reason": "ambiguous_node_ceiling",
         "signals": {
           "title": 1.0,
-          "year": 0.0,
-          "director": 1.0,
-          "cast": 1.0,
-          "runtime": -1.0,
-          "genre": 0.5
-        }
-      },
-      {
-        "pair": "B00004CYNY × B000TGJ7ZY",
-        "titles": "Dracula × Bram Stoker's Dracula",
-        "conf": 0.5,
-        "V": 1.0,
-        "known": 5,
-        "strong": 3,
-        "reason": "title_conflict_high_v",
-        "signals": {
-          "title": -1.0,
           "year": 1.0,
           "director": 1.0,
           "cast": 1.0,
-          "runtime": 1.0,
+          "runtime": 0.0,
           "genre": 1.0
         }
       },
       {
-        "pair": "6302914485 × B00005NBBJ",
-        "titles": "A Christmas Carol [VHS] × Scrooge",
-        "conf": 0.476,
-        "V": 0.931,
-        "known": 3,
-        "strong": 2,
-        "reason": "title_conflict_high_v",
+        "pair": "6301681363 × B00004CZ1R",
+        "titles": "Metropolis VHS × Metropolis",
+        "conf": 1.0,
+        "V": 1.0,
+        "known": 4,
+        "strong": 3,
+        "reason": "ambiguous_node_ceiling",
         "signals": {
-          "title": -1.0,
-          "year": 0.0,
+          "title": 1.0,
+          "year": 1.0,
           "director": 1.0,
           "cast": 1.0,
           "runtime": 0.0,
-          "genre": 0.5
+          "genre": 1.0
         }
       },
       {
-        "pair": "B00005NBBJ × B00005TPCG",
-        "titles": "Scrooge × A Christmas Carol (50th Anniversary Edition)",
-        "conf": 0.476,
-        "V": 0.931,
-        "known": 3,
-        "strong": 2,
-        "reason": "title_conflict_high_v",
+        "pair": "B000058CAQ × B000EGDAKM",
+        "titles": "Underworld [VHS] × Underworld (Special Edition, Widescreen) DVD/Underworld UMD Pack",
+        "conf": 1.0,
+        "V": 1.0,
+        "known": 4,
+        "strong": 3,
+        "reason": "ambiguous_node_ceiling",
         "signals": {
-          "title": -1.0,
-          "year": 0.0,
+          "title": 1.0,
+          "year": 1.0,
           "director": 1.0,
           "cast": 1.0,
           "runtime": 0.0,
-          "genre": 0.5
+          "genre": 1.0
         }
       },
       {
-        "pair": "B00005NBBJ × B005FOW9SW",
-        "titles": "Scrooge × A Christmas Carol (60th Anniversary Diamond Edition)",
-        "conf": 0.476,
-        "V": 0.931,
-        "known": 3,
-        "strong": 2,
-        "reason": "title_conflict_high_v",
+        "pair": "B0000W5J0E × B000EGDAKM",
+        "titles": "Underworld × Underworld (Special Edition, Widescreen) DVD/Underworld UMD Pack",
+        "conf": 1.0,
+        "V": 1.0,
+        "known": 4,
+        "strong": 3,
+        "reason": "ambiguous_node_ceiling",
         "signals": {
-          "title": -1.0,
-          "year": 0.0,
+          "title": 1.0,
+          "year": 1.0,
           "director": 1.0,
           "cast": 1.0,
           "runtime": 0.0,
-          "genre": 0.5
+          "genre": 1.0
+        }
+      },
+      {
+        "pair": "6304176325 × B00008G1WJ",
+        "titles": "Willy Wonka & The Chocolate Factory VHS × Willy Wonka & Chocolate Factory [VHS]",
+        "conf": 1.0,
+        "V": 1.0,
+        "known": 4,
+        "strong": 3,
+        "reason": "ambiguous_node_ceiling",
+        "signals": {
+          "title": 1.0,
+          "year": 1.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 0.0,
+          "genre": 1.0
         }
       }
     ],
@@ -263,6 +282,23 @@
         }
       },
       {
+        "pair": "B002ZG98VE × B006WXHJGC",
+        "titles": "Robin Hood × Robin Hood [Blu-ray]",
+        "conf": 0.47,
+        "V": 0.243,
+        "known": 4,
+        "strong": 0,
+        "reason": "conf_below_floor",
+        "signals": {
+          "title": 1.0,
+          "year": 0.0,
+          "director": 0.5,
+          "cast": 0.5,
+          "runtime": -1.0,
+          "genre": 0.5
+        }
+      },
+      {
         "pair": "B000BBOFPE × B0039N74CW",
         "titles": "Shrek 2 (w/ Bonus Holiday DVD) × Shrek (Widescreen)",
         "conf": 0.47,
@@ -276,23 +312,6 @@
           "director": 1.0,
           "cast": 1.0,
           "runtime": 1.0,
-          "genre": -1.0
-        }
-      },
-      {
-        "pair": "B000BBOFPE × B003E66Y2A",
-        "titles": "Shrek 2 (w/ Bonus Holiday DVD) × Shrek (Fullscreen)",
-        "conf": 0.452,
-        "V": 0.648,
-        "known": 4,
-        "strong": 2,
-        "reason": "hard:sequel_ordinal_mismatch",
-        "signals": {
-          "title": 0.5,
-          "year": 0.5,
-          "director": 1.0,
-          "cast": 1.0,
-          "runtime": 0.0,
           "genre": -1.0
         }
       }

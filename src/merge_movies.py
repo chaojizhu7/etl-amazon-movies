@@ -117,10 +117,17 @@ def build_nodes():
         alias_raws = list(dict.fromkeys(
             [title_raw or ""] + (norm.get("alias_candidates") or []) + (norm.get("query_variants") or [])))
         trows = [by_tconst[t] for t in tconsts if t in by_tconst]
-        # work-level fields: prefer resolved/unanimous tconst rows
+        # work-level 信号只采信已消歧/唯一候选的 tconst——多候选未消歧时取并集
+        # 会把同名异片的演职员混入证据（来源冒充），故不采信 tconst 信号，仅留页面证据
+        if res_t:
+            sel = [r for r in trows if r["tconst"] == res_t]
+        elif len(trows) == 1:
+            sel = trows
+        else:
+            sel = []
+        sig_tconsts = [r["tconst"] for r in sel]
         year = runtime_i = None
-        genres_i, dirs_i, cast_i = set(), set(), set()
-        sel = [r for r in trows if r["tconst"] == res_t] or trows
+        genres_i = set()
         years = {r.get("startYear") for r in sel if r.get("startYear") not in (None, "\\N")}
         if len(years) == 1:
             year = int(years.pop())
@@ -134,10 +141,13 @@ def build_nodes():
             for g in (r.get("genres") or "").split(","):
                 if g and g != "\\N":
                     genres_i.update(tokens(canon(g)))
+        ambiguous = len(trows) > 1 and not res_t
         nodes.append({
             "kind": "edition", "id": asin, "title_raw": title_raw,
             "title_canon": canon(norm["base"]), "base_wo_ord": canon(base_wo),
             "alias": alias, "ord": ord_, "tconsts": tconsts, "resolved_t": res_t,
+            "sig_tconsts": sig_tconsts, "ambiguous": ambiguous,
+            "trows_by_id": {r["tconst"]: r for r in trows},
             "year": year, "year_src": "imdb" if year else None,
             "runtime": runtime_i if runtime_i else pg.get("runtime_min"),
             "genres": genres_i | tokens(canon(pg.get("genre") or "")),
@@ -148,14 +158,33 @@ def build_nodes():
             "tokens": tokens(canon(norm["base"])),
             "alias_raws": alias_raws,
         })
-    # enrich director/cast from imdb cast cache
+    # enrich director/cast from imdb cast cache（仅已消歧/唯一候选，防并集污染）
     if all_tconsts:
         cache = ensure_cast_cache(sorted(all_tconsts))
         for n in nodes:
-            for t in n["tconsts"]:
+            for t in (n.get("sig_tconsts") or []):
                 c = cache.get(t) or {}
                 n["dirs"] += name_sets(c.get("directors"))
                 n["cast"] += name_sets(c.get("cast"))
+            # 成对共享锚定用：每个候选 tconst 的独立证据（绝不并集跨片）
+            cd = {}
+            for t, row in (n.get("trows_by_id") or {}).items():
+                c = cache.get(t) or {}
+                try:
+                    y = int(row.get("startYear")) if row.get("startYear") not in (None, "\\N") else None
+                except ValueError:
+                    y = None
+                try:
+                    rt = int(row.get("runtimeMinutes")) if row.get("runtimeMinutes") not in (None, "\\N") else None
+                except ValueError:
+                    rt = None
+                g = set()
+                for x in (row.get("genres") or "").split(","):
+                    if x and x != "\\N":
+                        g.update(tokens(canon(x)))
+                cd[t] = {"year": y, "runtime": rt, "genres": g,
+                         "dirs": name_sets(c.get("directors")), "cast": name_sets(c.get("cast"))}
+            n["cand_data"] = cd
 
     cand_nodes = []
     for asin, ct in coll:
@@ -173,8 +202,27 @@ def build_nodes():
 
 
 # ---------------- signals (merge_rules §4) ----------------
+def side_fields(n, anchor):
+    """信号取数：已消歧/唯一候选 → 该作品证据；成对唯一共享 tconst → 锚定该作品；
+    否则仅页面证据。绝不跨候选作品并集（铁律3 来源不冒充）。"""
+    if n.get("sig_tconsts"):
+        return {"year": n["year"], "runtime": n["runtime"], "genres": set(n["genres"]),
+                "dirs": list(n["dirs"]), "cast": list(n["cast"])}
+    if anchor and anchor in (n.get("cand_data") or {}):
+        d = n["cand_data"][anchor]
+        return {"year": d["year"], "runtime": d["runtime"] or n["runtime"],
+                "genres": set(d["genres"]) | set(n["genres"]),
+                "dirs": list(d["dirs"]) + list(n["dirs"]),
+                "cast": list(d["cast"]) + list(n["cast"])}
+    return {"year": None, "runtime": n["runtime"], "genres": set(n["genres"]),
+            "dirs": list(n["dirs"]), "cast": list(n["cast"])}
+
+
 def signals_for(a, b):
     sig, hard = {}, []
+    shared = [t for t in a["tconsts"] if t in set(b["tconsts"])]
+    anchor = shared[0] if len(shared) == 1 else None
+    fa, fb = side_fields(a, anchor), side_fields(b, anchor)
     ja = jaccard(a["tokens"], b["tokens"])
     alias_eq = bool(a["alias"] & (b["alias"] | {b["title_canon"]})) or \
         bool(b["alias"] & (a["alias"] | {a["title_canon"]})) or \
@@ -192,8 +240,8 @@ def signals_for(a, b):
 
     # S2 year（v1.1 两档）
     year_forced = None
-    if a["year"] and b["year"]:
-        d = abs(a["year"] - b["year"])
+    if fa["year"] and fb["year"]:
+        d = abs(fa["year"] - fb["year"])
         if d == 0:
             sig["year"] = 1.0
         elif d <= 3:
@@ -212,24 +260,24 @@ def signals_for(a, b):
         sig["year"] = 0.0
 
     # S3 director
-    if a["dirs"] and b["dirs"]:
-        if overlap_names(a["dirs"], b["dirs"]):
+    if fa["dirs"] and fb["dirs"]:
+        if overlap_names(fa["dirs"], fb["dirs"]):
             sig["director"] = 1.0
         else:
             sig["director"] = -1.0
-    elif a["dirs"] or b["dirs"]:
+    elif fa["dirs"] or fb["dirs"]:
         sig["director"] = 0.5
     else:
         sig["director"] = 0.0
 
     # S4 cast
-    if a["cast"] and b["cast"]:
-        ov = overlap_names(a["cast"], b["cast"])
+    if fa["cast"] and fb["cast"]:
+        ov = overlap_names(fa["cast"], fb["cast"])
         if ov >= 2:
             sig["cast"] = 1.0
         elif ov == 1:
             sig["cast"] = 0.5
-        elif len(a["cast"]) >= 3 and len(b["cast"]) >= 3:
+        elif len(fa["cast"]) >= 3 and len(fb["cast"]) >= 3:
             sig["cast"] = -1.0
         else:
             sig["cast"] = -1.0
@@ -237,7 +285,7 @@ def signals_for(a, b):
         sig["cast"] = 0.0
 
     # S5 runtime
-    ra, rb = a["runtime"], b["runtime"]
+    ra, rb = fa["runtime"], fb["runtime"]
     if ra and rb:
         diff = abs(ra - rb)
         frac = diff / max(ra, rb)
@@ -253,13 +301,13 @@ def signals_for(a, b):
         sig["runtime"] = 0.0
 
     # S6 genre
-    if a["genres"] and b["genres"]:
-        jg = jaccard(a["genres"], b["genres"])
+    if fa["genres"] and fb["genres"]:
+        jg = jaccard(fa["genres"], fb["genres"])
         if jg >= 0.5:
             sig["genre"] = 1.0
         elif jg > 0:
             sig["genre"] = 0.5
-        elif len(a["genres"]) >= 2 and len(b["genres"]) >= 2:
+        elif len(fa["genres"]) >= 2 and len(fb["genres"]) >= 2:
             sig["genre"] = -1.0
         else:
             sig["genre"] = 0.0
@@ -298,6 +346,9 @@ def decide(a, b, thresholds):
         return "no_merge", "title_conflict", sig, V, conf, known, strong
     if (T >= thresholds["T"] and V >= thresholds["V"] and strong >= thresholds["strong"]
             and known >= thresholds["known"]):
+        # 未消歧多候选节点不进 auto（防同名异片误合，v1.3 ceiling）
+        if a.get("ambiguous") or b.get("ambiguous"):
+            return "manual_review", "ambiguous_node_ceiling", sig, V, conf, known, strong
         return "auto_merge", "all_gates_pass", sig, V, conf, known, strong
     if conf < thresholds["conf"]:
         return "no_merge", "conf_below_floor", sig, V, conf, known, strong
@@ -499,11 +550,16 @@ def write_eval_sample(p, path):
     picked = []
     autos = sorted(by_dec["auto_merge"], key=lambda r: r["conf"])
     picked += autos[:12]                              # 边界低置信
-    rest_auto = autos[12:]
-    picked += rng.sample(rest_auto, min(22, len(rest_auto)))
     picked += by_dec["manual_review"]                 # 全部人工队列
     nomerge = by_dec["no_merge"]
-    picked += rng.sample(nomerge, min(100 - len(picked), len(nomerge)))
+    picked += rng.sample(nomerge, min(len(nomerge), max(0, 100 - len(picked) - 38)))
+    chosen = {(r["a"], r["b"]) for r in picked}
+    for r in autos:                                   # 补足 100（随机顺序已定）
+        if len(picked) >= 100:
+            break
+        if (r["a"], r["b"]) not in chosen:
+            picked.append(r)
+            chosen.add((r["a"], r["b"]))
     picked = picked[:100]
     cols = ["pair_id", "node_a", "title_a", "node_b", "title_b", "system_decision",
             "reason", "V", "conf", "known_signals", "strong_signals", "signals_json",
@@ -564,6 +620,11 @@ def execute(run_id, expect_auto=125, tolerance=10):
     with psycopg.connect(**DB) as conn:
         with open(os.path.join(ROOT, "sql", "04_movie_merge.sql"), encoding="utf-8") as f:
             conn.execute(f.read())
+        # 派生表全量重建（candidate/decision 为追加式历史，保留）
+        conn.execute("DELETE FROM product_movie")
+        conn.execute("DELETE FROM movie_alias")
+        conn.execute("DELETE FROM movie_merge_cluster_log")
+        conn.execute("DELETE FROM movie_entity")
         # candidate + decision（追加式）
         with conn.cursor() as cur:
             for r in p["results"]:

@@ -1,0 +1,231 @@
+{
+  "rules_version": "merge_v1.2",
+  "run_id": "run_20261104-02",
+  "generated_at_utc": "2026-11-04T05:53:29Z",
+  "gate": {
+    "expected_auto": 113,
+    "tolerance": 10,
+    "actual_auto": 113,
+    "delta": 0,
+    "passed": true
+  },
+  "before": {
+    "movie_editions": 447,
+    "candidate_pairs": 238,
+    "distinct_title_canon": 319
+  },
+  "decision_counts": {
+    "auto_merge": 113,
+    "manual_review": 66,
+    "no_merge": 59
+  },
+  "reason_breakdown": {
+    "all_gates_pass": 113,
+    "ambiguous_node_ceiling": 51,
+    "conf_below_floor": 29,
+    "hard:sequel_ordinal_mismatch": 14,
+    "hard:director_diff_cast_empty": 16,
+    "known_signals_lt_3": 9,
+    "strong_signals_lt_2": 1,
+    "title_conflict_high_v": 5
+  },
+  "chain_check": {
+    "auto_edges": 113,
+    "accepted_after_chain": 113,
+    "rejected_by_chain": 0
+  },
+  "after": {
+    "movie_entity_total": 366,
+    "merged_clusters": 62,
+    "singletons": 301,
+    "unresolved_candidates": 3,
+    "product_movie_single": 447,
+    "product_movie_collection": 6,
+    "manual_review_queue": 66,
+    "no_merge": 59
+  },
+  "collection_links": {
+    "linked_to_existing_movie": 3,
+    "unresolved_candidate": 3
+  },
+  "eval_sample": {
+    "file": "C:\\Users\\28746\\Desktop\\etl-amazon\\logs\\summary\\merge_eval_sample.csv",
+    "n": 100
+  },
+  "merged_examples": [
+    {
+      "movie_id": "mv_000022",
+      "members": [
+        "B00004COW2",
+        "B00004RUKM",
+        "B0000844MV",
+        "B00008YNDC",
+        "B004SB60LK"
+      ],
+      "titles": [
+        "Das Boot [VHS]",
+        "Das Boot [VHS]",
+        "Das Boot",
+        "Das Boot",
+        "Das Boot"
+      ],
+      "tconsts": [
+        "tt0082096"
+      ]
+    },
+    {
+      "movie_id": "mv_000006",
+      "members": [
+        "6302914485",
+        "B00005TPCG",
+        "B005FOW9SW",
+        "B008UY8FI2"
+      ],
+      "titles": [
+        "A Christmas Carol [VHS]",
+        "A Christmas Carol (50th Anniversary Edition)",
+        "A Christmas Carol (60th Anniversary Diamond Edition)",
+        "A Christmas Carol"
+      ],
+      "tconsts": [
+        "tt0044008"
+      ]
+    },
+    {
+      "movie_id": "mv_000010",
+      "members": [
+        "6304176325",
+        "B0009FGWLW",
+        "B0021L9MO6",
+        "B005F96UF0"
+      ],
+      "titles": [
+        "Willy Wonka & The Chocolate Factory VHS",
+        "Willy Wonka & the Chocolate Factory (Widescreen Special Edition)",
+        "Willy Wonka & The Chocolate Factory (Blu-ray Book)",
+        "Willy Wonka & the Chocolate Factory (Three-Disc 40th Anniversary Collector's Edition Blu-ray/DVD Combo)"
+      ],
+      "tconsts": [
+        "tt0067992"
+      ]
+    },
+    {
+      "movie_id": "mv_000017",
+      "members": [
+        "6305587744",
+        "B00003CXA2",
+        "B00004CQE4",
+        "B00005NFXI"
+      ],
+      "titles": [
+        "Forrest Gump",
+        "Forrest Gump (Two-Disc Special Collector's Edition)",
+        "Forrest Gump [VHS]",
+        "Forrest Gump [Region 2]"
+      ],
+      "tconsts": [
+        "tt0109830"
+      ]
+    },
+    {
+      "movie_id": "mv_000019",
+      "members": [
+        "B00000IQBL",
+        "B000065MQO",
+        "B000UJ48V8",
+        "B007JWC8ZC"
+      ],
+      "titles": [
+        "Full Metal Jacket",
+        "Full Metal Jacket [VHS]",
+        "Full Metal Jacket (Deluxe Edition)[HD DVD]",
+        "Full Metal Jacket (25th Anniversary Edition) [Blu-ray]"
+      ],
+      "tconsts": [
+        "tt0093058"
+      ]
+    }
+  ],
+  "not_merged_examples": [
+    {
+      "pair": "6301681363 × B00004CJJQ",
+      "titles": "Metropolis VHS × Metropolis",
+      "decision": "manual_review",
+      "reason": "ambiguous_node_ceiling",
+      "V": 1.0,
+      "conf": 1.0,
+      "signals": {
+        "title": 1.0,
+        "year": 1.0,
+        "director": 1.0,
+        "cast": 1.0,
+        "runtime": 0.0,
+        "genre": 1.0
+      }
+    },
+    {
+      "pair": "B0053Q9DHW × B0053Q9DQI",
+      "titles": "Jane Eyre [DVD] × Jane Eyre [Blu-ray]",
+      "decision": "manual_review",
+      "reason": "strong_signals_lt_2",
+      "V": 0.8,
+      "conf": 0.86,
+      "signals": {
+        "title": 1.0,
+        "year": 0.0,
+        "director": 0.5,
+        "cast": 1.0,
+        "runtime": 1.0,
+        "genre": 1.0
+      }
+    },
+    {
+      "pair": "B000WDQV8A × B0036JQ7S6",
+      "titles": "Una Historia Violenta (A History Of Violence) [NTSC/REGION 1 & 4 DVD. Import-Latin America] × VERSAINSECT asion (The Notebook) aka El diario de Noa [NTSC/Region 1&4 dvd. Import - Latin America] (Spanish subtitles)",
+      "decision": "manual_review",
+      "reason": "known_signals_lt_3",
+      "V": 0.5,
+      "conf": 0.65,
+      "signals": {
+        "title": 1.0,
+        "year": 0.0,
+        "director": 0.5,
+        "cast": 0.0,
+        "runtime": 0.0,
+        "genre": 0.0
+      }
+    },
+    {
+      "pair": "B00005JPS8 × B003UYV08E",
+      "titles": "Iron Man (Ultimate 2 Disc Edition) × Iron Man 2 (Single-Disc Edition)",
+      "decision": "no_merge",
+      "reason": "hard:sequel_ordinal_mismatch",
+      "V": 0.85,
+      "conf": 0.537,
+      "signals": {
+        "title": 0.5,
+        "year": 0.5,
+        "director": 1.0,
+        "cast": 1.0,
+        "runtime": 1.0,
+        "genre": 1.0
+      }
+    },
+    {
+      "pair": "6302914485 × B00005NBBJ",
+      "titles": "A Christmas Carol [VHS] × Scrooge",
+      "decision": "manual_review",
+      "reason": "title_conflict_high_v",
+      "V": 1.0,
+      "conf": 0.5,
+      "signals": {
+        "title": -1.0,
+        "year": 1.0,
+        "director": 1.0,
+        "cast": 1.0,
+        "runtime": 0.0,
+        "genre": 1.0
+      }
+    }
+  ]
+}

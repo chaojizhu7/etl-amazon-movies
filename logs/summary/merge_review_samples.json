@@ -1,0 +1,1048 @@
+{
+ "manual_review": [
+  {
+   "pair": "B002ZG98VE × B006WXHJGC",
+   "titles": [
+    "Robin Hood",
+    "Robin Hood [Blu-ray]"
+   ],
+   "decision": "manual_review",
+   "reason": "partial_signals",
+   "V": 0.6,
+   "conf": 0.72,
+   "signals": {
+    "title": 1.0,
+    "year": 0.0,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": -1.0,
+    "genre": 0.5
+   },
+   "years": [
+    null,
+    null
+   ],
+   "directors": [
+    [
+     "ridley scott",
+     "theodore marston",
+     "allan dwan"
+    ],
+    [
+     "theodore marston",
+     "allan dwan",
+     "david hand"
+    ]
+   ],
+   "cast_overlap": [
+    "cate blanchett",
+    "david thompson",
+    "ernest redding",
+    "gerda holmes",
+    "harry benham"
+   ],
+   "cast_sizes": [
+    43,
+    42
+   ],
+   "runtime": [
+    297,
+    156
+   ],
+   "genres": [
+    [
+     "104",
+     "143",
+     "60",
+     "83",
+     "action",
+     "adventure"
+    ],
+    [
+     "104",
+     "143",
+     "60",
+     "83",
+     "action",
+     "adventure"
+    ]
+   ],
+   "title_jaccard": 1.0,
+   "manual_marks": [
+    null,
+    null
+   ]
+  },
+  {
+   "pair": "6302914485 × B00005NBBJ",
+   "titles": [
+    "A Christmas Carol [VHS]",
+    "Scrooge"
+   ],
+   "decision": "manual_review",
+   "reason": "title_conflict_high_v",
+   "V": 0.931,
+   "conf": 0.476,
+   "signals": {
+    "title": -1.0,
+    "year": 0.0,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": 0.0,
+    "genre": 0.5
+   },
+   "years": [
+    1951,
+    null
+   ],
+   "directors": [
+    [
+     "brian desmond hurst"
+    ],
+    [
+     "henry edwards",
+     "brian desmond hurst",
+     "ronald neame"
+    ]
+   ],
+   "cast_overlap": [
+    "alastair sim",
+    "francis de wolff",
+    "george cole",
+    "hermione baddeley",
+    "jack warner"
+   ],
+   "cast_sizes": [
+    10,
+    41
+   ],
+   "runtime": [
+    null,
+    null
+   ],
+   "genres": [
+    [
+     "86"
+    ],
+    [
+     "113",
+     "70",
+     "78",
+     "86",
+     "91"
+    ]
+   ],
+   "title_jaccard": 0.0,
+   "manual_marks": [
+    "confirmed_correct",
+    null
+   ]
+  },
+  {
+   "pair": "B00005NBBJ × B00005TPCG",
+   "titles": [
+    "Scrooge",
+    "A Christmas Carol (50th Anniversary Edition)"
+   ],
+   "decision": "manual_review",
+   "reason": "title_conflict_high_v",
+   "V": 0.931,
+   "conf": 0.476,
+   "signals": {
+    "title": -1.0,
+    "year": 0.0,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": 0.0,
+    "genre": 0.5
+   },
+   "years": [
+    null,
+    1951
+   ],
+   "directors": [
+    [
+     "henry edwards",
+     "brian desmond hurst",
+     "ronald neame"
+    ],
+    [
+     "brian desmond hurst"
+    ]
+   ],
+   "cast_overlap": [
+    "alastair sim",
+    "francis de wolff",
+    "george cole",
+    "hermione baddeley",
+    "jack warner"
+   ],
+   "cast_sizes": [
+    41,
+    10
+   ],
+   "runtime": [
+    null,
+    null
+   ],
+   "genres": [
+    [
+     "113",
+     "70",
+     "78",
+     "86",
+     "91"
+    ],
+    [
+     "86",
+     "and",
+     "family",
+     "kids"
+    ]
+   ],
+   "title_jaccard": 0.0,
+   "manual_marks": [
+    null,
+    null
+   ]
+  },
+  {
+   "pair": "B00005NBBJ × B005FOW9SW",
+   "titles": [
+    "Scrooge",
+    "A Christmas Carol (60th Anniversary Diamond Edition)"
+   ],
+   "decision": "manual_review",
+   "reason": "title_conflict_high_v",
+   "V": 0.931,
+   "conf": 0.476,
+   "signals": {
+    "title": -1.0,
+    "year": 0.0,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": 0.0,
+    "genre": 0.5
+   },
+   "years": [
+    null,
+    1951
+   ],
+   "directors": [
+    [
+     "henry edwards",
+     "brian desmond hurst",
+     "ronald neame"
+    ],
+    [
+     "brian desmond hurst"
+    ]
+   ],
+   "cast_overlap": [
+    "alastair sim",
+    "francis de wolff",
+    "george cole",
+    "hermione baddeley",
+    "jack warner"
+   ],
+   "cast_sizes": [
+    41,
+    12
+   ],
+   "runtime": [
+    null,
+    null
+   ],
+   "genres": [
+    [
+     "113",
+     "70",
+     "78",
+     "86",
+     "91"
+    ],
+    [
+     "86",
+     "and",
+     "family",
+     "kids"
+    ]
+   ],
+   "title_jaccard": 0.0,
+   "manual_marks": [
+    null,
+    null
+   ]
+  },
+  {
+   "pair": "B00005NBBJ × B008UY8FI2",
+   "titles": [
+    "Scrooge",
+    "A Christmas Carol"
+   ],
+   "decision": "manual_review",
+   "reason": "title_conflict_high_v",
+   "V": 0.931,
+   "conf": 0.476,
+   "signals": {
+    "title": -1.0,
+    "year": 0.0,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": 0.0,
+    "genre": 0.5
+   },
+   "years": [
+    null,
+    1951
+   ],
+   "directors": [
+    [
+     "henry edwards",
+     "brian desmond hurst",
+     "ronald neame"
+    ],
+    [
+     "brian desmond hurst",
+     "brian desmond hurst"
+    ]
+   ],
+   "cast_overlap": [
+    "alastair sim",
+    "francis de wolff",
+    "george cole",
+    "hermione baddeley",
+    "jack warner"
+   ],
+   "cast_sizes": [
+    41,
+    12
+   ],
+   "runtime": [
+    null,
+    null
+   ],
+   "genres": [
+    [
+     "113",
+     "70",
+     "78",
+     "86",
+     "91"
+    ],
+    [
+     "86"
+    ]
+   ],
+   "title_jaccard": 0.0,
+   "manual_marks": [
+    null,
+    null
+   ]
+  },
+  {
+   "pair": "B00004CYNY × B000TGJ7ZY",
+   "titles": [
+    "Dracula",
+    "Bram Stoker's Dracula"
+   ],
+   "decision": "manual_review",
+   "reason": "title_conflict_high_v",
+   "V": 1.0,
+   "conf": 0.5,
+   "signals": {
+    "title": -1.0,
+    "year": 1.0,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": 1.0,
+    "genre": 1.0
+   },
+   "years": [
+    1992,
+    1992
+   ],
+   "directors": [
+    [
+     "francis ford coppola"
+    ],
+    [
+     "francis ford coppola"
+    ]
+   ],
+   "cast_overlap": [
+    "gary oldman",
+    "winona ryder",
+    "anthony hopkins",
+    "billy campbell",
+    "cary elwes"
+   ],
+   "cast_sizes": [
+    12,
+    12
+   ],
+   "runtime": [
+    128,
+    127
+   ],
+   "genres": [
+    [
+     "128"
+    ],
+    [
+     "128",
+     "horror"
+    ]
+   ],
+   "title_jaccard": 0.33,
+   "manual_marks": [
+    null,
+    null
+   ]
+  }
+ ],
+ "auto_lowest": [
+  {
+   "pair": "B000B7M8Z2 × B000GFLEGI",
+   "titles": [
+    "Land of the Dead [VHS]",
+    "Land of the Dead (Unrated Director's Cut) (Combo HD DVD and Standard DVD)"
+   ],
+   "decision": "auto_merge",
+   "reason": "all_gates_pass",
+   "V": 0.76,
+   "conf": 0.832,
+   "signals": {
+    "title": 1.0,
+    "year": 1.0,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": -1.0,
+    "genre": 1.0
+   },
+   "years": [
+    2005,
+    2005
+   ],
+   "directors": [
+    [
+     "george romero"
+    ],
+    [
+     "george romero"
+    ]
+   ],
+   "cast_overlap": [
+    "john leguizamo",
+    "simon baker",
+    "asia argento",
+    "boyd banks",
+    "dennis hopper"
+   ],
+   "cast_sizes": [
+    12,
+    12
+   ],
+   "runtime": [
+    93,
+    194
+   ],
+   "genres": [
+    [
+     "93"
+    ],
+    [
+     "93"
+    ]
+   ],
+   "title_jaccard": 1.0,
+   "manual_marks": [
+    null,
+    null
+   ]
+  },
+  {
+   "pair": "B0000844MV × B0064NTZ6W",
+   "titles": [
+    "Das Boot",
+    "Das Boot (Director's Cut)"
+   ],
+   "decision": "auto_merge",
+   "reason": "all_gates_pass",
+   "V": 0.857,
+   "conf": 0.9,
+   "signals": {
+    "title": 1.0,
+    "year": 0.0,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": 0.5,
+    "genre": 0.5
+   },
+   "years": [
+    1981,
+    null
+   ],
+   "directors": [
+    [
+     "wolfgang petersen"
+    ],
+    [
+     "wolfgang petersen",
+     "wolfgang petersen",
+     "eric stacey"
+    ]
+   ],
+   "cast_overlap": [
+    "rgen prochnow",
+    "bernd tauber",
+    "erwin leder",
+    "heinz hoenig",
+    "herbert grönemeyer"
+   ],
+   "cast_sizes": [
+    12,
+    31
+   ],
+   "runtime": [
+    149,
+    208
+   ],
+   "genres": [
+    [
+     "149"
+    ],
+    [
+     "149",
+     "88",
+     "89",
+     "action",
+     "classic",
+     "drama"
+    ]
+   ],
+   "title_jaccard": 1.0,
+   "manual_marks": [
+    null,
+    null
+   ]
+  },
+  {
+   "pair": "B001TJV0M8 × B002BNKQDK",
+   "titles": [
+    "Watchmen (Blu-ray)",
+    "Watchmen (Amazon/Owl Ship Packaging/Blu-ray)"
+   ],
+   "decision": "auto_merge",
+   "reason": "all_gates_pass",
+   "V": 0.9,
+   "conf": 0.93,
+   "signals": {
+    "title": 1.0,
+    "year": 1.0,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": 0.5,
+    "genre": 0.5
+   },
+   "years": [
+    2009,
+    2009
+   ],
+   "directors": [
+    [
+     "zack snyder",
+     "zack snyder"
+    ],
+    [
+     "zack snyder",
+     "zack snyder"
+    ]
+   ],
+   "cast_overlap": [
+    "malin akerman",
+    "billy crudup",
+    "billy crudup",
+    "carla gugino",
+    "jackie earle haley"
+   ],
+   "cast_sizes": [
+    12,
+    12
+   ],
+   "runtime": [
+    163,
+    187
+   ],
+   "genres": [
+    [
+     "162"
+    ],
+    [
+     "162",
+     "action",
+     "adventure",
+     "and",
+     "drama",
+     "fantasy"
+    ]
+   ],
+   "title_jaccard": 1.0,
+   "manual_marks": [
+    null,
+    null
+   ]
+  },
+  {
+   "pair": "B00005V9IL × B003C6JZ6E",
+   "titles": [
+    "The Abyss (Special Edition)",
+    "The Abyss (Special Edition)"
+   ],
+   "decision": "auto_merge",
+   "reason": "all_gates_pass",
+   "V": 0.931,
+   "conf": 0.952,
+   "signals": {
+    "title": 1.0,
+    "year": 0.0,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": 0.0,
+    "genre": 0.5
+   },
+   "years": [
+    1989,
+    null
+   ],
+   "directors": [
+    [
+     "james cameron"
+    ],
+    [
+     "james cameron",
+     "rogério sganzerla",
+     "togo mizrahi"
+    ]
+   ],
+   "cast_overlap": [
+    "ed harris",
+    "mary elizabeth mastrantonio",
+    "captain kidd brewer",
+    "george robert klek",
+    "quinn"
+   ],
+   "cast_sizes": [
+    12,
+    32
+   ],
+   "runtime": [
+    138,
+    null
+   ],
+   "genres": [
+    [
+     "140",
+     "action",
+     "adventure",
+     "and"
+    ],
+    [
+     "140",
+     "60",
+     "80"
+    ]
+   ],
+   "title_jaccard": 1.0,
+   "manual_marks": [
+    null,
+    null
+   ]
+  },
+  {
+   "pair": "B00004RLDX × B00005V9IL",
+   "titles": [
+    "The Abyss [VHS]",
+    "The Abyss (Special Edition)"
+   ],
+   "decision": "auto_merge",
+   "reason": "all_gates_pass",
+   "V": 0.931,
+   "conf": 0.952,
+   "signals": {
+    "title": 1.0,
+    "year": 0.0,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": 0.0,
+    "genre": 0.5
+   },
+   "years": [
+    null,
+    1989
+   ],
+   "directors": [
+    [
+     "james cameron",
+     "rogério sganzerla",
+     "togo mizrahi"
+    ],
+    [
+     "james cameron"
+    ]
+   ],
+   "cast_overlap": [
+    "captain kidd brewer",
+    "ed harris",
+    "george robert klek",
+    "quinn",
+    "john bedford lloyd"
+   ],
+   "cast_sizes": [
+    32,
+    12
+   ],
+   "runtime": [
+    null,
+    138
+   ],
+   "genres": [
+    [
+     "140",
+     "60",
+     "80"
+    ],
+    [
+     "140",
+     "action",
+     "adventure",
+     "and"
+    ]
+   ],
+   "title_jaccard": 1.0,
+   "manual_marks": [
+    null,
+    null
+   ]
+  }
+ ],
+ "nomerge_lookalike": [
+  {
+   "pair": "B00005JPS8 × B003UYV08E",
+   "titles": [
+    "Iron Man (Ultimate 2 Disc Edition)",
+    "Iron Man 2 (Single-Disc Edition)"
+   ],
+   "decision": "no_merge",
+   "reason": "hard:sequel_ordinal_mismatch",
+   "V": 0.85,
+   "conf": 0.537,
+   "signals": {
+    "title": 0.5,
+    "year": 0.5,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": 1.0,
+    "genre": 1.0
+   },
+   "years": [
+    2008,
+    2010
+   ],
+   "directors": [
+    [
+     "jon favreau"
+    ],
+    [
+     "jon favreau",
+     "jon favreau"
+    ]
+   ],
+   "cast_overlap": [
+    "robert downey",
+    "gwyneth paltrow",
+    "clark gregg",
+    "robert downey"
+   ],
+   "cast_sizes": [
+    12,
+    12
+   ],
+   "runtime": [
+    126,
+    124
+   ],
+   "genres": [
+    [
+     "126",
+     "action",
+     "adventure",
+     "and"
+    ],
+    [
+     "124",
+     "action",
+     "adventure",
+     "and"
+    ]
+   ],
+   "title_jaccard": 0.67,
+   "manual_marks": [
+    null,
+    null
+   ]
+  },
+  {
+   "pair": "B00005JPS8 × B0021L8V1G",
+   "titles": [
+    "Iron Man (Ultimate 2 Disc Edition)",
+    "Iron Man 2 (Two-Disc Special Edition)"
+   ],
+   "decision": "no_merge",
+   "reason": "hard:sequel_ordinal_mismatch",
+   "V": 0.812,
+   "conf": 0.521,
+   "signals": {
+    "title": 0.5,
+    "year": 0.5,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": 0.0,
+    "genre": 0.0
+   },
+   "years": [
+    2008,
+    2010
+   ],
+   "directors": [
+    [
+     "jon favreau"
+    ],
+    [
+     "jon favreau",
+     "jon favreau"
+    ]
+   ],
+   "cast_overlap": [
+    "robert downey",
+    "gwyneth paltrow",
+    "clark gregg",
+    "robert downey"
+   ],
+   "cast_sizes": [
+    12,
+    12
+   ],
+   "runtime": [
+    126,
+    null
+   ],
+   "genres": [
+    [
+     "126",
+     "action",
+     "adventure",
+     "and"
+    ],
+    [
+     "124"
+    ]
+   ],
+   "title_jaccard": 0.67,
+   "manual_marks": [
+    null,
+    null
+   ]
+  },
+  {
+   "pair": "B001JZG4EQ × B002ZG98ZA",
+   "titles": [
+    "Sex and The City: The Movie (Sexo en la Ciudad: La Pelicula) 2 Disc Special Edition [NTSC/REGION 1 & 4 DVD. Import-Latin America]",
+    "Sex and the City 2"
+   ],
+   "decision": "no_merge",
+   "reason": "hard:sequel_ordinal_mismatch",
+   "V": 0.812,
+   "conf": 0.521,
+   "signals": {
+    "title": 0.5,
+    "year": 0.5,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": 0.0,
+    "genre": 0.0
+   },
+   "years": [
+    2008,
+    2010
+   ],
+   "directors": [
+    [
+     "michael patrick king"
+    ],
+    [
+     "michael patrick king",
+     "michael patrick king"
+    ]
+   ],
+   "cast_overlap": [
+    "chris noth",
+    "cynthia nixon",
+    "david eigenberg",
+    "evan handler",
+    "kim cattrall"
+   ],
+   "cast_sizes": [
+    10,
+    12
+   ],
+   "runtime": [
+    null,
+    1
+   ],
+   "genres": [
+    [
+     "145"
+    ],
+    [
+     "146",
+     "comedies",
+     "comedy",
+     "drama",
+     "romantic"
+    ]
+   ],
+   "title_jaccard": 0.75,
+   "manual_marks": [
+    null,
+    null
+   ]
+  },
+  {
+   "pair": "B000BBOFPE × B0039N74CW",
+   "titles": [
+    "Shrek 2 (w/ Bonus Holiday DVD)",
+    "Shrek (Widescreen)"
+   ],
+   "decision": "no_merge",
+   "reason": "hard:sequel_ordinal_mismatch",
+   "V": 0.69,
+   "conf": 0.47,
+   "signals": {
+    "title": 0.5,
+    "year": 0.5,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": 1.0,
+    "genre": -1.0
+   },
+   "years": [
+    2004,
+    2001
+   ],
+   "directors": [
+    [
+     "andrew adamson",
+     "conrad vernon",
+     "kelly asbury"
+    ],
+    [
+     "adamson andrew",
+     "andrew adamson",
+     "vicky jenson"
+    ]
+   ],
+   "cast_overlap": [
+    "mike myers",
+    "eddie murphy",
+    "cameron diaz"
+   ],
+   "cast_sizes": [
+    12,
+    10
+   ],
+   "runtime": [
+    93,
+    93
+   ],
+   "genres": [
+    [
+     "93",
+     "comedy"
+    ],
+    [
+     "90",
+     "children's"
+    ]
+   ],
+   "title_jaccard": 0.5,
+   "manual_marks": [
+    null,
+    null
+   ]
+  },
+  {
+   "pair": "B000BBOFPE × B003E66Y2A",
+   "titles": [
+    "Shrek 2 (w/ Bonus Holiday DVD)",
+    "Shrek (Fullscreen)"
+   ],
+   "decision": "no_merge",
+   "reason": "hard:sequel_ordinal_mismatch",
+   "V": 0.648,
+   "conf": 0.452,
+   "signals": {
+    "title": 0.5,
+    "year": 0.5,
+    "director": 1.0,
+    "cast": 1.0,
+    "runtime": 0.0,
+    "genre": -1.0
+   },
+   "years": [
+    2004,
+    2001
+   ],
+   "directors": [
+    [
+     "andrew adamson",
+     "conrad vernon",
+     "kelly asbury"
+    ],
+    [
+     "andrew adamson",
+     "vicky jenson"
+    ]
+   ],
+   "cast_overlap": [
+    "mike myers",
+    "eddie murphy",
+    "cameron diaz"
+   ],
+   "cast_sizes": [
+    12,
+    10
+   ],
+   "runtime": [
+    93,
+    null
+   ],
+   "genres": [
+    [
+     "93",
+     "comedy"
+    ],
+    [
+     "90",
+     "animation",
+     "fantasy"
+    ]
+   ],
+   "title_jaccard": 0.5,
+   "manual_marks": [
+    null,
+    null
+   ]
+  }
+ ]
+}

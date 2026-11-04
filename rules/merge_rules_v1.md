@@ -1,6 +1,6 @@
 # 电影实体合并规则 merge_rules
 
-- **规则版本**：v1.2（文件名按要求 `merge_rules_v1.md`）
+- **规则版本**：v1.3（文件名按要求 `merge_rules_v1.md`）
 - **生效日期**：2026-11-04（v1.2 经人工确认生效）
 - **适用范围**：任务4 电影实体合并（movie_id 生成；仅 `product_classification.classification='movie'` 的产品 + 合集成员映射）
 - **状态**：**生效**（v1.2 阈值冻结；调参须升版本）
@@ -159,3 +159,4 @@
 | v1.0 | 2026-11-03 | 初稿：同一电影操作性定义（版本/语言/剪辑归一，重拍/续集/同名分离）；候选生成与别名链；6 信号验证（标题相似/年份单独不足以 auto_merge）；置信度公式与三级判定阈值；链一致性 clique 算法；ProductMovie 评论不复制红线；落库预览与 100 对评价方案 |
 | v1.1 | 2026-11-03 | 按审核意见修订：①S2 年份硬冲突两档化（≥10 且标题关键词不重合=硬冲突；≥10 但标题高度相似=强制 manual_review，疑修复/重制版）；②新增阈值校准流程（预估 manual>50 对则放宽 V≥0.55 或 known≥2，硬冲突不动）；其余（权重、auto 门槛、manual 区间、其余 3 条硬冲突、片长 40%、movie_id 格式）维持 v1.0 |
 | v1.2 | 2026-11-04 | 按人工确认修订并生效：S1 title_conflict 且 V ≥ 0.80 → 降为 manual_review（reason=`title_conflict_high_v`，疑同片别名，人工判定），不再直接 no_merge；V < 0.80 维持 no_merge。预估样本中 Dracula ≡ Bram Stoker's Dracula、Scrooge ≡ A Christmas Carol 等 3 组转人工队列 |
+| v1.3 | 2026-11-04 | 执行后校验发现缺陷，按铁律3（来源不冒充）修订：①验证信号只采信**已消歧/唯一候选** tconst 的作品证据，或成对**唯一共享** tconst 锚定证据；禁止跨候选作品并集演职员（同名异片污染）；②未消歧多候选节点的候选对**不进 auto_merge**（ceiling → manual_review，reason=`ambiguous_node_ceiling`）。阈值与其余判定逻辑不变 |
