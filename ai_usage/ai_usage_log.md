@@ -63,3 +63,11 @@
 - **原始提示词**：任务5 七项要求 + 审核意见 6 项（年代硬冲突加作品数门槛、稀疏降 manual；生卒年缺失用作品 startYear 推算标 inferred；其余维持）+ 直接执行免预估 + 交付 5+5/前后统计/100 对
 - **被采纳的输出**：`rules/person_merge_rules_v1.md` v1.1；`sql/05_person_merge.sql`；`src/merge_persons.py`；run_20261104-04（842 对：auto 362/manual 378/no_merge 102；person_entity 4,595；movie_person 5,770）；`person_eval_sample.csv` 100 对；`person_merge_stats.json`
 - **人工验证方式**：①核验 5 组合并实例共同作品/年代证据（John Belushi/Ingrid Bergman 等页面署名→nconst）；②核验 5 组不合并实例（Lilly vs Lana Wachowski 近似名封顶 manual、Paul Verhoeven/Trevor Howard 同名不同人硬冲突）；③psql 查 `person_merge_decision WHERE run_id='run_20261104-04'` 分布与 `movie_person` 角色行；④标注 person_eval_sample.csv 后出 P/R/F1
+
+## 2026-11-04 · 任务5 人工复核 2 对（人物合并反例）入档
+
+- **工具/模型**：MiMoCode（mimo agent）+ write 工具 + git
+- **用途**：2 对人物合并反例人工判定入档（Lilly×Lana Wachowski 不合并=姐妹共同执导；Errol Flynn×Errol Flynn 不合并=同名不同人概率高，留 nconst 桥接改判通道）
+- **原始提示词**：人工复核 2 对判定（均不合并，含理由与条件改判说明）；写入 report/人工复核记录.md
+- **被采纳的输出**：`report/人工复核记录.md` 第三轮（2 对判定+理由+处置计划）；提交
+- **人工验证方式**：①对照记录核对两对判定与理由原文；②落库后查 `person_merge_decision` 中 reason 以 manual_confirm 开头的 2 行；③确认 Lilly/Lana Wachowski 两 person_id 仍独立
