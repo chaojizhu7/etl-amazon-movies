@@ -1,0 +1,22 @@
+{
+  "gate": {
+    "expected_auto": 125,
+    "tolerance": 10,
+    "actual_auto": 188,
+    "delta": 63,
+    "passed": false
+  },
+  "counts": {
+    "auto_merge": 188,
+    "manual_review": 6,
+    "no_merge": 44
+  },
+  "reason_breakdown": {
+    "all_gates_pass": 188,
+    "hard:sequel_ordinal_mismatch": 14,
+    "hard:director_diff_cast_empty": 30,
+    "partial_signals": 1,
+    "title_conflict_high_v": 5
+  },
+  "note": "auto_merge 变化超出 ±阈值，按约定停止执行、等待人工确认"
+}

@@ -1,29 +1,29 @@
 {
-  "rules_version": "merge_v1.1",
-  "generated_at_utc": "2026-11-04T05:25:17Z",
-  "elapsed_seconds": 0.1,
+  "rules_version": "merge_v1.2",
+  "generated_at_utc": "2026-11-04T05:43:20Z",
+  "elapsed_seconds": 54.1,
   "scope": {
-    "movie_editions": 316,
+    "movie_editions": 447,
     "collection_candidates": 6,
-    "edition_pairs": 152,
+    "edition_pairs": 238,
     "collection_pairs": 0
   },
   "bucket_edition": {
     "counts": {
-      "auto_merge": 125,
-      "manual_review": 1,
-      "no_merge": 26
+      "auto_merge": 188,
+      "manual_review": 6,
+      "no_merge": 44
     },
     "reason_breakdown": {
-      "all_gates_pass": 125,
-      "hard:director_diff_cast_empty": 14,
-      "hard:sequel_ordinal_mismatch": 7,
+      "all_gates_pass": 188,
+      "hard:sequel_ordinal_mismatch": 14,
+      "hard:director_diff_cast_empty": 30,
       "partial_signals": 1,
-      "title_conflict": 5
+      "title_conflict_high_v": 5
     },
     "chain_check": {
-      "auto_edges": 125,
-      "accepted_after_chain": 125,
+      "auto_edges": 188,
+      "accepted_after_chain": 188,
       "rejected_by_chain": 0
     },
     "relaxed_variants": {}
@@ -33,8 +33,7 @@
       "auto_merge": 0,
       "manual_review": 0,
       "no_merge": 0
-    },
-    "samples": []
+    }
   },
   "samples": {
     "auto_merge": [
@@ -56,8 +55,8 @@
         }
       },
       {
-        "pair": "6304198523 × 6304493738",
-        "titles": "Usual Suspects/Collector's Gift Set [VHS] × Usual Suspects",
+        "pair": "6305368147 × B0000AGVNX",
+        "titles": "You've Got Mail × You've Got Mail",
         "conf": 1.0,
         "V": 1.0,
         "known": 4,
@@ -66,6 +65,40 @@
         "signals": {
           "title": 1.0,
           "year": 1.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 0.0,
+          "genre": 1.0
+        }
+      },
+      {
+        "pair": "B00004RLDX × B003C6JZ6E",
+        "titles": "The Abyss [VHS] × The Abyss (Special Edition)",
+        "conf": 1.0,
+        "V": 1.0,
+        "known": 3,
+        "strong": 2,
+        "reason": "all_gates_pass",
+        "signals": {
+          "title": 1.0,
+          "year": 0.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 0.0,
+          "genre": 1.0
+        }
+      },
+      {
+        "pair": "B00004CJJQ × B00004CZ1R",
+        "titles": "Metropolis × Metropolis",
+        "conf": 1.0,
+        "V": 1.0,
+        "known": 3,
+        "strong": 2,
+        "reason": "all_gates_pass",
+        "signals": {
+          "title": 1.0,
+          "year": 0.0,
           "director": 1.0,
           "cast": 1.0,
           "runtime": 0.0,
@@ -88,40 +121,6 @@
           "runtime": 0.0,
           "genre": 1.0
         }
-      },
-      {
-        "pair": "B0034ZTVO4 × B003DBCXF8",
-        "titles": "Twilight Saga: New Moon Blu-ray (2 Disc) × The Twilight Saga: New Moon Two-Disc DVD Gift Set with Charm Necklace and Bonus Features Year 2009",
-        "conf": 1.0,
-        "V": 1.0,
-        "known": 4,
-        "strong": 3,
-        "reason": "all_gates_pass",
-        "signals": {
-          "title": 1.0,
-          "year": 1.0,
-          "director": 1.0,
-          "cast": 1.0,
-          "runtime": 0.0,
-          "genre": 1.0
-        }
-      },
-      {
-        "pair": "B000AARKOO × B000AARKOY",
-        "titles": "Kingdom of Heaven (2-Disc Widescreen Edition) × Kingdom of Heaven",
-        "conf": 1.0,
-        "V": 1.0,
-        "known": 5,
-        "strong": 3,
-        "reason": "all_gates_pass",
-        "signals": {
-          "title": 1.0,
-          "year": 1.0,
-          "director": 1.0,
-          "cast": 1.0,
-          "runtime": 1.0,
-          "genre": 1.0
-        }
       }
     ],
     "manual_review": [
@@ -139,6 +138,74 @@
           "director": 1.0,
           "cast": 1.0,
           "runtime": -1.0,
+          "genre": 0.5
+        }
+      },
+      {
+        "pair": "B00004CYNY × B000TGJ7ZY",
+        "titles": "Dracula × Bram Stoker's Dracula",
+        "conf": 0.5,
+        "V": 1.0,
+        "known": 5,
+        "strong": 3,
+        "reason": "title_conflict_high_v",
+        "signals": {
+          "title": -1.0,
+          "year": 1.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 1.0,
+          "genre": 1.0
+        }
+      },
+      {
+        "pair": "6302914485 × B00005NBBJ",
+        "titles": "A Christmas Carol [VHS] × Scrooge",
+        "conf": 0.476,
+        "V": 0.931,
+        "known": 3,
+        "strong": 2,
+        "reason": "title_conflict_high_v",
+        "signals": {
+          "title": -1.0,
+          "year": 0.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 0.0,
+          "genre": 0.5
+        }
+      },
+      {
+        "pair": "B00005NBBJ × B00005TPCG",
+        "titles": "Scrooge × A Christmas Carol (50th Anniversary Edition)",
+        "conf": 0.476,
+        "V": 0.931,
+        "known": 3,
+        "strong": 2,
+        "reason": "title_conflict_high_v",
+        "signals": {
+          "title": -1.0,
+          "year": 0.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 0.0,
+          "genre": 0.5
+        }
+      },
+      {
+        "pair": "B00005NBBJ × B005FOW9SW",
+        "titles": "Scrooge × A Christmas Carol (60th Anniversary Diamond Edition)",
+        "conf": 0.476,
+        "V": 0.931,
+        "known": 3,
+        "strong": 2,
+        "reason": "title_conflict_high_v",
+        "signals": {
+          "title": -1.0,
+          "year": 0.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 0.0,
           "genre": 0.5
         }
       }
@@ -179,54 +246,54 @@
         }
       },
       {
-        "pair": "B00004CYNY × B000TGJ7ZY",
-        "titles": "Dracula × Bram Stoker's Dracula",
-        "conf": 0.5,
-        "V": 1.0,
-        "known": 5,
-        "strong": 3,
-        "reason": "title_conflict",
+        "pair": "B001JZG4EQ × B002ZG98ZA",
+        "titles": "Sex and The City: The Movie (Sexo en la Ciudad: La Pelicula) 2 Disc Special Edition [NTSC/REGION 1 & 4 DVD. Import-Latin America] × Sex and the City 2",
+        "conf": 0.521,
+        "V": 0.812,
+        "known": 3,
+        "strong": 2,
+        "reason": "hard:sequel_ordinal_mismatch",
         "signals": {
-          "title": -1.0,
-          "year": 1.0,
+          "title": 0.5,
+          "year": 0.5,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 0.0,
+          "genre": 0.0
+        }
+      },
+      {
+        "pair": "B000BBOFPE × B0039N74CW",
+        "titles": "Shrek 2 (w/ Bonus Holiday DVD) × Shrek (Widescreen)",
+        "conf": 0.47,
+        "V": 0.69,
+        "known": 5,
+        "strong": 2,
+        "reason": "hard:sequel_ordinal_mismatch",
+        "signals": {
+          "title": 0.5,
+          "year": 0.5,
           "director": 1.0,
           "cast": 1.0,
           "runtime": 1.0,
-          "genre": 1.0
+          "genre": -1.0
         }
       },
       {
-        "pair": "6302914485 × B00005NBBJ",
-        "titles": "A Christmas Carol [VHS] × Scrooge",
-        "conf": 0.476,
-        "V": 0.931,
-        "known": 3,
+        "pair": "B000BBOFPE × B003E66Y2A",
+        "titles": "Shrek 2 (w/ Bonus Holiday DVD) × Shrek (Fullscreen)",
+        "conf": 0.452,
+        "V": 0.648,
+        "known": 4,
         "strong": 2,
-        "reason": "title_conflict",
+        "reason": "hard:sequel_ordinal_mismatch",
         "signals": {
-          "title": -1.0,
-          "year": 0.0,
+          "title": 0.5,
+          "year": 0.5,
           "director": 1.0,
           "cast": 1.0,
           "runtime": 0.0,
-          "genre": 0.5
-        }
-      },
-      {
-        "pair": "B00005NBBJ × B00005TPCG",
-        "titles": "Scrooge × A Christmas Carol (50th Anniversary Edition)",
-        "conf": 0.476,
-        "V": 0.931,
-        "known": 3,
-        "strong": 2,
-        "reason": "title_conflict",
-        "signals": {
-          "title": -1.0,
-          "year": 0.0,
-          "director": 1.0,
-          "cast": 1.0,
-          "runtime": 0.0,
-          "genre": 0.5
+          "genre": -1.0
         }
       }
     ]

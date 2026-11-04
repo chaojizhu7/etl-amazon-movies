@@ -9,6 +9,7 @@ Usage (from project root):
     .venv\\Scripts\\python.exe src\\merge_movies.py --estimate
 """
 import argparse
+import csv
 import json
 import os
 import re
@@ -24,7 +25,7 @@ from classify_products import (  # noqa: E402
 )
 
 DB = dict(host="localhost", port="5432", dbname="etl_movie", user="postgres", password="postgres")
-RULES_VERSION = "merge_v1.1"
+RULES_VERSION = "merge_v1.2"
 OUT_DIR = os.path.join(ROOT, "logs", "summary")
 
 # ---- weights & thresholds (merge_rules_v1.md §5/§6) ----
@@ -113,6 +114,8 @@ def build_nodes():
         ord_, base_wo = ordinal_of(base)
         alias = {canon(a) for a in (norm.get("alias_candidates") or []) if a}
         alias |= {canon(v) for v in (norm.get("query_variants") or []) if v}
+        alias_raws = list(dict.fromkeys(
+            [title_raw or ""] + (norm.get("alias_candidates") or []) + (norm.get("query_variants") or [])))
         trows = [by_tconst[t] for t in tconsts if t in by_tconst]
         # work-level fields: prefer resolved/unanimous tconst rows
         year = runtime_i = None
@@ -143,6 +146,7 @@ def build_nodes():
             "multi_work": bool((pg.get("title_markers") or {}).get("multi_work_title")),
             "manual": ev.get("manual_review") or {},
             "tokens": tokens(canon(norm["base"])),
+            "alias_raws": alias_raws,
         })
     # enrich director/cast from imdb cast cache
     if all_tconsts:
@@ -163,6 +167,7 @@ def build_nodes():
             "ord": None, "tokens": tokens(canon(norm["base"])),
             "year": None, "runtime": None, "genres": set(), "dirs": [], "cast": [],
             "multi_work": False, "manual": {}, "tconsts": [], "resolved_t": None,
+            "alias_raws": [ct],
         })
     return nodes, cand_nodes
 
@@ -287,6 +292,9 @@ def decide(a, b, thresholds):
     if year_forced:
         return "manual_review", "year_gap_title_similar", sig, V, conf, known, strong
     if sig["title"] == -1.0:
+        # v1.2: 高验证分的标题冲突疑同片别名 → 人工判，不直接 no_merge
+        if V >= 0.80:
+            return "manual_review", "title_conflict_high_v", sig, V, conf, known, strong
         return "no_merge", "title_conflict", sig, V, conf, known, strong
     if (T >= thresholds["T"] and V >= thresholds["V"] and strong >= thresholds["strong"]
             and known >= thresholds["known"]):
@@ -343,21 +351,18 @@ def chain_check(auto_pairs):
     return accepted, rejected
 
 
-# ---------------- main ----------------
-def estimate():
+# ---------------- pipeline ----------------
+def run_pipeline():
+    """候选生成 → 信号/判定（v1.2）→ 链一致性。返回全部中间结果（只算不写库）。"""
     t0 = time.time()
     nodes, cand_nodes = build_nodes()
-    print(f"nodes: editions(movie)={len(nodes)}  collection-candidates={len(cand_nodes)}")
-
-    # blocking
     keys = {}
     for n in nodes:
         for k in {n["title_canon"], n["base_wo_ord"]} | n["alias"]:
             if k:
                 keys.setdefault(("ed", k), []).append(n["id"])
     by_id = {n["id"]: n for n in nodes}
-    seen = set()
-    pairs = []
+    seen, pairs = set(), []
     for (_, k), ids in keys.items():
         for i in range(len(ids)):
             for j in range(i + 1, len(ids)):
@@ -365,7 +370,6 @@ def estimate():
                 if (a, b) not in seen:
                     seen.add((a, b))
                     pairs.append((a, b))
-    # shared tconst
     tmap = {}
     for n in nodes:
         for t in n["tconsts"]:
@@ -377,7 +381,6 @@ def estimate():
                 if (a, b) not in seen:
                     seen.add((a, b))
                     pairs.append((a, b))
-    # collection candidates (bucket B)
     cand_pairs = []
     for c in cand_nodes:
         for n in nodes:
@@ -385,7 +388,6 @@ def estimate():
                                      or c["title_canon"] in n["alias"]
                                      or jaccard(c["tokens"], n["tokens"]) >= 0.85):
                 cand_pairs.append((c["id"], n["id"]))
-    print(f"candidate pairs: edition×edition={len(pairs)}  collection-member×edition={len(cand_pairs)}")
 
     results = []
     for a, b in pairs:
@@ -393,7 +395,6 @@ def estimate():
         results.append({"a": a, "b": b, "decision": dec, "reason": reason, "V": round(V, 3),
                         "conf": round(conf, 3), "known": known, "strong": strong,
                         "signals": {k: round(v, 2) for k, v in sig.items()}})
-    # relaxed variants (only counts)
     relax_counts = {}
     if sum(1 for r in results if r["decision"] == "manual_review") > 50:
         for name, th in (("V>=0.55", RELAX_A), ("known>=2", RELAX_B), ("both", RELAX_AB)):
@@ -403,46 +404,51 @@ def estimate():
                 cnt[dec] += 1
             relax_counts[name] = cnt
 
-    counts = {"auto_merge": 0, "manual_review": 0, "no_merge": 0}
-    reason_break = {}
-    for r in results:
-        counts[r["decision"]] += 1
-        reason_break[r["reason"]] = reason_break.get(r["reason"], 0) + 1
-
     auto_pairs = [(r["a"], r["b"], r["conf"]) for r in results if r["decision"] == "auto_merge"]
     acc, rej = chain_check(auto_pairs)
-    cb_counts = {"auto_merge": 0, "manual_review": 0, "no_merge": 0}
-    cb_samples = []
-    cby = {c["id"]: c for c in cand_nodes}
-    for cid, nid in cand_pairs:
-        dec, reason, sig, V, conf, known, strong = decide(cby[cid], by_id[nid], BASE)
-        cb_counts[dec] += 1
-        if len(cb_samples) < 5:
-            cb_samples.append({"pair": f"{cid} × {nid}", "decision": dec, "reason": reason, "conf": round(conf, 3)})
+    return {"nodes": nodes, "cand_nodes": cand_nodes, "by_id": by_id, "pairs": pairs,
+            "cand_pairs": cand_pairs, "results": results, "acc": acc, "rej": rej,
+            "relax": relax_counts, "elapsed": round(time.time() - t0, 1)}
 
+
+def summarize(p):
+    counts = {"auto_merge": 0, "manual_review": 0, "no_merge": 0}
+    reason_break = {}
+    for r in p["results"]:
+        counts[r["decision"]] += 1
+        reason_break[r["reason"]] = reason_break.get(r["reason"], 0) + 1
+    return counts, reason_break
+
+
+def estimate():
+    p = run_pipeline()
+    counts, reason_break = summarize(p)
+    cb = {"auto_merge": 0, "manual_review": 0, "no_merge": 0}
+    cby = {c["id"]: c for c in p["cand_nodes"]}
+    for cid, nid in p["cand_pairs"]:
+        dec, *_ = decide(cby[cid], p["by_id"][nid], BASE)
+        cb[dec] += 1
     samples = {}
     for dec in ("auto_merge", "manual_review", "no_merge"):
-        rs = sorted([r for r in results if r["decision"] == dec],
-                    key=lambda r: -r["conf"])[:5]
+        rs = sorted([r for r in p["results"] if r["decision"] == dec], key=lambda r: -r["conf"])[:5]
         samples[dec] = [{
             "pair": f"{r['a']} × {r['b']}",
-            "titles": f"{by_id[r['a']]['title_raw']} × {by_id[r['b']]['title_raw']}",
+            "titles": f"{p['by_id'][r['a']]['title_raw']} × {p['by_id'][r['b']]['title_raw']}",
             "conf": r["conf"], "V": r["V"], "known": r["known"], "strong": r["strong"],
             "reason": r["reason"], "signals": r["signals"],
         } for r in rs]
-
     out = {
         "rules_version": RULES_VERSION,
         "generated_at_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "elapsed_seconds": round(time.time() - t0, 1),
-        "scope": {"movie_editions": len(nodes), "collection_candidates": len(cand_nodes),
-                  "edition_pairs": len(pairs), "collection_pairs": len(cand_pairs)},
+        "elapsed_seconds": p["elapsed"],
+        "scope": {"movie_editions": len(p["nodes"]), "collection_candidates": len(p["cand_nodes"]),
+                  "edition_pairs": len(p["pairs"]), "collection_pairs": len(p["cand_pairs"])},
         "bucket_edition": {"counts": counts, "reason_breakdown": reason_break,
-                           "chain_check": {"auto_edges": len(auto_pairs),
-                                           "accepted_after_chain": len(acc),
-                                           "rejected_by_chain": len(rej)},
-                           "relaxed_variants": relax_counts},
-        "bucket_collection_member": {"counts": cb_counts, "samples": cb_samples},
+                           "chain_check": {"auto_edges": len(p["acc"]) + len(p["rej"]),
+                                           "accepted_after_chain": len(p["acc"]),
+                                           "rejected_by_chain": len(p["rej"])},
+                           "relaxed_variants": p["relax"]},
+        "bucket_collection_member": {"counts": cb},
         "samples": samples,
         "thresholds_base": BASE,
     }
@@ -450,26 +456,284 @@ def estimate():
     out_path = os.path.join(OUT_DIR, "merge_estimate_report.json")
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
-
-    print("\n==== 合并预估报告（edition×edition）====")
-    print(f"候选对总数: {len(pairs)}")
+    print("==== 合并预估报告（edition×edition）====")
+    print(f"movie 产品 {len(p['nodes'])}，候选对 {len(p['pairs'])}")
     print(f"  auto_merge   : {counts['auto_merge']}")
     print(f"  manual_review: {counts['manual_review']}")
     print(f"  no_merge     : {counts['no_merge']}")
-    print(f"链一致性预检: auto 边 {len(auto_pairs)} → 链合并后通过 {len(acc)}，拒边 {len(rej)}")
+    print(f"链一致性: auto 边 {counts['auto_merge']} → 通过 {len(p['acc'])}，拒边 {len(p['rej'])}")
     print(f"原因分布: {reason_break}")
-    if relax_counts:
-        print(f"manual>50 → 放宽变体计数: {relax_counts}")
-    print(f"合集成员对（独立桶）: {cb_counts}")
-    print(f"\nwrote {out_path}")
+    if p["relax"]:
+        print(f"manual>50 → 放宽变体: {p['relax']}")
+    print(f"合集成员对: {cb}")
+    print(f"wrote {out_path}")
+    return out
+
+
+# ---------------- execution ----------------
+def build_clusters(acc_edges):
+    parent = {}
+
+    def find(x):
+        while parent.setdefault(x, x) != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    for a, b, _ in sorted(acc_edges, key=lambda e: (-e[2], e[0], e[1])):
+        ra, rb = find(a), find(b)
+        if ra != rb:
+            parent[ra] = rb
+    groups = {}
+    for k in parent:
+        groups.setdefault(find(k), []).append(k)
+    return sorted((sorted(v) for v in groups.values()), key=lambda m: m[0])
+
+
+def write_eval_sample(p, path):
+    import random
+    rng = random.Random(42)
+    by_dec = {"auto_merge": [], "manual_review": [], "no_merge": []}
+    for r in p["results"]:
+        by_dec[r["decision"]].append(r)
+    picked = []
+    autos = sorted(by_dec["auto_merge"], key=lambda r: r["conf"])
+    picked += autos[:12]                              # 边界低置信
+    rest_auto = autos[12:]
+    picked += rng.sample(rest_auto, min(22, len(rest_auto)))
+    picked += by_dec["manual_review"]                 # 全部人工队列
+    nomerge = by_dec["no_merge"]
+    picked += rng.sample(nomerge, min(100 - len(picked), len(nomerge)))
+    picked = picked[:100]
+    cols = ["pair_id", "node_a", "title_a", "node_b", "title_b", "system_decision",
+            "reason", "V", "conf", "known_signals", "strong_signals", "signals_json",
+            "human_verdict", "notes"]
+    with open(path, "w", encoding="utf-8", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(cols)
+        for i, r in enumerate(picked, 1):
+            w.writerow([i, r["a"], p["by_id"][r["a"]]["title_raw"], r["b"],
+                        p["by_id"][r["b"]]["title_raw"], r["decision"], r["reason"],
+                        r["V"], r["conf"], r["known"], r["strong"],
+                        json.dumps(r["signals"], ensure_ascii=False), "", ""])
+    return len(picked)
+
+
+def execute(run_id, expect_auto=125, tolerance=10):
+    p = run_pipeline()
+    counts, reason_break = summarize(p)
+    auto_n = counts["auto_merge"]
+    gate = {"expected_auto": expect_auto, "tolerance": tolerance, "actual_auto": auto_n,
+            "delta": auto_n - expect_auto, "passed": abs(auto_n - expect_auto) <= tolerance}
+    print(f"[gate] auto_merge {auto_n} vs 预估基线 {expect_auto} (±{tolerance}) → "
+          f"delta={gate['delta']:+d}  {'PASS' if gate['passed'] else 'FAIL'}")
+    if not gate["passed"]:
+        diff_path = os.path.join(OUT_DIR, "merge_execute_gate_diff.json")
+        os.makedirs(OUT_DIR, exist_ok=True)
+        with open(diff_path, "w", encoding="utf-8") as f:
+            json.dump({"gate": gate, "counts": counts, "reason_breakdown": reason_break,
+                       "note": "auto_merge 变化超出 ±阈值，按约定停止执行、等待人工确认"},
+                      f, ensure_ascii=False, indent=2)
+        print(f"变化较大，已写差异报告 {diff_path}，未执行合并")
+        return 1
+
+    # ---- clusters & movie_id（确定性：按成员元组排序编号）----
+    clusters = build_clusters(p["acc"])
+    merged = [c for c in clusters if len(c) >= 2]
+    cluster_of = {}
+    movie_ids = {}
+    seq = 0
+    def next_id():
+        nonlocal seq
+        seq += 1
+        return f"mv_{seq:06d}"
+    for members in merged:
+        mid = next_id()
+        movie_ids[mid] = {"members": members, "status": "merged"}
+        for m in members:
+            cluster_of[m] = mid
+    for n in p["nodes"]:
+        if n["id"] not in cluster_of:
+            mid = next_id()
+            movie_ids[mid] = {"members": [n["id"]], "status": "singleton"}
+            cluster_of[n["id"]] = mid
+
+    eval_path = os.path.join(OUT_DIR, "merge_eval_sample.csv")
+    n_eval = write_eval_sample(p, eval_path)
+
+    with psycopg.connect(**DB) as conn:
+        with open(os.path.join(ROOT, "sql", "04_movie_merge.sql"), encoding="utf-8") as f:
+            conn.execute(f.read())
+        # candidate + decision（追加式）
+        with conn.cursor() as cur:
+            for r in p["results"]:
+                cur.execute(
+                    "INSERT INTO movie_merge_candidate "
+                    "(node_a, node_b, node_kind, signals, title_coeff, score_v, score_conf, "
+                    " known_signals, strong_signals, rules_version, run_id) "
+                    "VALUES (%s,%s,'edition',%s::jsonb,%s,%s,%s,%s,%s,%s,%s) "
+                    "ON CONFLICT (node_a, node_b, run_id) DO NOTHING",
+                    (r["a"], r["b"], json.dumps(r["signals"]), 1.0, r["V"], r["conf"],
+                     r["known"], r["strong"], RULES_VERSION, run_id))
+                cur.execute(
+                    "INSERT INTO movie_merge_decision "
+                    "(node_a, node_b, decision, reason, rules_version, run_id) "
+                    "VALUES (%s,%s,%s,%s,%s,%s)",
+                    (r["a"], r["b"], r["decision"], r["reason"], RULES_VERSION, run_id))
+        # movie_entity + alias
+        for mid, info in movie_ids.items():
+            members = info["members"]
+            node = p["by_id"][members[0]]
+            ext = sorted({t for m in members for t in p["by_id"][m]["tconsts"]})
+            conn.execute(
+                "INSERT INTO movie_entity (movie_id, title_canonical, external_ids, status, "
+                "rules_version, run_id) VALUES (%s,%s,%s::jsonb,%s,%s,%s) "
+                "ON CONFLICT (movie_id) DO UPDATE SET title_canonical=EXCLUDED.title_canonical, "
+                "external_ids=EXCLUDED.external_ids, status=EXCLUDED.status, "
+                "rules_version=EXCLUDED.rules_version, run_id=EXCLUDED.run_id, updated_at=now()",
+                (mid, node["title_canon"], json.dumps({"imdb": ext}), info["status"],
+                 RULES_VERSION, run_id))
+            for m in members:
+                n = p["by_id"][m]
+                raws = list(dict.fromkeys(n.get("alias_raws") or [n["title_raw"] or ""]))
+                for raw in raws[:12]:
+                    if not raw:
+                        continue
+                    conn.execute(
+                        "INSERT INTO movie_alias (movie_id, title_raw, title_canon, source, "
+                        "source_locator, run_id) VALUES (%s,%s,%s,'product_page',%s,%s) "
+                        "ON CONFLICT (movie_id, title_canon, source, source_locator) DO NOTHING",
+                        (mid, raw, canon(raw), n["id"], run_id))
+                conn.execute(
+                    "INSERT INTO product_movie (asin, movie_id, relation_type, match_basis, "
+                    "evidence, rules_version, run_id) VALUES (%s,%s,'single',%s,%s::jsonb,%s,%s) "
+                    "ON CONFLICT (asin, movie_id) DO UPDATE SET match_basis=EXCLUDED.match_basis, "
+                    "evidence=EXCLUDED.evidence, rules_version=EXCLUDED.rules_version, "
+                    "run_id=EXCLUDED.run_id",
+                    (n["id"], mid, "auto_merge_cluster" if info["status"] == "merged" else "singleton",
+                     json.dumps({"tconsts": n["tconsts"][:5], "year": n["year"]}),
+                     RULES_VERSION, run_id))
+        # 合集成员映射（ProductMovie 多对多）
+        coll = conn.execute("SELECT asin, movie_title_raw FROM product_movie_candidate").fetchall()
+        canon_to_mid = {}
+        for mid, info in movie_ids.items():
+            for m in info["members"]:
+                n = p["by_id"][m]
+                canon_to_mid.setdefault(n["title_canon"], mid)
+                for a in n["alias"]:
+                    canon_to_mid.setdefault(a, mid)
+        n_coll_linked = n_coll_unresolved = 0
+        for asin, ct in coll:
+            c = canon(ct)
+            mid = canon_to_mid.get(c)
+            if mid is None:
+                mid = next_id()
+                movie_ids[mid] = {"members": [], "status": "unresolved_candidate"}
+                canon_to_mid[c] = mid
+                conn.execute(
+                    "INSERT INTO movie_entity (movie_id, title_canonical, external_ids, status, "
+                    "rules_version, run_id) VALUES (%s,%s,'{}'::jsonb,'unresolved_candidate',%s,%s) "
+                    "ON CONFLICT (movie_id) DO NOTHING",
+                    (mid, c, RULES_VERSION, run_id))
+                n_coll_unresolved += 1
+            else:
+                n_coll_linked += 1
+            conn.execute(
+                "INSERT INTO product_movie (asin, movie_id, relation_type, match_basis, "
+                "evidence, rules_version, run_id) VALUES (%s,%s,'collection_member',%s,%s::jsonb,%s,%s) "
+                "ON CONFLICT (asin, movie_id) DO NOTHING",
+                (asin, mid, "candidate_title",
+                 json.dumps({"movie_title_raw": ct, "title_canon": c}), RULES_VERSION, run_id))
+        # cluster log
+        rejected = [{"pair": [a, b], "conf": c} for a, b, c in p["rej"]]
+        for mid, info in movie_ids.items():
+            if info["status"] == "merged":
+                conn.execute(
+                    "INSERT INTO movie_merge_cluster_log (run_id, movie_id, members, cluster_size, "
+                    "rejected_edges, notes) VALUES (%s,%s,%s::jsonb,%s,%s::jsonb,%s)",
+                    (run_id, mid, json.dumps(info["members"]), len(info["members"]),
+                     json.dumps(rejected), "chain clique ok" if not rejected else "见 rejected_edges"))
+        conn.commit()
+
+        after = {
+            "movie_entity_total": conn.execute("SELECT count(*) FROM movie_entity").fetchone()[0],
+            "merged_clusters": conn.execute(
+                "SELECT count(*) FROM movie_entity WHERE status='merged'").fetchone()[0],
+            "singletons": conn.execute(
+                "SELECT count(*) FROM movie_entity WHERE status='singleton'").fetchone()[0],
+            "unresolved_candidates": conn.execute(
+                "SELECT count(*) FROM movie_entity WHERE status='unresolved_candidate'").fetchone()[0],
+            "product_movie_single": conn.execute(
+                "SELECT count(*) FROM product_movie WHERE relation_type='single'").fetchone()[0],
+            "product_movie_collection": conn.execute(
+                "SELECT count(*) FROM product_movie WHERE relation_type='collection_member'").fetchone()[0],
+            "manual_review_queue": conn.execute(
+                "SELECT count(*) FROM movie_merge_decision WHERE decision='manual_review' "
+                "AND run_id=%s", (run_id,)).fetchone()[0],
+            "no_merge": conn.execute(
+                "SELECT count(*) FROM movie_merge_decision WHERE decision='no_merge' "
+                "AND run_id=%s", (run_id,)).fetchone()[0],
+        }
+
+    # ---- 实例挑选 ----
+    merged_examples = []
+    for members in sorted(merged, key=lambda m: -len(m))[:5]:
+        merged_examples.append({
+            "movie_id": cluster_of[members[0]], "members": members,
+            "titles": [p["by_id"][m]["title_raw"] for m in members],
+            "tconsts": sorted({t for m in members for t in p["by_id"][m]["tconsts"]})[:3]})
+    nomerge_examples = []
+    seen_reason = set()
+    for r in sorted(p["results"], key=lambda r: -r["conf"]):
+        if r["decision"] in ("no_merge", "manual_review") and r["reason"] not in seen_reason:
+            seen_reason.add(r["reason"])
+            nomerge_examples.append({
+                "pair": f"{r['a']} × {r['b']}",
+                "titles": f"{p['by_id'][r['a']]['title_raw']} × {p['by_id'][r['b']]['title_raw']}",
+                "decision": r["decision"], "reason": r["reason"], "V": r["V"], "conf": r["conf"],
+                "signals": r["signals"]})
+        if len(nomerge_examples) >= 5:
+            break
+
+    stats = {
+        "rules_version": RULES_VERSION, "run_id": run_id,
+        "generated_at_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "gate": gate,
+        "before": {"movie_editions": len(p["nodes"]), "candidate_pairs": len(p["pairs"]),
+                   "distinct_title_canon": len({n["title_canon"] for n in p["nodes"]})},
+        "decision_counts": counts, "reason_breakdown": reason_break,
+        "chain_check": {"auto_edges": counts["auto_merge"],
+                        "accepted_after_chain": len(p["acc"]), "rejected_by_chain": len(p["rej"])},
+        "after": after,
+        "collection_links": {"linked_to_existing_movie": n_coll_linked,
+                             "unresolved_candidate": n_coll_unresolved},
+        "eval_sample": {"file": eval_path, "n": n_eval},
+        "merged_examples": merged_examples,
+        "not_merged_examples": nomerge_examples,
+    }
+    stats_path = os.path.join(OUT_DIR, "merge_execution_stats.json")
+    with open(stats_path, "w", encoding="utf-8") as f:
+        json.dump(stats, f, ensure_ascii=False, indent=2)
+    print("==== 执行合并完成 ====")
+    print(f"before: editions={stats['before']['movie_editions']} pairs={stats['before']['candidate_pairs']}")
+    print(f"decisions: {counts}  chain: acc={len(p['acc'])} rej={len(p['rej'])}")
+    print(f"after: {after}")
+    print(f"eval sample: {n_eval} 对 → {eval_path}")
+    print(f"wrote {stats_path}")
     return 0
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--estimate", action="store_true", help="合并预估报告（只算不写库）")
+    ap.add_argument("--execute", action="store_true", help="执行合并（写库，带 ±tolerance 门槛）")
+    ap.add_argument("--run-id", default="run_20261104-01")
+    ap.add_argument("--expect-auto", type=int, default=125, help="预估基线 auto_merge 对数")
+    ap.add_argument("--tolerance", type=int, default=10)
     args = ap.parse_args()
     if args.estimate:
-        sys.exit(estimate())
-    print("execution mode pending estimate confirmation — run with --estimate first")
+        sys.exit(0 if estimate() is not None else 1)
+    if args.execute:
+        sys.exit(execute(args.run_id, args.expect_auto, args.tolerance))
+    print("usage: --estimate | --execute [--run-id ... --expect-auto N --tolerance N]")
     sys.exit(1)

@@ -1,11 +1,11 @@
 # 电影实体合并规则 merge_rules
 
-- **规则版本**：v1.1（文件名按要求 `merge_rules_v1.md`）
-- **生效日期**：待预估报告确认后生效（2026-11-03 起草 v1.0，按审核意见修订 v1.1）
+- **规则版本**：v1.2（文件名按要求 `merge_rules_v1.md`）
+- **生效日期**：2026-11-04（v1.2 经人工确认生效）
 - **适用范围**：任务4 电影实体合并（movie_id 生成；仅 `product_classification.classification='movie'` 的产品 + 合集成员映射）
-- **状态**：**v1.1 待预估报告确认**——确认前不执行任何合并写入
+- **状态**：**生效**（v1.2 阈值冻结；调参须升版本）
 - **上游依据**：`rules/movie_classification_v0.1.md`（分类）、`report/人工复核记录.md`（错配/未消歧标记）、`report/字段覆盖矩阵.md`（movie_id=system 生成、来源标签规范）
-- **执行脚本（预留）**：`src/merge_movies.py`（幂等；DDL `sql/04_movie_merge.sql`，在执行步交付）
+- **执行脚本**：`src/merge_movies.py`（幂等；DDL `sql/04_movie_merge.sql`）
 
 ---
 
@@ -99,8 +99,8 @@
 | 判定 | 条件（须全部满足） | 后续动作 |
 |------|--------------------|----------|
 | **auto_merge** | ①无硬冲突；②T ≥ 0.85；③V ≥ 0.65；④**S2/S3/S4 中 ≥2 个 match 级**；⑤known_signals ≥ 3 | 写 MergeDecision(accept, auto)；参与 §7 链合并；分配 movie_id |
-| **manual_review** | 无硬冲突，且（0.50 ≤ conf < 0.85；或 V ≥ 0.65 但强信号 <2；或 known_signals < 3；或候选多对并列；或携带任务3 标记 `version_unverified`/`tconst_unverified`；或 **S2 年份两档的 `year_gap_title_similar` 情形**；或 §7 链不一致波及） | 入人工队列（附全信号证据）；**不合并**，等人判 |
-| **no_merge** | ①任一硬冲突；或 ②conf < 0.50；或 ③S1 判 conflict 且无别名链 | 写 MergeDecision(reject, reason)；保持独立 movie_id 候选 |
+| **manual_review** | 无硬冲突，且（0.50 ≤ conf < 0.85；或 V ≥ 0.65 但强信号 <2；或 known_signals < 3；或候选多对并列；或携带任务3 标记 `version_unverified`/`tconst_unverified`；或 **S2 年份两档的 `year_gap_title_similar` 情形**；或 **S1 title_conflict 但 V ≥ 0.80**（reason=`title_conflict_high_v`，疑同片别名如 Dracula ≡ Bram Stoker's Dracula，人工判）；或 §7 链不一致波及） | 入人工队列（附全信号证据）；**不合并**，等人判 |
+| **no_merge** | ①任一硬冲突；或 ②conf < 0.50；或 ③S1 判 conflict 且无别名链**且 V < 0.80** | 写 MergeDecision(reject, reason)；保持独立 movie_id 候选 |
 
 - 阈值冻结于本版本；调参必须升版本并重跑全量判定（§10 评价集约束）。
 - **阈值校准流程（v1.1）**：执行前先跑合并预估报告（auto/manual/no_merge 对数）；若 manual_review > 50 对，则放宽 auto_merge 的验证门槛 **V ≥ 0.55 或 known_signals ≥ 2**（在原③⑤上二选一放宽，①②④与硬冲突不动），预估报告确认后冻结执行阈值并在变更记录注明。
@@ -158,3 +158,4 @@
 |------|------|------|
 | v1.0 | 2026-11-03 | 初稿：同一电影操作性定义（版本/语言/剪辑归一，重拍/续集/同名分离）；候选生成与别名链；6 信号验证（标题相似/年份单独不足以 auto_merge）；置信度公式与三级判定阈值；链一致性 clique 算法；ProductMovie 评论不复制红线；落库预览与 100 对评价方案 |
 | v1.1 | 2026-11-03 | 按审核意见修订：①S2 年份硬冲突两档化（≥10 且标题关键词不重合=硬冲突；≥10 但标题高度相似=强制 manual_review，疑修复/重制版）；②新增阈值校准流程（预估 manual>50 对则放宽 V≥0.55 或 known≥2，硬冲突不动）；其余（权重、auto 门槛、manual 区间、其余 3 条硬冲突、片长 40%、movie_id 格式）维持 v1.0 |
+| v1.2 | 2026-11-04 | 按人工确认修订并生效：S1 title_conflict 且 V ≥ 0.80 → 降为 manual_review（reason=`title_conflict_high_v`，疑同片别名，人工判定），不再直接 no_merge；V < 0.80 维持 no_merge。预估样本中 Dracula ≡ Bram Stoker's Dracula、Scrooge ≡ A Christmas Carol 等 3 组转人工队列 |
