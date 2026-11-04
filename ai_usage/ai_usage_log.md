@@ -47,3 +47,11 @@
 - **原始提示词**：任务4 第一步 7 项要求 + 审核结论 6 项（含 |Δ年|≥10 两档修改、manual>50 则放宽 V≥0.55 或 known≥2）+ 收尾指令（更新 CONTEXT.md、TODO 记录、git commit [win2-dev]、今日总结）
 - **被采纳的输出**：`rules/merge_rules_v1.md`（v1.1 草案）；`src/merge_movies.py`（预估模式）；`logs/summary/merge_estimate_report.json`（152 对：auto 125 / manual 1 / no_merge 26，链检 0 拒边）；CONTEXT.md §9 进展+TODO；`src/classify_products.py` canon 变音符号修复
 - **人工验证方式**：①对照预估样例抽查 auto/no_merge 判定（Iron Man vs Iron Man 2 序数拦截、Watchmen 同片归并、Dracula/Scrooge 别名疑点）；②`Get-Content logs/summary/merge_estimate_report.json` 核对计数与原因分布；③明日按修改确认复核 v1.1 定稿项
+
+## 2026-11-04 · 任务4 合并执行（v1.2→v1.3）与人工判定落库
+
+- **工具/模型**：MiMoCode（mimo agent）+ psql/PG 17.11 + gzip 快照解压 + git
+- **用途**：v1.2（title_conflict 高 V 降 manual）与 v1.3（证据只采信已消歧/唯一/成对共享 tconst，未消歧节点 auto ceiling）修订；分类刷新 run_20261104-01；合并执行 run_20261104-01/02（含 ±tolerance 门槛与证据污染修复重执行）；Robin Hood 对快照原文补充证据（4h57m/2h36m 原文、无合集字样、140+156≈297 核算）；6 对人工判定落库 run_20261104-03（manual_merge、别名、dual_cut_bundle 标注、链检、最终统计）
+- **原始提示词**：v1.2 决策 2 项（Dracula/Scrooge 人工判；分类刷新后预估 ±10 门槛）；选 B 三类样例+直接执行；6 对裁定（5 合并+Robin Hood 补充证据后合并，含 dual_cut_bundle 标注）；交付前后统计/复核记录/AI 记录
+- **被采纳的输出**：`rules/merge_rules_v1.md` v1.3；`sql/04_movie_merge.sql`（含 manual_merge 枚举）；run_20261104-02 合并落库（447 版本→363 实体/64 簇）+ run_20261104-03 人工判定（manual_merge 6、mv_000006=5 成员、别名 2、dual_cut_bundle）；`merge_eval_sample.csv`（100 对待标注）；`merge_final_stats.json`；`report/人工复核记录.md` 6 对全量判定
+- **人工验证方式**：①psql 查 `movie_merge_decision WHERE run_id='run_20261104-03'`（6 行）与 mv_000006 成员数=5；②`movie_alias WHERE source='manual'`=2（Scrooge、Bram Stoker's Dracula）；③B002ZG98VE 的 `product_movie.evidence` 核对 dual_cut_bundle(conf 0.85)；④解压两件 Robin Hood 快照核对 Runtime 原文 4h57m/2h36m

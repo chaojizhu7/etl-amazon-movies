@@ -1,0 +1,36 @@
+{
+  "run_id": "run_20261104-03",
+  "rules_version": "merge_v1.3",
+  "generated_at_utc": "2026-11-04T06:07:00Z",
+  "before_manual_apply": {
+    "movie_entity_total": 366,
+    "merged_clusters": 62,
+    "singletons": 301,
+    "unresolved_candidates": 3,
+    "manual_queue_pairs": 66
+  },
+  "after_manual_apply": {
+    "movie_entity_total": 363,
+    "merged_clusters": 64,
+    "singletons": 296,
+    "unresolved_candidates": 3,
+    "editions_in_merged_clusters": 151,
+    "product_movie_single": 447,
+    "product_movie_collection": 6
+  },
+  "pair_decisions_latest": {
+    "merged(auto+manual)": 119,
+    "manual_merge": 6,
+    "pending_manual_review": 61,
+    "no_merge": 58
+  },
+  "aliases_manual": 2,
+  "manual_confirm_clusters": {
+    "mv_000006": "5 成员(4x A Christmas Carol + Scrooge)",
+    "mv_000212": "2 成员(Dracula + Bram Stoker's Dracula)",
+    "mv_000204": "2 成员(Robin Hood 双剪辑合装 + 加长版 BD)"
+  },
+  "annotation": {
+    "B002ZG98VE": "product_movie.evidence.edition_features=dual_cut_bundle (inferred, conf=0.85)"
+  }
+}

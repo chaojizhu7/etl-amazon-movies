@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS movie_merge_decision (
     node_a          TEXT NOT NULL,
     node_b          TEXT NOT NULL,
     decision        TEXT NOT NULL
-        CHECK (decision IN ('auto_merge','manual_review','no_merge')),
+        CHECK (decision IN ('auto_merge','manual_merge','manual_review','no_merge')),
     reason          TEXT NOT NULL,
     pair_id         BIGINT,                      -- 可空（无 candidate 行时）
     rules_version   TEXT NOT NULL,
