@@ -87,3 +87,11 @@
 - **原始提示词**：抽查判定（组1 维持 pending_review、组2 年份确认、LXG 合并 manual_merge）+ 排查同 tconst 对 + 任务7 六项要求与三件交付（规则文档含阈值版本/≥5 冲突实例/自动人工冲突统计）直接执行
 - **被采纳的输出**：LXG 合并（merged 簇 65）；56 对清单；`rules/field_selection_rules_v1.md` v1.0；`sql/07_field_selection.sql`；`src/select_fields.py`；run_20261104-07（断言 5,368：自动 4,432/人工 37/冲突 396）；`field_selection_stats.json`
 - **人工验证方式**：①`SELECT status,decision_basis,count(*) FROM field_assertion WHERE run_id='run_20261104-07' GROUP BY 1,2` 对照统计；②抽 conflict 行核对"不删不编造"（候选值与来源俱在）；③Cinderella Man 1917/2005 两行均保留；④Sound of Music genres 双角色行（work_genre vs seller_category_tag）
+
+## 2026-11-04 · 任务7 收尾（A 类 56 对落库）+ 任务8 评论清洗与重复识别
+
+- **工具/模型**：MiMoCode（mimo agent）+ psql/PG 17.11 + Python 3.14.7 venv + git
+- **用途**：56 对同 tconst 实体处置落库（A 类 32 合并+puss 不合并，B 类 8 对传递吸收、15 对待判）；5 对 B 类证据提取；任务8 评论去重——去重目标声明（同评论重复 vs 跨版本相似）、候选生成、逐字符核验、ReviewMapping、helpfulness 校验、评分计算声明
+- **原始提示词**：A 类三规则（同 tconst 同年份/同年缺失→合并、puss 不合并）+ B 类 5 对证据 + 任务8 八项要求直接执行
+- **被采纳的输出**：run_20261104-08 落库（movie_entity 363→330）；5 对证据表；`sql/08_review_mapping.sql`、`src/clean_reviews.py`；run_20261104-09（7,911,684 记录：候选 13,893 组/19,098 对、确认重复 4,566 组/5,146 副本、判不同 10,041 组、异常 43、mapping unique 7,901,972+primary 4,566+copy 5,146）；`review_cleaning_stats.json`
+- **人工验证方式**：①`SELECT map_status,count(*) FROM review_mapping GROUP BY 1` 合计=7,911,684；②抽 duplicate_copy 与 primary 同 logical_id 核对逐字符一致；③抽"判不同"组核对差异字段；④43 条 helpfulness_num_gt_den 异常可查 review_anomaly
