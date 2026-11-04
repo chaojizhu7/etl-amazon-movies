@@ -1,0 +1,57 @@
+{
+  "run_id": "run_etl_demo_02",
+  "generated_at_utc": "2026-11-04T15:10:20Z",
+  "checks": [
+    {
+      "check": "queue_total",
+      "ok": true,
+      "detail": "253059 == 253059"
+    },
+    {
+      "check": "classification_total",
+      "ok": true,
+      "detail": "253059 == 253059"
+    },
+    {
+      "check": "review_mapping_total",
+      "ok": true,
+      "detail": "7911684 == 7911684"
+    },
+    {
+      "check": "fk_orphan_product_movie",
+      "ok": true,
+      "detail": "orphans=0"
+    },
+    {
+      "check": "fk_orphan_release_facts",
+      "ok": true,
+      "detail": "orphans=0"
+    },
+    {
+      "check": "fk_orphan_field_assertion",
+      "ok": true,
+      "detail": "orphans=0"
+    },
+    {
+      "check": "fk_orphan_movie_person",
+      "ok": true,
+      "detail": "orphans=0"
+    },
+    {
+      "check": "no_duplicate_product_movie",
+      "ok": true,
+      "detail": "dup_keys=0"
+    },
+    {
+      "check": "classification_mutex_sum",
+      "ok": true,
+      "detail": "分类状态互斥合计 253059"
+    },
+    {
+      "check": "manual_merge_preserved",
+      "ok": true,
+      "detail": "人工组 32 个（应≥32）, 违例 无"
+    }
+  ],
+  "violations": 0
+}

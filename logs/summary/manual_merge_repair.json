@@ -1,0 +1,335 @@
+{
+  "generated_at_utc": "2026-11-04T15:09:34Z",
+  "groups": 32,
+  "asins": 87,
+  "before": [
+    {
+      "canonical": "mv_000006",
+      "label": "A Christmas Carol 1951 + Scrooge",
+      "asins": 5,
+      "before_clusters": 1,
+      "titles": [
+        "A Christmas Carol",
+        "A Christmas Carol (50th Anniversary Edition)",
+        "A Christmas Carol (60th Anniversary Diamond ",
+        "A Christmas Carol [VHS]",
+        "Scrooge"
+      ]
+    },
+    {
+      "canonical": "mv_000010",
+      "label": "Willy Wonka & the Chocolate Factory",
+      "asins": 5,
+      "before_clusters": 1,
+      "titles": [
+        "Willy Wonka & Chocolate Factory [VHS]",
+        "Willy Wonka & The Chocolate Factory (Blu-ray",
+        "Willy Wonka & The Chocolate Factory VHS",
+        "Willy Wonka & the Chocolate Factory (Three-D",
+        "Willy Wonka & the Chocolate Factory (Widescr"
+      ]
+    },
+    {
+      "canonical": "mv_000012",
+      "label": "Heat",
+      "asins": 3,
+      "before_clusters": 1,
+      "titles": [
+        "Heat",
+        "Heat [DVD]",
+        "Heat [VHS]"
+      ]
+    },
+    {
+      "canonical": "mv_000022",
+      "label": "Das Boot",
+      "asins": 6,
+      "before_clusters": 1,
+      "titles": [
+        "Das Boot",
+        "Das Boot (Director's Cut)",
+        "Das Boot [VHS]"
+      ]
+    },
+    {
+      "canonical": "mv_000030",
+      "label": "Night of the Living Dead（* v1 错解修正）",
+      "asins": 3,
+      "before_clusters": 2,
+      "titles": [
+        "Night of the Living Dead",
+        "Night of the Living Dead [VHS]"
+      ]
+    },
+    {
+      "canonical": "mv_000039",
+      "label": "Underworld",
+      "asins": 4,
+      "before_clusters": 1,
+      "titles": [
+        "Underworld",
+        "Underworld (Special Edition, Widescreen)",
+        "Underworld (Unrated)",
+        "Underworld [VHS]"
+      ]
+    },
+    {
+      "canonical": "mv_000040",
+      "label": "Texas Chainsaw Massacre",
+      "asins": 4,
+      "before_clusters": 1,
+      "titles": [
+        "Texas Chainsaw Massacre (BD)",
+        "The Texas Chainsaw Massacre",
+        "The Texas Chainsaw Massacre (Original Uncut)"
+      ]
+    },
+    {
+      "canonical": "mv_000046",
+      "label": "Rent（* v1 错解修正）",
+      "asins": 4,
+      "before_clusters": 3,
+      "titles": [
+        "Rent",
+        "Rent (Fullscreen Two-Disc Special Edition)"
+      ]
+    },
+    {
+      "canonical": "mv_000071",
+      "label": "The Abyss",
+      "asins": 3,
+      "before_clusters": 1,
+      "titles": [
+        "The Abyss (Special Edition)",
+        "The Abyss [VHS]"
+      ]
+    },
+    {
+      "canonical": "mv_000075",
+      "label": "Metropolis",
+      "asins": 3,
+      "before_clusters": 1,
+      "titles": [
+        "Metropolis",
+        "Metropolis VHS"
+      ]
+    },
+    {
+      "canonical": "mv_000084",
+      "label": "The Notebook / El diario de Noa（* v1 错解修正）",
+      "asins": 2,
+      "before_clusters": 2,
+      "titles": [
+        "The Notebook",
+        "VERSAINSECT asion (The Notebook) aka El diar"
+      ]
+    },
+    {
+      "canonical": "mv_000093",
+      "label": "Snow White and the Seven Dwarfs（* v1 错解修正）",
+      "asins": 2,
+      "before_clusters": 2,
+      "titles": [
+        "Snow White and the Seven Dwarfs",
+        "Snow White and the Seven Dwarfs [VHS]"
+      ]
+    },
+    {
+      "canonical": "mv_000104",
+      "label": "The Incredibles",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "The Incredibles (Full Screen Two-Disc Collec",
+        "The Incredibles [Region 2] Requires a Multi "
+      ]
+    },
+    {
+      "canonical": "mv_000116",
+      "label": "Braveheart 1995",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "Braveheart",
+        "Braveheart [VHS]"
+      ]
+    },
+    {
+      "canonical": "mv_000153",
+      "label": "Aliens",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "Aliens"
+      ]
+    },
+    {
+      "canonical": "mv_000160",
+      "label": "Sunshine",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "Sunshine"
+      ]
+    },
+    {
+      "canonical": "mv_000164",
+      "label": "Ben-Hur",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "Ben Hur: 50th Anniversary Ultimate Collector",
+        "Ben-Hur"
+      ]
+    },
+    {
+      "canonical": "mv_000173",
+      "label": "Resident Evil",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "Resident Evil",
+        "Resident Evil (Deluxe Edition)"
+      ]
+    },
+    {
+      "canonical": "mv_000193",
+      "label": "Harry Potter and the Chamber of Secrets",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "Harry Potter and the Chamber of Secrets"
+      ]
+    },
+    {
+      "canonical": "mv_000204",
+      "label": "Robin Hood 2010",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "Robin Hood",
+        "Robin Hood [Blu-ray]"
+      ]
+    },
+    {
+      "canonical": "mv_000207",
+      "label": "Magnolia",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "Magnolia",
+        "Magnolia [VHS]"
+      ]
+    },
+    {
+      "canonical": "mv_000212",
+      "label": "Dracula 1992 / Bram Stoker's Dracula",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "Bram Stoker's Dracula",
+        "Dracula"
+      ]
+    },
+    {
+      "canonical": "mv_000223",
+      "label": "Independence Day",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "Independence Day (Lenticular Cover Edition)",
+        "Independence Day [VHS]"
+      ]
+    },
+    {
+      "canonical": "mv_000226",
+      "label": "Reservoir Dogs",
+      "asins": 3,
+      "before_clusters": 1,
+      "titles": [
+        "Reservoir Dogs",
+        "Reservoir Dogs [VHS]"
+      ]
+    },
+    {
+      "canonical": "mv_000247",
+      "label": "Irreversible",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "Irreversible [NTSC/REGION 1 & 4 DVD. Import-",
+        "Irréversible"
+      ]
+    },
+    {
+      "canonical": "mv_000256",
+      "label": "The League of Extraordinary Gentlemen",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "The League of Extraordinary Gentlemen (La Li",
+        "The League of Extraordinary Gentlemen [Regio"
+      ]
+    },
+    {
+      "canonical": "mv_000267",
+      "label": "North by Northwest",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "North by Northwest - Special Edition [VHS]",
+        "North by Northwest [VHS]"
+      ]
+    },
+    {
+      "canonical": "mv_000273",
+      "label": "White Christmas",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "White Christmas",
+        "White Christmas [Region 2]"
+      ]
+    },
+    {
+      "canonical": "mv_000287",
+      "label": "Luther",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "Luther",
+        "Luther [VHS]"
+      ]
+    },
+    {
+      "canonical": "mv_000308",
+      "label": "The Good, the Bad and the Ugly",
+      "asins": 3,
+      "before_clusters": 1,
+      "titles": [
+        "The Good, The Bad, & The Ugly",
+        "The Good, the Bad and the Ugly [VHS]"
+      ]
+    },
+    {
+      "canonical": "mv_000315",
+      "label": "The Adventures of Robin Hood",
+      "asins": 2,
+      "before_clusters": 1,
+      "titles": [
+        "Adventures of Robin Hood, The (1938) (DVD)",
+        "The Adventures of Robin Hood [VHS]"
+      ]
+    },
+    {
+      "canonical": "mv_000326",
+      "label": "Total Recall",
+      "asins": 3,
+      "before_clusters": 1,
+      "titles": [
+        "Total Recall (Special Limited Edition)",
+        "Total Recall [VHS]"
+      ]
+    }
+  ]
+}

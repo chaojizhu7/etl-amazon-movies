@@ -103,3 +103,11 @@
 - **原始提示词**：4 对合并裁定 + Metropolis 维持 + 56 对最终汇总 + 任务9 六项要求（OpenLineage 字段级模型/最终值可解释/未采用可查/多源多值/四种查询/DDL+脚本+示例）直接执行
 - **被采纳的输出**：run_20261104-10 合并（movie_entity 326）；56 对终版（44/1/11）；`sql/09_lineage.sql`、`src/build_lineage.py`、`lineage/query_0[1-4]_*.sql`；run_20261104-11 血缘层（源 519/断言 18,405/最终值 2,076/步骤 11,589）
 - **人工验证方式**：①query_01 查 mv_000198 release_year 看 conflict 两候选与理由；②query_02 查 B00005JPS8/序号 5853365 走通评论→作品链；③query_03 查 sr_page_B00005JPS8 看 7 条影响与 in_final 标志；④query_04 查 p_000001 看双来源别名+merge 步骤+作品角色
+
+## 2026-11-04 · ETL 整合 + dedup 诊断修复 + 人工合并成果修复
+
+- **工具/模型**：MiMoCode（mimo agent）+ psql/PG 17.11 + Python 3.14.7 venv + git
+- **用途**：ETL 架构整合（8-task DAG、失败处置/幂等/中断恢复演示）；dedup 5 次失败诊断（PK 冲突/慢 INSERT/无锁等待）与三修；人工合并成果被回滚的修复（id 碰撞修复 + movie_manual_group 金标准锚定 + canonical 回写 + quality_check 保持性检查）
+- **原始提示词**：ETL 整合六项要求；dedup 三问诊断（5 次 try 错误/当前 SQL/锁等待）先诊断再重试；修复三步批准（id 碰撞/37 并集重放/保持性检查）+ 输出对比/证据/幂等/commit
+- **被采纳的输出**：`etl/dags/movie_etl_dag.py`、`etl/ER_字段字典.md`、`sql/10/11`、`src/run_etl_local.py`、`src/quality_check.py`、`src/repair_manual_merges.py`、`src/clean_reviews.py`（3 修）；run_etl_demo_02 全管线 complete；32 人工组（87 asin）37 簇→32 簇全 OK；quality_check 10/10（含 manual_merge_preserved）
+- **人工验证方式**：①`etl_run_task WHERE run_id='run_etl_demo_02'` 看 try/时间；②manual_merge_repair.json 逐组对照（4 组错解修正）；③quality_check_report.json 的 manual_merge_preserved；④resume 全 SKIP 幂等

@@ -54,7 +54,7 @@ def main(run_id):
     with psycopg.connect(**DB) as conn:
         with open(os.path.join(ROOT, "sql", "08_review_mapping.sql"), encoding="utf-8") as f:
             conn.execute(f.read())
-        conn.execute("DELETE FROM review_mapping WHERE run_id=%s", (run_id,))
+        conn.execute("DELETE FROM review_mapping")   # 派生映射全表重建（PK 全局，避免跨 run 冲突）
         conn.execute("DELETE FROM review_anomaly WHERE run_id=%s", (run_id,))
         conn.execute("DROP INDEX IF EXISTS idx_rri_h5")
         conn.execute("DROP INDEX IF EXISTS idx_rri_hf")
@@ -65,86 +65,92 @@ def main(run_id):
         n = bad_score = empty_user = helpful_bad = helpful_unp = 0
         anomaly_rows = []
         t_parse = time.time()
-        with gzip.open(MOVIES_TXT, "rt", encoding="utf-8", errors="replace") as f, \
-                cur.copy("COPY review_record_index (asin,record_ordinal,user_id,review_time,"
-                         "score,helpful_num,helpful_den,h5_key,hfull_key,h_utex) FROM STDIN") as copy:
-            vals = [""] * 8
-            idx = -1
-
-            def flush():
-                nonlocal n, bad_score, empty_user, helpful_bad, helpful_unp, vals, idx
-                if idx < 0:
-                    return
-                n += 1
-                asin = vals[0].strip()
-                user = vals[1].strip()
-                prof = vals[2].strip()
-                help_raw = vals[3].strip()
-                score_raw = vals[4].strip()
-                t_raw = vals[5].strip()
-                summ = vals[6].strip()
-                text = vals[7]
-                hn = hd = None
-                m = re.match(r"(\d+)/(\d+)$", help_raw)
-                if m:
-                    hn, hd = int(m.group(1)), int(m.group(2))
-                    if hn < 0 or hd < 0:
-                        helpful_bad += 1
-                        anomaly_rows.append((asin, n, "helpfulness_negative", help_raw, run_id))
-                    elif hn > hd:
-                        helpful_bad += 1
-                        anomaly_rows.append((asin, n, "helpfulness_num_gt_den", help_raw, run_id))
-                else:
-                    helpful_unp += 1
-                    anomaly_rows.append((asin, n, "helpfulness_unparseable", help_raw, run_id))
-                score = None
-                try:
-                    score = float(score_raw)
-                    if not (1 <= score <= 5):
-                        raise ValueError
-                except ValueError:
-                    bad_score += 1
-                    anomaly_rows.append((asin, n, "bad_score", score_raw, run_id))
-                if not user:
-                    empty_user += 1
-                    anomaly_rows.append((asin, n, "empty_user", user, run_id))
-                tt = int(t_raw) if t_raw.lstrip("-").isdigit() else None
-                b_asin, b_user = asin.encode(), user.encode()
-                b_t, b_s = t_raw.encode(), score_raw.encode()
-                b_text = text.encode("utf-8", "replace")
-                b5 = hashlib.blake2b(digest_size=8)
-                for x in (b_asin, b_user, b_t, b_s, b_text):
-                    b5.update(x); b5.update(b"\x1f")
-                bfull = hashlib.blake2b(digest_size=8)
-                for x in (b_asin, b_user, prof.encode(), help_raw.encode(), b_s, b_t,
-                          summ.encode("utf-8", "replace"), b_text):
-                    bfull.update(x); bfull.update(b"\x1f")
-                but = hashlib.blake2b(digest_size=8)
-                but.update(b_user); but.update(b"\x1f"); but.update(b_text)
-                copy.write_row((asin, n, user or None, tt, score, hn, hd,
-                                b5.hexdigest(), bfull.hexdigest(), but.hexdigest()))
-                if n % 1000000 == 0:
-                    print(f"  parsed {n:,} ... {round(time.time()-t_parse,1)}s", flush=True)
+        cur.execute("SELECT count(*) FROM review_record_index")
+        have = cur.fetchone()[0]
+        if have == 7_911_684:
+            print(f"staging 已就绪（{have} 行），跳过解析/COPY/索引", flush=True)
+            n = have
+        else:
+            with gzip.open(MOVIES_TXT, "rt", encoding="utf-8", errors="replace") as f, \
+                    cur.copy("COPY review_record_index (asin,record_ordinal,user_id,review_time,"
+                                 "score,helpful_num,helpful_den,h5_key,hfull_key,h_utex) FROM STDIN") as copy:
                 vals = [""] * 8
                 idx = -1
 
-            for line in f:
-                key, sep, val = line.partition(":")
-                key += sep
-                if key == "product/productId:":
-                    flush()
-                    idx = 0
-                    vals[0] = val.rstrip("\n")
-                elif idx >= 0 and idx + 1 < 8 and key == FIELDS[idx + 1]:
-                    idx += 1
-                    vals[idx] = val.rstrip("\n")
-                elif idx == 7:
-                    vals[7] += line
-                # 其余情况（字段内冒号行）：partition 后 key 不匹配 → 归入当前字段
-                else:
-                    if idx >= 0:
-                        vals[idx] += line if line.endswith("\n") else line + "\n"
-            flush()
+                def flush():
+                    nonlocal n, bad_score, empty_user, helpful_bad, helpful_unp, vals, idx
+                    if idx < 0:
+                        return
+                    n += 1
+                    asin = vals[0].strip()
+                    user = vals[1].strip()
+                    prof = vals[2].strip()
+                    help_raw = vals[3].strip()
+                    score_raw = vals[4].strip()
+                    t_raw = vals[5].strip()
+                    summ = vals[6].strip()
+                    text = vals[7]
+                    hn = hd = None
+                    m = re.match(r"(\d+)/(\d+)$", help_raw)
+                    if m:
+                        hn, hd = int(m.group(1)), int(m.group(2))
+                        if hn < 0 or hd < 0:
+                            helpful_bad += 1
+                            anomaly_rows.append((asin, n, "helpfulness_negative", help_raw, run_id))
+                        elif hn > hd:
+                            helpful_bad += 1
+                            anomaly_rows.append((asin, n, "helpfulness_num_gt_den", help_raw, run_id))
+                    else:
+                        helpful_unp += 1
+                        anomaly_rows.append((asin, n, "helpfulness_unparseable", help_raw, run_id))
+                    score = None
+                    try:
+                        score = float(score_raw)
+                        if not (1 <= score <= 5):
+                            raise ValueError
+                    except ValueError:
+                        bad_score += 1
+                        anomaly_rows.append((asin, n, "bad_score", score_raw, run_id))
+                    if not user:
+                        empty_user += 1
+                        anomaly_rows.append((asin, n, "empty_user", user, run_id))
+                    tt = int(t_raw) if t_raw.lstrip("-").isdigit() else None
+                    b_asin, b_user = asin.encode(), user.encode()
+                    b_t, b_s = t_raw.encode(), score_raw.encode()
+                    b_text = text.encode("utf-8", "replace")
+                    b5 = hashlib.blake2b(digest_size=8)
+                    for x in (b_asin, b_user, b_t, b_s, b_text):
+                        b5.update(x); b5.update(b"\x1f")
+                    bfull = hashlib.blake2b(digest_size=8)
+                    for x in (b_asin, b_user, prof.encode(), help_raw.encode(), b_s, b_t,
+                              summ.encode("utf-8", "replace"), b_text):
+                        bfull.update(x); bfull.update(b"\x1f")
+                    but = hashlib.blake2b(digest_size=8)
+                    but.update(b_user); but.update(b"\x1f"); but.update(b_text)
+                    copy.write_row((asin, n, user or None, tt, score, hn, hd,
+                                    b5.hexdigest(), bfull.hexdigest(), but.hexdigest()))
+                    if n % 1000000 == 0:
+                        print(f"  parsed {n:,} ... {round(time.time()-t_parse,1)}s", flush=True)
+                    vals = [""] * 8
+                    idx = -1
+
+                for line in f:
+                    key, sep, val = line.partition(":")
+                    key += sep
+                    if key == "product/productId:":
+                        flush()
+                        idx = 0
+                        vals[0] = val.rstrip("\n")
+                    elif idx >= 0 and idx + 1 < 8 and key == FIELDS[idx + 1]:
+                        idx += 1
+                        vals[idx] = val.rstrip("\n")
+                    elif idx == 7:
+                        vals[7] += line
+                    # 其余情况（字段内冒号行）：partition 后 key 不匹配 → 归入当前字段
+                    else:
+                        if idx >= 0:
+                            vals[idx] += line if line.endswith("\n") else line + "\n"
+                flush()
 
         print(f"stream+copy done: {n:,} rows in {round(time.time()-t_parse,1)}s", flush=True)
         with conn.cursor() as ac:
@@ -161,28 +167,38 @@ def main(run_id):
         cand = conn.execute(
             "SELECT count(*), coalesce(sum(c*(c-1)/2),0) FROM ("
             " SELECT h5_key, count(*) c FROM review_record_index GROUP BY 1 HAVING count(*)>1) t").fetchone()
+        print(f"q1 done {round(time.time()-t_sql,1)}s", flush=True)
         dup = conn.execute(
             "SELECT count(*), coalesce(sum(c*(c-1)/2),0), coalesce(sum(c-1),0) FROM ("
             " SELECT hfull_key, count(*) c FROM review_record_index GROUP BY 1 HAVING count(*)>1) t").fetchone()
+        print(f"q2 done {round(time.time()-t_sql,1)}s", flush=True)
         kept_diff = conn.execute(
             "SELECT count(*), coalesce(sum(c*(c-1)/2),0) FROM ("
             " SELECT h5_key, count(*) c FROM review_record_index"
             " GROUP BY 1 HAVING count(*)>1 AND count(DISTINCT hfull_key)>1) t").fetchone()
+        print(f"q3 done {round(time.time()-t_sql,1)}s", flush=True)
         cross = conn.execute(
             "SELECT count(*), coalesce(sum(c),0) FROM ("
             " SELECT h_utex, count(*) c FROM review_record_index"
             " GROUP BY 1 HAVING count(*)>1 AND count(DISTINCT asin)>1) t").fetchone()
+        print(f"q4 done {round(time.time()-t_sql,1)}s", flush=True)
+        t_map = time.time()
+        conn.execute("DROP INDEX IF EXISTS idx_rm_logical")
         conn.execute("""
             INSERT INTO review_mapping (logical_id, asin, record_ordinal, map_status, run_id)
-            SELECT i.hfull_key, i.asin, i.record_ordinal,
-                   CASE WHEN d.cnt=1 THEN 'unique'
-                        WHEN i.record_ordinal=d.first_ord THEN 'primary'
-                        ELSE 'duplicate_copy' END,
-                   %s
-            FROM review_record_index i
-            JOIN (SELECT hfull_key, count(*) cnt, min(record_ordinal) first_ord
-                  FROM review_record_index GROUP BY 1) d ON d.hfull_key=i.hfull_key
+            SELECT * FROM (
+                SELECT i.hfull_key, i.asin, i.record_ordinal,
+                       CASE WHEN d.cnt=1 THEN 'unique'
+                            WHEN i.record_ordinal=d.first_ord THEN 'primary'
+                            ELSE 'duplicate_copy' END,
+                       %s AS run
+                FROM review_record_index i
+                JOIN (SELECT hfull_key, count(*) cnt, min(record_ordinal) first_ord
+                      FROM review_record_index GROUP BY 1) d ON d.hfull_key=i.hfull_key
+            ) t ORDER BY record_ordinal
             """, (run_id,))
+        conn.execute("CREATE INDEX idx_rm_logical ON review_mapping (logical_id)")
+        print(f"mapping insert in {round(time.time()-t_map,1)}s", flush=True)
         map_cnt = dict(conn.execute(
             "SELECT map_status, count(*) FROM review_mapping WHERE run_id=%s GROUP BY 1",
             (run_id,)).fetchall())
@@ -194,18 +210,18 @@ def main(run_id):
         "run_id": run_id,
         "generated_at_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "elapsed_seconds": round(time.time() - t0, 1),
-        "原始记录数": total,
-        "候选对数": {"候选组数(h5键相同)": cand[0], "候选对数(组内两两)": cand[1]},
-        "确认重复数": {"重复组数(全字段一致)": dup[0], "重复副本数(超出首个)": dup[2],
-                       "重复对数": dup[1]},
-        "保留数": {"原始记录全部保留": total,
-                   "候选中判为不同记录的组数": kept_diff[0],
-                   "候选中判为不同记录的对数": kept_diff[1],
-                   "跨版本相似评论(不删仅统计)": f"组数 {cross[0]} / 涉及记录 {cross[1]}"},
+        "原始记录数": int(total),
+        "候选对数": {"候选组数(h5键相同)": int(cand[0]), "候选对数(组内两两)": int(cand[1])},
+        "确认重复数": {"重复组数(全字段一致)": int(dup[0]), "重复副本数(超出首个)": int(dup[2]),
+                       "重复对数": int(dup[1])},
+        "保留数": {"原始记录全部保留": int(total),
+                   "候选中判为不同记录的组数": int(kept_diff[0]),
+                   "候选中判为不同记录的对数": int(kept_diff[1]),
+                   "跨版本相似评论(不删仅统计)": f"组数 {int(cross[0])} / 涉及记录 {int(cross[1])}"},
         "异常数": {"helpfulness 违例": helpful_bad, "helpfulness 不可解析": helpful_unp,
                    "score 越界/非数": bad_score, "空用户": empty_user,
                    "合计": len(anomaly_rows)},
-        "review_mapping": map_cnt,
+        "review_mapping": {k: int(v) for k, v in map_cnt.items()},
         "评分计算规则": SCORE_RULES,
     }
     sp = os.path.join(OUT_DIR, "review_cleaning_stats.json")
