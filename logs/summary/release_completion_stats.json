@@ -1,0 +1,39 @@
+{
+  "run_id": "run_20261104-05",
+  "generated_at_utc": "2026-11-04T06:41:51Z",
+  "elapsed_seconds": 47.1,
+  "movies_total": 363,
+  "release_year": {
+    "filled": 260,
+    "missing": 103,
+    "precision_distribution": {
+      "none": 103,
+      "year": 260
+    },
+    "fill_rules": {
+      "imdb.startYear(候选 tconst 全体一致)": 5,
+      "imdb.startYear(resolved_tconst；成员间一致)": 255
+    }
+  },
+  "earliest_review_time": {
+    "missing": 3,
+    "verified": 360
+  },
+  "inferred_release_bound": {
+    "inferred": 360
+  },
+  "edition_sale_date": {
+    "found": 243,
+    "missing": 204
+  },
+  "regional_release_date": {
+    "recorded": 0,
+    "note": "无 title.akas/地区来源，未记录"
+  },
+  "missing_reasons": {
+    "pending_review": 299,
+    "empty_user": 3,
+    "no_imdb_match": 8
+  },
+  "semantics_guard": "商品发售日期仅入 edition 域（asin 级 fact_type=edition_sale_date），永不写入 release_year；仅年份不补 1 月 1 日"
+}

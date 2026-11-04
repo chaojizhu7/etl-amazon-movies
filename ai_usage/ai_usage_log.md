@@ -71,3 +71,11 @@
 - **原始提示词**：人工复核 2 对判定（均不合并，含理由与条件改判说明）；写入 report/人工复核记录.md
 - **被采纳的输出**：`report/人工复核记录.md` 第三轮（2 对判定+理由+处置计划）；提交
 - **人工验证方式**：①对照记录核对两对判定与理由原文；②落库后查 `person_merge_decision` 中 reason 以 manual_confirm 开头的 2 行；③确认 Lilly/Lana Wachowski 两 person_id 仍独立
+
+## 2026-11-04 · 任务5 判定落库 + 报告 6.2 回填 + 任务6 上映信息补全
+
+- **工具/模型**：MiMoCode（mimo agent）+ psql/PG 17.11 + Python 3.14.7 venv + git
+- **用途**：2 对人物判定落库（Wachowski/Errol Flynn → manual no_merge，含 pending_nconst_bridge）；报告 6.2 回填（person_id 规则/归一策略/5+5 实例/MoviePerson/准确性统计）；任务6 缺失上映信息补全（语义分层：release_year=imdb.startYear precision=year 不补 1.1、商品发售日期仅入 edition 域、earliest_review_time 与 inferred_release_bound 分列、缺失误因词表）
+- **原始提示词**：落库 2 对；回填 6.2；任务6 六项要求（语义分层三层/仅年份不补日期/补全留来源原始值抽取时间规则置信度/评论时间只作 earliest_review_time+条件上界另存 inferred/查不到 NULL+missing_reason/输出补全统计）直接执行
+- **被采纳的输出**：`sql/06_release_completion.sql`、`src/complete_release_info.py`、run_20261104-05（release_year 260/363 补全=255 resolved+5 候选一致、precision year=260、inferred_bound 360、edition_sale_date 243/447、earliest_review 360）、`release_completion_stats.json`、报告 6.2 回填
+- **人工验证方式**：①psql 查 `release_facts WHERE run_id='run_20261104-05'` 抽样核对 value_raw/value_norm/match_rule/置信度；②确认 release_year 全为 YYYY（无 1 月 1 日补全）；③抽查 edition_sale_date 行 asin 级且未混入 release_year；④Wachowski/Errol Flynn 决策行 manual_confirm 2 条
