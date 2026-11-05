@@ -1,0 +1,74 @@
+{
+  "eval_set": "person_eval_sample.csv (person, n=100; 待定 2 不计入分母)",
+  "confusion": {
+    "TP": 40,
+    "FP_误合并": 0,
+    "FN_漏合并": 6,
+    "TN": 52
+  },
+  "precision": 1.0,
+  "recall": 0.87,
+  "f1": 0.93,
+  "human_gold": {
+    "合并": 46,
+    "不合并": 52,
+    "待定": 2
+  },
+  "manual_bucket": {
+    "不合并": 15,
+    "合并": 4,
+    "待定": 1
+  },
+  "FN_instances": [
+    {
+      "pair": "david thompson × david thompson",
+      "sys": "manual_review",
+      "reason": "partial_signals",
+      "human_note": "pbatch1#8: David Thompson 同名页面署名桥接"
+    },
+    {
+      "pair": "f w murnau × f w murnau",
+      "sys": "manual_review",
+      "reason": "partial_signals",
+      "human_note": "pbatch2#30: 同名页面署名桥接，F.W. Murnau"
+    },
+    {
+      "pair": "f w murnau × f w murnau",
+      "sys": "manual_review",
+      "reason": "partial_signals",
+      "human_note": "pbatch2#33: 同名页面署名桥接，F.W. Murnau 独特名两个页面节点归一"
+    },
+    {
+      "pair": "cary grant × cary grant",
+      "sys": "manual_review",
+      "reason": "partial_signals",
+      "human_note": "pbatch2#45: Cary Grant 独特名两个页面节点归一"
+    },
+    {
+      "pair": "toshiro mifune × toshir&ocirc; mifune",
+      "sys": "no_merge",
+      "reason": "conf_below_floor",
+      "human_note": "pbatch3#64: 同一人 Toshirô Mifune——变音符 ô/ō 编码差异导致匹配失败，系统漏合并样例"
+    },
+    {
+      "pair": "sam dunn × scot mcfadyen;sam dunn",
+      "sys": "no_merge",
+      "reason": "conf_below_floor",
+      "human_note": "pbatch3#68: Sam Dunn 是联合署名 \"Scot McFadyen;Sam Dunn\" 中的一员，系统未能解析联合署名导致漏"
+    }
+  ],
+  "FP_instances": [],
+  "pending_instances": [
+    {
+      "pair": "garry marsh × gary alan marsh",
+      "sys": "manual_review",
+      "note": "pbatch3#58: Garry Marsh vs Gary Alan Marsh——名字变体但不同 nconst，需查证是否 IMDb 重复录入，暂不判"
+    },
+    {
+      "pair": "bradford lewis × brad lewis",
+      "sys": "no_merge",
+      "note": "pbatch4#93: Bradford Lewis vs Brad Lewis 页面署名——Brad 常为 Bradford 昵称，但不同 nconst + 无共同作品证据，无法"
+    }
+  ],
+  "caveat": "指标评价所构造样本（40/20/40 分层，seed=42），不代表全量准确率；待定不计入分母；分母为零记 n/a"
+}

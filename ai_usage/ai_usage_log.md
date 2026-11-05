@@ -127,3 +127,11 @@
 - **原始提示词**：每批 25 对三类混合贴出、标注返回续贴（四批）；#62 质疑核查；终批后输出 P/R/F1+误漏清单
 - **被采纳的输出**：`merge_eval_sample.csv`（100 对标注全落盘）；`merge_eval_results.json`（TP 30/FP 0/FN 22/TN 48，**P=1.000 R=0.577 F1=0.732**）；#62 核查结论（DB 合并生效、eval 为规则判定口径）；22 条漏合并实例清单
 - **人工验证方式**：①merge_eval_sample.csv human_verdict 100 行核对；②merge_eval_results.json 混淆矩阵与指标；③FN 清单按 reason 分类（ceiling/别名冲突/稀疏证据/证据不足）复核
+
+## 2026-11-04 · QA-2 人物合并评价（100 对人工标注）完成
+
+- **工具/模型**：MiMoCode（mimo agent）+ Python 3.14.7 venv + git
+- **用途**：QA-2 人物部分——100 对四批贴出与标注落盘（含 2 待定）；P/R/F1 计算与误漏实例；缩写/同名/家族/编码变体难例标注
+- **原始提示词**：人物四批标注结果；末批后输出 P/R/F1+误漏清单
+- **被采纳的输出**：`person_eval_sample.csv` 全标注；`person_eval_results.json`（TP 40/FP 0/FN 6/TN 52，**P=1.000 R=0.870 F1=0.930**，待定 2 不计入）；FN 6 条（页面节点归一×4、编码变体×1、联合署名×1）
+- **人工验证方式**：①person_eval_results.json 混淆矩阵；②FN 6 条（重点 Toshirô Mifune 编码、Sam Dunn 联合署名两缺陷样例）；③待定 2 条（Garry/Gary Allan Marsh、Bradford/Brad Lewis）后续查证
