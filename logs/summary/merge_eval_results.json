@@ -1,0 +1,156 @@
+{
+  "eval_set": "merge_eval_sample.csv (movie, n=100)",
+  "confusion": {
+    "TP_auto_merged_correct": 30,
+    "FP_误合并": 0,
+    "FN_漏合并": 22,
+    "TN": 48
+  },
+  "precision": 1.0,
+  "recall": 0.577,
+  "f1": 0.732,
+  "human_gold": {
+    "合并": 52,
+    "不合并": 48
+  },
+  "manual_review_bucket_agreement": {
+    "合并": 20,
+    "不合并": 10
+  },
+  "FN_instances": [
+    {
+      "pair": "The Abyss (Special Edition) × The Abyss (Special Edition)",
+      "sys": "manual_review",
+      "reason": "ambiguous_node_ceiling",
+      "human_note": "batch1#9: 同片 Special Edition，一側多候选不影响同一作品判定"
+    },
+    {
+      "pair": "Jane Eyre [DVD] × Jane Eyre [Blu-ray]",
+      "sys": "manual_review",
+      "reason": "strong_signals_lt_2",
+      "human_note": "batch1#11: 同片不同载体，年缺不阻断"
+    },
+    {
+      "pair": "A Christmas Carol [VHS] × Scrooge",
+      "sys": "manual_review",
+      "reason": "title_conflict_high_v",
+      "human_note": "batch1#16: 同片 1951，Scrooge 为别名"
+    },
+    {
+      "pair": "The Abyss [VHS] × The Abyss (Special Edition)",
+      "sys": "manual_review",
+      "reason": "ambiguous_node_ceiling",
+      "human_note": "batch1#21: 同片 The Abyss 不同版本"
+    },
+    {
+      "pair": "Peter Pan [VHS] × Peter Pan [Blu-ray]",
+      "sys": "manual_review",
+      "reason": "strong_signals_lt_2",
+      "human_note": "batch1#19: 同片 Peter Pan，同名多版本但同 tconst 锚定"
+    },
+    {
+      "pair": "Scrooge × A Christmas Carol (50th Anniversary ",
+      "sys": "manual_review",
+      "reason": "title_conflict_high_v",
+      "human_note": "batch1#23: 同片 1951，别名发行"
+    },
+    {
+      "pair": "Zulu [VHS] × Zulu VHS",
+      "sys": "manual_review",
+      "reason": "ambiguous_node_ceiling",
+      "human_note": "batch2#27: 同片，多候选不影响判定"
+    },
+    {
+      "pair": "Die Hard [VHS] × Die Hard",
+      "sys": "manual_review",
+      "reason": "strong_signals_lt_2",
+      "human_note": "batch2#33: 同 tconst 锚定，稀疏页同片不同载体"
+    },
+    {
+      "pair": "Scrooge × A Christmas Carol (60th Anniversary ",
+      "sys": "manual_review",
+      "reason": "title_conflict_high_v",
+      "human_note": "batch2#36: 同片 1951，Scrooge 为别名"
+    },
+    {
+      "pair": "The Incredibles [Region 2] Requires  × The Incredibles (Full Screen Two-Dis",
+      "sys": "manual_review",
+      "reason": "ambiguous_node_ceiling",
+      "human_note": "batch2#39: 同片不同版本，多候选不影响"
+    },
+    {
+      "pair": "Nosferatu × Nosferatu",
+      "sys": "manual_review",
+      "reason": "strong_signals_lt_2",
+      "human_note": "batch2#45: 同片不同版本——两頁共享候选池+片长一致，应为同一版本的不同发行"
+    },
+    {
+      "pair": "Scrooge × A Christmas Carol",
+      "sys": "manual_review",
+      "reason": "title_conflict_high_v",
+      "human_note": "batch2#48: 同片 1951，Scrooge 为别名"
+    },
+    {
+      "pair": "Underworld [VHS] × Underworld (Special Edition, Widescr",
+      "sys": "manual_review",
+      "reason": "ambiguous_node_ceiling",
+      "human_note": "batch3#52: 同片不同版本，多候选不影响"
+    },
+    {
+      "pair": "Dracula × Bram Stoker's Dracula",
+      "sys": "manual_review",
+      "reason": "title_conflict_high_v",
+      "human_note": "batch3#58: 同片 1992，Bram Stoker's 为发行冠名"
+    },
+    {
+      "pair": "Underworld [VHS] × Underworld (Special Edition, Widescr",
+      "sys": "manual_review",
+      "reason": "ambiguous_node_ceiling",
+      "human_note": "batch3#61: 同片不同版本"
+    },
+    {
+      "pair": "Tenkû no shiro Rapyuta × Castle in the Sky (Two-Disc Blu-ray/",
+      "sys": "manual_review",
+      "reason": "title_conflict_high_v",
+      "human_note": "batch3#67: 同片——日文原名 Tenkû no shiro Rapyuta = Castle in the S"
+    },
+    {
+      "pair": "Underworld [VHS] × Underworld (Unrated)",
+      "sys": "manual_review",
+      "reason": "ambiguous_node_ceiling",
+      "human_note": "batch3#70: 同片不同版本"
+    },
+    {
+      "pair": "Underworld (Special Edition, Widescr × Underworld",
+      "sys": "manual_review",
+      "reason": "ambiguous_node_ceiling",
+      "human_note": "batch4#82: 同片 2003 Underworld，候选池未消歧不影响判定"
+    },
+    {
+      "pair": "Underworld × Underworld (Special Edition, Widescr",
+      "sys": "manual_review",
+      "reason": "ambiguous_node_ceiling",
+      "human_note": "batch4#84: 同片 2003 Underworld 不同版本"
+    },
+    {
+      "pair": "Underworld × Underworld (Unrated)",
+      "sys": "manual_review",
+      "reason": "ambiguous_node_ceiling",
+      "human_note": "batch4#86: 同片 2003 Underworld 不同版本"
+    },
+    {
+      "pair": "The Abyss [VHS] × The Abyss (Special Edition)",
+      "sys": "no_merge",
+      "reason": "conf_below_floor",
+      "human_note": "batch1#24: 同片 The Abyss 不同版本——证据不足是系统问题，但同名+同候选池+都指向 The Aby"
+    },
+    {
+      "pair": "The Notebook × VERSAINSECT asion (The Notebook) aka",
+      "sys": "no_merge",
+      "reason": "conf_below_floor",
+      "human_note": "batch3#62: 同片——任务4已人工裁定合并；系统 conf=0.30 判不合并与人工裁定矛盾（口径见核查）"
+    }
+  ],
+  "FP_instances": [],
+  "caveat": "指标评价所构造样本（分层 30/30/40，seed=42），不代表全量准确率；分母为零时记 n/a"
+}
