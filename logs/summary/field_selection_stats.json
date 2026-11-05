@@ -1,70 +1,64 @@
 {
-  "run_id": "run_20261104-07",
+  "run_id": "run_etl_demo_02",
   "rules_version": "field_sel_v1.0",
-  "generated_at_utc": "2026-11-04T07:05:59Z",
-  "elapsed_seconds": 2.8,
-  "assertions_total": 5697,
+  "generated_at_utc": "2026-11-04T09:51:57Z",
+  "elapsed_seconds": 3.1,
+  "assertions_total": 10865,
   "by_field": {
-    "release_year": {
-      "conflict": {
-        "-": 350
-      },
-      "selected": {
-        "manual_inherit": 2,
-        "rule_auto": 257
-      }
-    },
     "directors": {
       "candidate": {
-        "-": 16
-      },
-      "selected": {
-        "manual_inherit": 3,
-        "rule_auto": 407
+        "-": 33
       },
       "conflict": {
-        "-": 8
-      }
-    },
-    "title": {
-      "candidate": {
-        "-": 439,
-        "manual_inherit": 2
+        "-": 21
       },
       "selected": {
-        "manual_inherit": 2,
-        "rule_auto": 360
-      }
-    },
-    "starring": {
-      "selected": {
-        "manual_inherit": 24,
-        "rule_auto": 2705
-      },
-      "conflict": {
-        "-": 38
-      },
-      "candidate": {
-        "-": 48
+        "rule_auto": 798
       }
     },
     "genres": {
       "selected": {
-        "rule_auto": 703,
-        "manual_inherit": 4
+        "rule_auto": 1281
+      }
+    },
+    "release_year": {
+      "conflict": {
+        "-": 500
+      },
+      "selected": {
+        "rule_auto": 488
+      }
+    },
+    "starring": {
+      "candidate": {
+        "-": 96
+      },
+      "conflict": {
+        "-": 83
+      },
+      "selected": {
+        "rule_auto": 5419
+      }
+    },
+    "title": {
+      "candidate": {
+        "-": 868
+      },
+      "selected": {
+        "rule_auto": 696
       }
     }
   },
   "decision_stats": {
-    "auto_rule_auto_selected": 4432,
-    "manual_inherit": 37,
-    "conflict_retained": 396
+    "auto_rule_auto_selected": 8682,
+    "manual_inherit": 0,
+    "conflict_retained": 604
   },
   "queryability_check": {
-    "product_movie_rows": 453,
-    "release_facts_rows": 1530,
-    "movie_alias_rows": 948,
-    "movie_person_rows": 5770,
-    "decision_rows": 483
+    "product_movie_rows": 916,
+    "release_facts_rows": 4415,
+    "movie_alias_rows": 1915,
+    "movie_person_rows": 11054,
+    "decision_rows": 2637
   }
 }

@@ -1,49 +1,49 @@
 {
   "rules_version": "merge_v1.2",
-  "generated_at_utc": "2026-11-04T05:53:12Z",
-  "elapsed_seconds": 0.2,
+  "generated_at_utc": "2026-11-04T15:10:12Z",
+  "elapsed_seconds": 0.3,
   "scope": {
-    "movie_editions": 447,
-    "collection_candidates": 6,
-    "edition_pairs": 238,
+    "movie_editions": 909,
+    "collection_candidates": 7,
+    "edition_pairs": 532,
     "collection_pairs": 0
   },
   "bucket_edition": {
     "counts": {
-      "auto_merge": 113,
-      "manual_review": 66,
-      "no_merge": 59
+      "auto_merge": 248,
+      "manual_review": 151,
+      "no_merge": 133
     },
     "reason_breakdown": {
-      "all_gates_pass": 113,
-      "ambiguous_node_ceiling": 51,
-      "conf_below_floor": 29,
-      "hard:sequel_ordinal_mismatch": 14,
-      "hard:director_diff_cast_empty": 16,
-      "known_signals_lt_3": 9,
-      "strong_signals_lt_2": 1,
-      "title_conflict_high_v": 5
+      "all_gates_pass": 248,
+      "ambiguous_node_ceiling": 104,
+      "conf_below_floor": 63,
+      "hard:director_diff_cast_empty": 54,
+      "hard:sequel_ordinal_mismatch": 16,
+      "known_signals_lt_3": 37,
+      "strong_signals_lt_2": 4,
+      "title_conflict_high_v": 6
     },
     "chain_check": {
-      "auto_edges": 113,
-      "accepted_after_chain": 113,
+      "auto_edges": 248,
+      "accepted_after_chain": 248,
       "rejected_by_chain": 0
     },
     "relaxed_variants": {
       "V>=0.55": {
-        "auto_merge": 113,
-        "manual_review": 66,
-        "no_merge": 59
+        "auto_merge": 248,
+        "manual_review": 151,
+        "no_merge": 133
       },
       "known>=2": {
-        "auto_merge": 113,
-        "manual_review": 66,
-        "no_merge": 59
+        "auto_merge": 248,
+        "manual_review": 151,
+        "no_merge": 133
       },
       "both": {
-        "auto_merge": 113,
-        "manual_review": 66,
-        "no_merge": 59
+        "auto_merge": 248,
+        "manual_review": 151,
+        "no_merge": 133
       }
     }
   },
@@ -91,8 +91,8 @@
         }
       },
       {
-        "pair": "B0034ZTVO4 × B003DBCXF8",
-        "titles": "Twilight Saga: New Moon Blu-ray (2 Disc) × The Twilight Saga: New Moon Two-Disc DVD Gift Set with Charm Necklace and Bonus Features Year 2009",
+        "pair": "B00004RVJO × B00008T4M6",
+        "titles": "Dirty Dancing [VHS] × Dirty Dancing [VHS]",
         "conf": 1.0,
         "V": 1.0,
         "known": 4,
@@ -108,11 +108,11 @@
         }
       },
       {
-        "pair": "B000AARKOO × B000AARKOY",
-        "titles": "Kingdom of Heaven (2-Disc Widescreen Edition) × Kingdom of Heaven",
+        "pair": "0780618556 × B00004VYDV",
+        "titles": "Dumb and Dumber × Dumb and Dumber",
         "conf": 1.0,
         "V": 1.0,
-        "known": 5,
+        "known": 4,
         "strong": 3,
         "reason": "all_gates_pass",
         "signals": {
@@ -120,13 +120,13 @@
           "year": 1.0,
           "director": 1.0,
           "cast": 1.0,
-          "runtime": 1.0,
+          "runtime": 0.0,
           "genre": 1.0
         }
       },
       {
-        "pair": "B00004RSA9 × B0030IIZ4M",
-        "titles": "Toy Story [VHS] × Toy Story",
+        "pair": "6304844948 × 6305077398",
+        "titles": "Alien Resurrection × Alien: Resurrection",
         "conf": 1.0,
         "V": 1.0,
         "known": 4,
@@ -144,25 +144,8 @@
     ],
     "manual_review": [
       {
-        "pair": "6301681363 × B00004CJJQ",
-        "titles": "Metropolis VHS × Metropolis",
-        "conf": 1.0,
-        "V": 1.0,
-        "known": 4,
-        "strong": 3,
-        "reason": "ambiguous_node_ceiling",
-        "signals": {
-          "title": 1.0,
-          "year": 1.0,
-          "director": 1.0,
-          "cast": 1.0,
-          "runtime": 0.0,
-          "genre": 1.0
-        }
-      },
-      {
-        "pair": "6301681363 × B00004CZ1R",
-        "titles": "Metropolis VHS × Metropolis",
+        "pair": "B00004CZR2 × B000X825Z2",
+        "titles": "Zulu [VHS] × Zulu VHS",
         "conf": 1.0,
         "V": 1.0,
         "known": 4,
@@ -214,6 +197,23 @@
       {
         "pair": "6304176325 × B00008G1WJ",
         "titles": "Willy Wonka & The Chocolate Factory VHS × Willy Wonka & Chocolate Factory [VHS]",
+        "conf": 1.0,
+        "V": 1.0,
+        "known": 4,
+        "strong": 3,
+        "reason": "ambiguous_node_ceiling",
+        "signals": {
+          "title": 1.0,
+          "year": 1.0,
+          "director": 1.0,
+          "cast": 1.0,
+          "runtime": 0.0,
+          "genre": 1.0
+        }
+      },
+      {
+        "pair": "B00063AO16 × B000W10FWU",
+        "titles": "Harry Potter and the Chamber of Secrets × Harry Potter and the Chamber of Secrets",
         "conf": 1.0,
         "V": 1.0,
         "known": 4,

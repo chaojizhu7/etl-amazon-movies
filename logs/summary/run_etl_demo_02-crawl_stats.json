@@ -1,0 +1,20 @@
+{
+  "run_id": "run_etl_demo_02-crawl",
+  "wave_size": 14066,
+  "wave_counts": {
+    "access_restricted": 12914,
+    "fetch_failed": 109,
+    "success": 1019,
+    "parse_failed": 24
+  },
+  "attempted_total": 14045,
+  "queue_states": {
+    "access_restricted": 12893,
+    "fetch_failed": 109,
+    "parse_failed": 24,
+    "pending": 239014,
+    "success": 1019
+  },
+  "next_wave_pending_high": 6957,
+  "recorded_at_utc": "2026-11-04T09:03:03Z"
+}

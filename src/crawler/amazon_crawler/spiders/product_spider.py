@@ -36,6 +36,8 @@ def classify(status: int, body: bytes, final_url: str) -> str:
     """Map HTTP status + content to assignment status vocabulary (EN code)."""
     if status == 404:
         return "page_not_found"
+    if status in (301, 302, 303, 307, 308):
+        return "access_restricted"  # redirect-loop / gate (e.g. to verification)
     if status in (403, 429, 503):
         return "access_restricted"
     if status != 200:
@@ -74,7 +76,7 @@ class ProductSpider(scrapy.Spider):
                 yield scrapy.Request(
                     url,
                     callback=self.parse_product,
-                    meta={"asin": asin},
+                    meta={"asin": asin, "dont_redirect": True},
                     errback=self.errback,
                 )
 

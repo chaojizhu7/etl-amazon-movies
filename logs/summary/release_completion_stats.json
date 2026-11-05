@@ -1,39 +1,40 @@
 {
-  "run_id": "run_20261104-05",
-  "generated_at_utc": "2026-11-04T06:41:51Z",
-  "elapsed_seconds": 47.1,
-  "movies_total": 363,
+  "run_id": "run_etl_demo_02",
+  "generated_at_utc": "2026-11-04T09:51:53Z",
+  "elapsed_seconds": 50.8,
+  "movies_total": 696,
   "release_year": {
-    "filled": 260,
-    "missing": 103,
+    "filled": 483,
+    "missing": 213,
     "precision_distribution": {
-      "none": 103,
-      "year": 260
+      "none": 213,
+      "year": 483
     },
     "fill_rules": {
-      "imdb.startYear(候选 tconst 全体一致)": 5,
-      "imdb.startYear(resolved_tconst；成员间一致)": 255
+      "imdb.startYear(resolved_tconst；成员间一致)": 467,
+      "imdb.startYear(候选 tconst 全体一致)": 16
     }
   },
   "earliest_review_time": {
-    "missing": 3,
-    "verified": 360
+    "missing": 4,
+    "verified": 692
   },
   "inferred_release_bound": {
-    "inferred": 360
+    "inferred": 692
   },
   "edition_sale_date": {
-    "found": 243,
-    "missing": 204
+    "found": 507,
+    "missing": 402
   },
   "regional_release_date": {
     "recorded": 0,
     "note": "无 title.akas/地区来源，未记录"
   },
   "missing_reasons": {
-    "pending_review": 299,
-    "empty_user": 3,
-    "no_imdb_match": 8
+    "empty_user": 4,
+    "no_imdb_match": 18,
+    "pending_review": 596,
+    "year_missing_in_imdb": 1
   },
   "semantics_guard": "商品发售日期仅入 edition 域（asin 级 fact_type=edition_sale_date），永不写入 release_year；仅年份不补 1 月 1 日"
 }

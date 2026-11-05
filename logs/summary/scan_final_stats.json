@@ -1,0 +1,42 @@
+{
+  "generated_at_utc": "2026-11-05T05:35:58Z",
+  "not_crawled_marked": 232057,
+  "terminal_distribution": {
+    "access_restricted": 19379,
+    "fetch_failed": 146,
+    "not_crawled": 232057,
+    "parse_failed": 38,
+    "success": 1439
+  },
+  "total": 253059,
+  "total_matches_expected": true,
+  "success_snapshots_indexed": 1439,
+  "restricted_total": 19379,
+  "restricted_with_evidence": 19379,
+  "coverage_matrix": {
+    "low|non_movie": {
+      "total": 148729,
+      "access_restricted": 10,
+      "not_crawled": 148717,
+      "success": 1,
+      "fetch_failed": 1
+    },
+    "high|movie": {
+      "total": 916,
+      "success": 902,
+      "parse_failed": 14
+    },
+    "high|non_movie": {
+      "total": 20069,
+      "success": 536,
+      "parse_failed": 24,
+      "fetch_failed": 145,
+      "access_restricted": 19364
+    },
+    "medium|non_movie": {
+      "total": 83345,
+      "not_crawled": 83340,
+      "access_restricted": 5
+    }
+  }
+}

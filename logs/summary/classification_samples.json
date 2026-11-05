@@ -428,6 +428,25 @@
       "runtime_min": 0,
       "genre": "rock-music",
       "department": "movies & tv"
+    },
+    {
+      "asin": "B0019HQIGS",
+      "review_count": 146,
+      "title_raw": "Where The Light Is: John Mayer Live In Los Angeles",
+      "classification_status": "inferred",
+      "confidence": 0.6,
+      "pending_reason": null,
+      "rules_fired": [
+        "P4"
+      ],
+      "rationale": "演唱会/音乐现场信号（genre=john mayer where the light is: john mayer live in los angeles, pop, title_markers={'concert_title': True}）",
+      "imdb_match": "none",
+      "imdb_types": [],
+      "imdb_tconsts": [],
+      "imdb_resolution": null,
+      "runtime_min": null,
+      "genre": "John Mayer Where The Light Is: John Mayer Live In Los Angeles, Pop",
+      "department": "movies & tv"
     }
   ],
   "other": [

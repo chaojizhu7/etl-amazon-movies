@@ -1,52 +1,52 @@
 {
   "rules_version": "merge_v1.2",
-  "run_id": "run_20261104-02",
-  "generated_at_utc": "2026-11-04T05:53:29Z",
+  "run_id": "run_etl_demo_02",
+  "generated_at_utc": "2026-11-04T15:10:13Z",
   "gate": {
-    "expected_auto": 113,
-    "tolerance": 10,
-    "actual_auto": 113,
+    "expected_auto": 248,
+    "tolerance": 5,
+    "actual_auto": 248,
     "delta": 0,
     "passed": true
   },
   "before": {
-    "movie_editions": 447,
-    "candidate_pairs": 238,
-    "distinct_title_canon": 319
+    "movie_editions": 909,
+    "candidate_pairs": 532,
+    "distinct_title_canon": 640
   },
   "decision_counts": {
-    "auto_merge": 113,
-    "manual_review": 66,
-    "no_merge": 59
+    "auto_merge": 248,
+    "manual_review": 151,
+    "no_merge": 133
   },
   "reason_breakdown": {
-    "all_gates_pass": 113,
-    "ambiguous_node_ceiling": 51,
-    "conf_below_floor": 29,
-    "hard:sequel_ordinal_mismatch": 14,
-    "hard:director_diff_cast_empty": 16,
-    "known_signals_lt_3": 9,
-    "strong_signals_lt_2": 1,
-    "title_conflict_high_v": 5
+    "all_gates_pass": 248,
+    "ambiguous_node_ceiling": 104,
+    "conf_below_floor": 63,
+    "hard:director_diff_cast_empty": 54,
+    "hard:sequel_ordinal_mismatch": 16,
+    "known_signals_lt_3": 37,
+    "strong_signals_lt_2": 4,
+    "title_conflict_high_v": 6
   },
   "chain_check": {
-    "auto_edges": 113,
-    "accepted_after_chain": 113,
+    "auto_edges": 248,
+    "accepted_after_chain": 248,
     "rejected_by_chain": 0
   },
   "after": {
-    "movie_entity_total": 366,
-    "merged_clusters": 62,
-    "singletons": 301,
-    "unresolved_candidates": 3,
-    "product_movie_single": 447,
-    "product_movie_collection": 6,
-    "manual_review_queue": 66,
-    "no_merge": 59
+    "movie_entity_total": 733,
+    "merged_clusters": 130,
+    "singletons": 599,
+    "unresolved_candidates": 4,
+    "product_movie_single": 909,
+    "product_movie_collection": 7,
+    "manual_review_queue": 755,
+    "no_merge": 665
   },
   "collection_links": {
     "linked_to_existing_movie": 3,
-    "unresolved_candidate": 3
+    "unresolved_candidate": 4
   },
   "eval_sample": {
     "file": "C:\\Users\\28746\\Desktop\\etl-amazon\\logs\\summary\\merge_eval_sample.csv",
@@ -54,7 +54,47 @@
   },
   "merged_examples": [
     {
-      "movie_id": "mv_000022",
+      "movie_id": "mv_000004",
+      "members": [
+        "0783229135",
+        "B0000A02TZ",
+        "B001CW7ZXA",
+        "B001CW7ZXK",
+        "B001VPJZKY"
+      ],
+      "titles": [
+        "National Lampoon's Animal House VHS",
+        "National Lampoon's Animal House [DVD]",
+        "National Lampoon's Animal House",
+        "National Lampoon's Animal House",
+        "National Lampoon's Animal House"
+      ],
+      "tconsts": [
+        "tt0077975"
+      ]
+    },
+    {
+      "movie_id": "mv_000013",
+      "members": [
+        "6302091632",
+        "B00004CLDD",
+        "B0000CGD0K",
+        "B000HT3PQK",
+        "B001CNGWAQ"
+      ],
+      "titles": [
+        "Home Alone",
+        "Home Alone [VHS]",
+        "Home Alone",
+        "Home Alone (Family Fun Edition)",
+        "Home Alone"
+      ],
+      "tconsts": [
+        "tt0099785"
+      ]
+    },
+    {
+      "movie_id": "mv_000055",
       "members": [
         "B00004COW2",
         "B00004RUKM",
@@ -74,7 +114,27 @@
       ]
     },
     {
-      "movie_id": "mv_000006",
+      "movie_id": "mv_000067",
+      "members": [
+        "B00004Z1OF",
+        "B000050YFS",
+        "B0000524N0",
+        "B00005423P",
+        "B00005LLKJ"
+      ],
+      "titles": [
+        "The Perfect Storm [VHS]",
+        "The Perfect Storm",
+        "The Perfect Storm [Region 2]",
+        "The Perfect Storm [VHS]",
+        "The Perfect Storm VHS"
+      ],
+      "tconsts": [
+        "tt0177971"
+      ]
+    },
+    {
+      "movie_id": "mv_000016",
       "members": [
         "6302914485",
         "B00005TPCG",
@@ -90,66 +150,12 @@
       "tconsts": [
         "tt0044008"
       ]
-    },
-    {
-      "movie_id": "mv_000010",
-      "members": [
-        "6304176325",
-        "B0009FGWLW",
-        "B0021L9MO6",
-        "B005F96UF0"
-      ],
-      "titles": [
-        "Willy Wonka & The Chocolate Factory VHS",
-        "Willy Wonka & the Chocolate Factory (Widescreen Special Edition)",
-        "Willy Wonka & The Chocolate Factory (Blu-ray Book)",
-        "Willy Wonka & the Chocolate Factory (Three-Disc 40th Anniversary Collector's Edition Blu-ray/DVD Combo)"
-      ],
-      "tconsts": [
-        "tt0067992"
-      ]
-    },
-    {
-      "movie_id": "mv_000017",
-      "members": [
-        "6305587744",
-        "B00003CXA2",
-        "B00004CQE4",
-        "B00005NFXI"
-      ],
-      "titles": [
-        "Forrest Gump",
-        "Forrest Gump (Two-Disc Special Collector's Edition)",
-        "Forrest Gump [VHS]",
-        "Forrest Gump [Region 2]"
-      ],
-      "tconsts": [
-        "tt0109830"
-      ]
-    },
-    {
-      "movie_id": "mv_000019",
-      "members": [
-        "B00000IQBL",
-        "B000065MQO",
-        "B000UJ48V8",
-        "B007JWC8ZC"
-      ],
-      "titles": [
-        "Full Metal Jacket",
-        "Full Metal Jacket [VHS]",
-        "Full Metal Jacket (Deluxe Edition)[HD DVD]",
-        "Full Metal Jacket (25th Anniversary Edition) [Blu-ray]"
-      ],
-      "tconsts": [
-        "tt0093058"
-      ]
     }
   ],
   "not_merged_examples": [
     {
-      "pair": "6301681363 × B00004CJJQ",
-      "titles": "Metropolis VHS × Metropolis",
+      "pair": "B00004CZR2 × B000X825Z2",
+      "titles": "Zulu [VHS] × Zulu VHS",
       "decision": "manual_review",
       "reason": "ambiguous_node_ceiling",
       "V": 1.0,
@@ -164,18 +170,18 @@
       }
     },
     {
-      "pair": "B0053Q9DHW × B0053Q9DQI",
-      "titles": "Jane Eyre [DVD] × Jane Eyre [Blu-ray]",
+      "pair": "B00004CIPK × B00004CLFT",
+      "titles": "Die Hard [VHS] × Die Hard",
       "decision": "manual_review",
       "reason": "strong_signals_lt_2",
-      "V": 0.8,
-      "conf": 0.86,
+      "V": 1.0,
+      "conf": 1.0,
       "signals": {
         "title": 1.0,
         "year": 0.0,
-        "director": 0.5,
-        "cast": 1.0,
-        "runtime": 1.0,
+        "director": 0.0,
+        "cast": 0.0,
+        "runtime": 0.0,
         "genre": 1.0
       }
     },

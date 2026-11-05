@@ -1,42 +1,41 @@
 {
   "rules_version": "person_merge_v1.1",
-  "run_id": "run_20261104-04",
-  "generated_at_utc": "2026-11-04T06:25:33Z",
-  "elapsed_seconds": 54.1,
+  "run_id": "run_etl_demo_02",
+  "generated_at_utc": "2026-11-04T15:10:18Z",
+  "elapsed_seconds": 4.9,
   "before": {
-    "nodes_imdb": 4386,
-    "nodes_page": 571,
-    "candidate_pairs": 842
+    "nodes_imdb": 7819,
+    "nodes_page": 1157,
+    "candidate_pairs": 2099
   },
   "decision_counts": {
-    "auto_merge": 362,
-    "no_merge": 102,
-    "manual_review": 378
+    "auto_merge": 853,
+    "manual_review": 885,
+    "no_merge": 361
   },
   "reason_breakdown": {
-    "hard:death_before_other_works": 26,
-    "partial_signals": 202,
-    "conf_below_floor": 73,
-    "all_gates_pass": 362,
-    "initial_compatible_ceiling": 109,
-    "hard:death_before_other_works+exclusive_works": 1,
-    "hard:exclusive_works": 2,
-    "chain_inconsistency": 67
+    "initial_compatible_ceiling": 341,
+    "hard:death_before_other_works": 76,
+    "partial_signals": 540,
+    "conf_below_floor": 263,
+    "all_gates_pass": 853,
+    "hard:exclusive_works": 17,
+    "hard:death_before_other_works+exclusive_works": 5,
+    "era_gap_sparse": 4
   },
   "chain_check": {
-    "auto_edges": 429,
-    "accepted": 362,
-    "rejected": 67,
-    "note": "拒边已降级 manual_review(reason=chain_inconsistency)"
+    "auto_edges": 853,
+    "accepted": 657,
+    "rejected": 196
   },
   "after": {
     "person_entity_by_status": {
-      "merged": 362,
-      "singleton": 4233
+      "merged": 657,
+      "singleton": 7662
     },
-    "person_entity_total": 4595,
-    "merged_clusters": 362,
-    "movie_person_rows": 5770
+    "person_entity_total": 8319,
+    "merged_clusters": 657,
+    "movie_person_rows": 11054
   },
   "eval_sample": {
     "file": "C:\\Users\\28746\\Desktop\\etl-amazon\\logs\\summary\\person_eval_sample.csv",
@@ -47,7 +46,7 @@
       "person_id": "p_000001",
       "members": [
         "nm0000004",
-        "pg:john belushi:mv_000350"
+        "pg:john belushi:mv_000004"
       ],
       "names": [
         "John Belushi"
@@ -56,7 +55,7 @@
         "nm0000004"
       ],
       "shared_works_evidence": [
-        "mv_000350"
+        "mv_000004"
       ],
       "era": [
         {
@@ -65,7 +64,7 @@
           "basis": "lifespan",
           "inferred": false,
           "confidence": 0.95,
-          "n_works": 1
+          "n_works": 2
         },
         {
           "start": null,
@@ -81,7 +80,7 @@
       "person_id": "p_000002",
       "members": [
         "nm0000006",
-        "pg:ingrid bergman:mv_000028"
+        "pg:ingrid bergman:mv_000069"
       ],
       "names": [
         "Ingrid Bergman"
@@ -90,7 +89,7 @@
         "nm0000006"
       ],
       "shared_works_evidence": [
-        "mv_000028"
+        "mv_000069"
       ],
       "era": [
         {
@@ -115,7 +114,7 @@
       "person_id": "p_000003",
       "members": [
         "nm0000007",
-        "pg:humphrey bogart:mv_000028"
+        "pg:humphrey bogart:mv_000069"
       ],
       "names": [
         "Humphrey Bogart"
@@ -124,16 +123,16 @@
         "nm0000007"
       ],
       "shared_works_evidence": [
-        "mv_000028"
+        "mv_000069"
       ],
       "era": [
         {
           "start": 1899,
-          "end": 1957,
+          "end": 1990,
           "basis": "lifespan",
           "inferred": false,
           "confidence": 0.95,
-          "n_works": 2
+          "n_works": 5
         },
         {
           "start": null,
@@ -148,26 +147,26 @@
     {
       "person_id": "p_000004",
       "members": [
-        "nm0000040",
-        "pg:stanley kubrick:mv_000019"
+        "nm0000026",
+        "pg:cary grant:mv_000008"
       ],
       "names": [
-        "Stanley Kubrick"
+        "Cary Grant"
       ],
       "nconsts": [
-        "nm0000040"
+        "nm0000026"
       ],
       "shared_works_evidence": [
-        "mv_000019"
+        "mv_000008"
       ],
       "era": [
         {
-          "start": 1928,
-          "end": 2021,
+          "start": 1904,
+          "end": 1999,
           "basis": "lifespan",
           "inferred": false,
           "confidence": 0.95,
-          "n_works": 4
+          "n_works": 5
         },
         {
           "start": null,
@@ -182,22 +181,22 @@
     {
       "person_id": "p_000005",
       "members": [
-        "nm0000058",
-        "pg:maureen o'hara:mv_000249"
+        "nm0000030",
+        "pg:audrey hepburn:mv_000607"
       ],
       "names": [
-        "Maureen O'Hara"
+        "Audrey Hepburn"
       ],
       "nconsts": [
-        "nm0000058"
+        "nm0000030"
       ],
       "shared_works_evidence": [
-        "mv_000249"
+        "mv_000607"
       ],
       "era": [
         {
-          "start": 1920,
-          "end": 2015,
+          "start": 1929,
+          "end": 1993,
           "basis": "lifespan",
           "inferred": false,
           "confidence": 0.95,
@@ -216,10 +215,10 @@
   ],
   "not_merged_examples": [
     {
-      "pair": "errol flynn × errol flynn",
+      "pair": "f w murnau × f w murnau",
       "keys": [
-        "nm0001224",
-        "pg:errol flynn:mv_000317"
+        "nm0003638",
+        "pg:f w murnau:mv_000587"
       ],
       "decision": "manual_review",
       "reason": "partial_signals",
@@ -233,16 +232,16 @@
       },
       "works": [
         [
-          "mv_000315"
+          "mv_000043"
         ],
         [
-          "mv_000317"
+          "mv_000587"
         ]
       ],
       "era": [
         {
-          "start": 1909,
-          "end": 1985,
+          "start": 1888,
+          "end": 1931,
           "basis": "lifespan",
           "inferred": false,
           "confidence": 0.95,
@@ -259,10 +258,10 @@
       ]
     },
     {
-      "pair": "paul verhoeven × paul verhoeven",
+      "pair": "neil mccarthy × neil mccarthy",
       "keys": [
-        "nm0000682",
-        "nm0894204"
+        "nm0565272",
+        "nm1791933"
       ],
       "decision": "no_merge",
       "reason": "hard:death_before_other_works",
@@ -276,28 +275,27 @@
       },
       "works": [
         [
-          "mv_000246",
-          "mv_000326"
+          "mv_000142"
         ],
         [
-          "mv_000355"
+          "mv_000294"
         ]
       ],
       "era": [
         {
-          "start": 1938,
-          "end": 2026,
+          "start": 1932,
+          "end": 2013,
           "basis": "lifespan",
           "inferred": false,
           "confidence": 0.95,
-          "n_works": 2
+          "n_works": 1
         },
         {
-          "start": 1901,
-          "end": 2011,
-          "basis": "lifespan",
-          "inferred": false,
-          "confidence": 0.95,
+          "start": 2004,
+          "end": 2004,
+          "basis": "work_years",
+          "inferred": true,
+          "confidence": 0.4,
           "n_works": 1
         }
       ]
@@ -320,14 +318,14 @@
       },
       "works": [
         [
-          "mv_000158",
-          "mv_000289",
-          "mv_000347"
+          "mv_000230",
+          "mv_000360",
+          "mv_000419"
         ],
         [
-          "mv_000158",
-          "mv_000289",
-          "mv_000347"
+          "mv_000230",
+          "mv_000360",
+          "mv_000419"
         ]
       ],
       "era": [
@@ -367,10 +365,10 @@
       },
       "works": [
         [
-          "mv_000112"
+          "mv_000184"
         ],
         [
-          "mv_000034"
+          "mv_000082"
         ]
       ],
       "era": [
@@ -393,13 +391,13 @@
       ]
     },
     {
-      "pair": "trevor howard × terrence howard",
+      "pair": "gary cooper × gladys cooper",
       "keys": [
-        "nm0002145",
-        "nm0005024"
+        "nm0000011",
+        "nm0178066"
       ],
       "decision": "no_merge",
-      "reason": "hard:death_before_other_works+exclusive_works",
+      "reason": "hard:exclusive_works",
       "V": 0.125,
       "conf": 0.194,
       "signals": {
@@ -410,27 +408,26 @@
       },
       "works": [
         [
-          "mv_000023",
-          "mv_000048",
-          "mv_000254"
+          "mv_000184",
+          "mv_000467"
         ],
         [
-          "mv_000078",
-          "mv_000186"
+          "mv_000562",
+          "mv_000710"
         ]
       ],
       "era": [
         {
-          "start": 1913,
-          "end": 2002,
+          "start": 1901,
+          "end": 2017,
           "basis": "lifespan",
           "inferred": false,
           "confidence": 0.95,
-          "n_works": 3
+          "n_works": 2
         },
         {
-          "start": 1969,
-          "end": 2026,
+          "start": 1888,
+          "end": 1971,
           "basis": "lifespan",
           "inferred": false,
           "confidence": 0.95,
