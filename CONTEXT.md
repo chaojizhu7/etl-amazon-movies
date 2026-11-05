@@ -128,5 +128,30 @@
 3. **执行合并（确认后）**：交付 `sql/04_movie_merge.sql` + `src/merge_movies.py` 执行模式；100 对人工标注评价（P/R/F1）
 4. 小项：`canon()` 已加变音符号剥离（`src/classify_products.py`），分类任务下次重跑吸收；title_conflict 别名疑点是否放宽待定
 
+## 10. QA-2 完成 / QA-3 中断收尾（窗口 2，2026-11-05 15:50 关机）
+
+### 已完成（本轮）
+
+- **QA-2 人工标注全量完成**（电影 100 对 + 人物 100 对，4 批×25 逐批贴批）：
+  - 电影：P=1.000（30/30）· R=0.577（30/52）· F1=0.732；TP 30 / FP 0 / FN 22 / TN 48（提交 5645936）
+  - 人物：P=1.000（40/40）· R=0.870（40/46）· F1=0.930；TP 40 / FP 0 / FN 6 / TN 52，另 2 对待定（提交 649fc94）
+  - 标注已落 `logs/summary/merge_eval_sample.csv`、`person_eval_sample.csv` 的 human_verdict/notes 列（HEAD 版为准）
+
+### QA-3 进度（幂等测试·跑到一半）
+
+- 测试二（幂等双跑）：run1=`run_qa3_idem`，`--resume` 验证 **extract/crawl/classify/merge/enrich 五步 SKIP（已成功不重做）通过**；dedup try#1 被工具超时杀进程（孤儿后端已清），try#2 用户关机主动中断——**两轮均未跑完**，lineage/quality_check 未执行
+- run2（`run_qa3_idem2`）未开始；计数比对未做；测试一/三/四报告均未写
+- etl_run_task 状态：`run_qa3_idem` 5 success + dedup try#1/2 failed（error 已记中断原因）——恢复时直接 `--resume` 重跑
+
+### ⚠️ 重要副作用（下次必须防）
+
+- **merge/classify 重跑会重新生成 `logs/summary/merge_eval_sample.csv` 与 `person_eval_sample.csv`，冲掉 human_verdict 标注**（本次实测：工作区被覆盖为无标注版、69 对与已提交版不同，已用 `git checkout --` 从 HEAD 恢复）。QA-2 标注版只信 HEAD 提交 5645936/649fc94；重跑前先备份或重跑后立即恢复这两份文件
+
+### 关机时点状态
+
+- 进程：runner/clean_reviews 已停，无残留 python；PG 无残留连接（pg_stat_activity 清零）
+- Git：main ahead 2（5645936、649fc94 待推送）；本收尾另提交交接文档与 run_qa3_idem 重生统计
+- 中断任务补跑命令：`.venv\Scripts\python.exe src\run_etl_local.py --run-id run_qa3_idem --resume`（建议用 Start-Process 脱离 shell 启动，避免工具超时杀进程）
+
 ---
 *本文件由窗口 1 生成；如与后续实际状态冲突，以实际运行结果为准。*

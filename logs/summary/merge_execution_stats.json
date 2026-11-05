@@ -1,52 +1,54 @@
 {
   "rules_version": "merge_v1.2",
-  "run_id": "run_etl_demo_02",
-  "generated_at_utc": "2026-11-04T15:10:13Z",
+  "run_id": "run_qa3_idem",
+  "generated_at_utc": "2026-11-05T07:05:32Z",
   "gate": {
-    "expected_auto": 248,
+    "expected_auto": 304,
     "tolerance": 5,
-    "actual_auto": 248,
+    "actual_auto": 304,
     "delta": 0,
     "passed": true
   },
   "before": {
-    "movie_editions": 909,
-    "candidate_pairs": 532,
-    "distinct_title_canon": 640
+    "movie_editions": 1236,
+    "candidate_pairs": 667,
+    "distinct_title_canon": 893
   },
   "decision_counts": {
-    "auto_merge": 248,
-    "manual_review": 151,
-    "no_merge": 133
+    "auto_merge": 304,
+    "manual_review": 184,
+    "no_merge": 179
   },
   "reason_breakdown": {
-    "all_gates_pass": 248,
-    "ambiguous_node_ceiling": 104,
-    "conf_below_floor": 63,
-    "hard:director_diff_cast_empty": 54,
-    "hard:sequel_ordinal_mismatch": 16,
-    "known_signals_lt_3": 37,
+    "all_gates_pass": 304,
+    "ambiguous_node_ceiling": 126,
+    "conf_below_floor": 74,
+    "hard:director_diff_cast_empty": 88,
+    "hard:sequel_ordinal_mismatch": 17,
+    "known_signals_lt_3": 46,
     "strong_signals_lt_2": 4,
+    "year_gap_title_similar": 1,
+    "partial_signals": 1,
     "title_conflict_high_v": 6
   },
   "chain_check": {
-    "auto_edges": 248,
-    "accepted_after_chain": 248,
+    "auto_edges": 304,
+    "accepted_after_chain": 304,
     "rejected_by_chain": 0
   },
   "after": {
-    "movie_entity_total": 733,
-    "merged_clusters": 130,
-    "singletons": 599,
-    "unresolved_candidates": 4,
-    "product_movie_single": 909,
-    "product_movie_collection": 7,
-    "manual_review_queue": 755,
-    "no_merge": 665
+    "movie_entity_total": 1011,
+    "merged_clusters": 174,
+    "singletons": 832,
+    "unresolved_candidates": 5,
+    "product_movie_single": 1236,
+    "product_movie_collection": 8,
+    "manual_review_queue": 184,
+    "no_merge": 179
   },
   "collection_links": {
     "linked_to_existing_movie": 3,
-    "unresolved_candidate": 4
+    "unresolved_candidate": 5
   },
   "eval_sample": {
     "file": "C:\\Users\\28746\\Desktop\\etl-amazon\\logs\\summary\\merge_eval_sample.csv",
@@ -54,7 +56,7 @@
   },
   "merged_examples": [
     {
-      "movie_id": "mv_000004",
+      "movie_id": "mv_000005",
       "members": [
         "0783229135",
         "B0000A02TZ",
@@ -74,7 +76,7 @@
       ]
     },
     {
-      "movie_id": "mv_000013",
+      "movie_id": "mv_000025",
       "members": [
         "6302091632",
         "B00004CLDD",
@@ -94,7 +96,7 @@
       ]
     },
     {
-      "movie_id": "mv_000055",
+      "movie_id": "mv_000079",
       "members": [
         "B00004COW2",
         "B00004RUKM",
@@ -114,7 +116,7 @@
       ]
     },
     {
-      "movie_id": "mv_000067",
+      "movie_id": "mv_000095",
       "members": [
         "B00004Z1OF",
         "B000050YFS",
@@ -134,7 +136,7 @@
       ]
     },
     {
-      "movie_id": "mv_000016",
+      "movie_id": "mv_000028",
       "members": [
         "6302914485",
         "B00005TPCG",
@@ -202,6 +204,22 @@
       }
     },
     {
+      "pair": "B0002QO3BY × B000X73NBS",
+      "titles": "Billy Jack 35th Anniversary Ultimate Collection (Born Losers/Billy Jack/ Trial of Billy Jack/ Billy Jack Goes to Washington) × Billy Jack [DVD]",
+      "decision": "manual_review",
+      "reason": "partial_signals",
+      "V": 0.45,
+      "conf": 0.615,
+      "signals": {
+        "title": 1.0,
+        "year": 0.5,
+        "director": 1.0,
+        "cast": 1.0,
+        "runtime": -1.0,
+        "genre": -1.0
+      }
+    },
+    {
       "pair": "B00005JPS8 × B003UYV08E",
       "titles": "Iron Man (Ultimate 2 Disc Edition) × Iron Man 2 (Single-Disc Edition)",
       "decision": "no_merge",
@@ -214,22 +232,6 @@
         "director": 1.0,
         "cast": 1.0,
         "runtime": 1.0,
-        "genre": 1.0
-      }
-    },
-    {
-      "pair": "6302914485 × B00005NBBJ",
-      "titles": "A Christmas Carol [VHS] × Scrooge",
-      "decision": "manual_review",
-      "reason": "title_conflict_high_v",
-      "V": 1.0,
-      "conf": 0.5,
-      "signals": {
-        "title": -1.0,
-        "year": 1.0,
-        "director": 1.0,
-        "cast": 1.0,
-        "runtime": 0.0,
         "genre": 1.0
       }
     }

@@ -1,135 +1,138 @@
 {
   "rules_version": "v0.1",
-  "run_id": "run_etl_demo_02",
-  "generated_at_utc": "2026-11-04T09:08:19Z",
-  "elapsed_seconds": 315.5,
+  "run_id": "run_qa3_idem",
+  "generated_at_utc": "2026-11-05T07:04:37Z",
+  "elapsed_seconds": 362.0,
   "queue_total": 253059,
   "crawl_queue_states": {
-    "access_restricted": 12893,
-    "fetch_failed": 109,
-    "parse_failed": 24,
-    "pending": 239014,
-    "success": 1019
+    "access_restricted": 19379,
+    "fetch_failed": 146,
+    "not_crawled": 232057,
+    "parse_failed": 38,
+    "success": 1439
   },
   "crawl_attempt_features": {
-    "error": 312,
-    "other": 67,
-    "product_page": 2968,
-    "verification_page": 37370
+    "error": 504,
+    "other": 122,
+    "product_page": 4881,
+    "verification_page": 64050
   },
-  "snapshot_files_total": 14056,
-  "snapshot_files_product_page_size": 1051,
+  "snapshot_files_total": 20856,
+  "snapshot_files_product_page_size": 1477,
   "classification_counts": {
-    "collection": 7,
-    "concert": 3,
-    "movie": 909,
-    "other": 11,
-    "pending_review": 252074,
-    "tv_series": 55
+    "collection": 10,
+    "concert": 9,
+    "movie": 1236,
+    "non_movie": 1,
+    "other": 19,
+    "pending_review": 251698,
+    "tv_series": 86
   },
   "classification_status_counts": {
-    "evidence": 940,
-    "inferred": 45,
-    "pending": 252074
+    "evidence": 1288,
+    "inferred": 73,
+    "pending": 251698
   },
   "pending_reason_counts": {
-    "access_restricted": 12893,
-    "evidence_insufficient": 66,
-    "fetch_failed": 109,
-    "not_crawled": 239006
+    "access_restricted": 19379,
+    "evidence_insufficient": 111,
+    "fetch_failed": 146,
+    "imdb_ambiguous": 4,
+    "not_crawled": 232057,
+    "signal_conflict": 1
   },
   "review_weighted": {
     "total_reviews": 7911684,
     "by_class": {
-      "movie": 250192,
-      "non_movie": 0,
-      "collection": 2677,
-      "tv_series": 15338,
-      "concert": 798,
-      "other": 4177,
-      "pending_review": 7638502
+      "movie": 288904,
+      "non_movie": 128,
+      "collection": 2998,
+      "tv_series": 19102,
+      "concert": 1540,
+      "other": 5129,
+      "pending_review": 7593883
     }
   },
-  "identified_works": 985,
-  "identified_movie_class": 909,
-  "collection_products": 7,
+  "identified_works": 1361,
+  "identified_movie_class": 1236,
+  "collection_products": 10,
   "imdb_match_counts": {
-    "unique": 721,
-    "unique_class": 229,
-    "ambiguous": 5,
-    "none": 96,
-    "not_attempted": 252008
+    "unique": 997,
+    "unique_class": 306,
+    "ambiguous": 11,
+    "none": 163,
+    "not_attempted": 251582
   },
   "field_coverage_identified_works": {
-    "denominator": 985,
+    "denominator": 1361,
     "fields": {
       "title": {
-        "covered": 985,
+        "covered": 1361,
         "missing": 0
       },
       "release_year(imdb.startYear)": {
-        "covered": 950,
-        "missing": 35
+        "covered": 1304,
+        "missing": 57
       },
       "genres": {
-        "covered": 967,
-        "missing": 18
+        "covered": 1335,
+        "missing": 26
       },
       "directors": {
-        "covered": 357,
-        "missing": 628
+        "covered": 501,
+        "missing": 860
       },
       "starring/cast": {
-        "covered": 534,
-        "missing": 451
+        "covered": 733,
+        "missing": 628
       },
       "edition.format": {
-        "covered": 973,
-        "missing": 12
+        "covered": 1338,
+        "missing": 23
       },
       "edition.language": {
-        "covered": 668,
-        "missing": 317
+        "covered": 927,
+        "missing": 434
       },
       "edition.runtime": {
-        "covered": 476,
-        "missing": 509
+        "covered": 647,
+        "missing": 714
       },
       "edition.discs": {
-        "covered": 217,
-        "missing": 768
+        "covered": 310,
+        "missing": 1051
       }
     },
     "source_split": {
       "title": {
-        "product_page": 985
+        "product_page": 1361
       },
       "release_year": {
-        "imdb": 950
+        "imdb": 1304
       },
       "genres": {
-        "product_page": 452,
-        "imdb": 930
+        "product_page": 613,
+        "imdb": 1280
       }
     }
   },
   "identification_coverage": {
-    "identified_over_queue": "985/253059",
-    "identified_review_share": 0.034529
+    "identified_over_queue": "1361/253059",
+    "identified_review_share": 0.040169
   },
   "crawl_success_rate": {
     "口径": "offline_snapshot vs DB queue；实时采集未执行，单列",
-    "attempted_asins": 14045,
-    "success_asins": 1019,
-    "success_rate_over_attempted": 0.072553,
-    "access_restricted_rate": 0.917978
+    "attempted_asins": 21002,
+    "success_asins": 1439,
+    "success_rate_over_attempted": 0.068517,
+    "access_restricted_rate": 0.922722
   },
   "sources_separated": {
     "offline_snapshot": {
-      "product_page_snapshots_classified": 1051
+      "product_page_snapshots_classified": 1477
     },
     "third_party_imdb": {
-      "works_with_imdb_candidates": 955
+      "works_with_imdb_candidates": 1314
     },
     "realtime_collection": {
       "status": "not_performed",

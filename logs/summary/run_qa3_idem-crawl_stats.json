@@ -1,0 +1,20 @@
+{
+  "run_id": "run_qa3_idem-crawl",
+  "wave_size": 21023,
+  "wave_counts": {
+    "access_restricted": 19400,
+    "fetch_failed": 146,
+    "success": 1439,
+    "parse_failed": 38
+  },
+  "attempted_total": 21002,
+  "queue_states": {
+    "access_restricted": 19379,
+    "fetch_failed": 146,
+    "not_crawled": 232057,
+    "parse_failed": 38,
+    "success": 1439
+  },
+  "next_wave_pending_high": 0,
+  "recorded_at_utc": "2026-11-05T06:58:35Z"
+}

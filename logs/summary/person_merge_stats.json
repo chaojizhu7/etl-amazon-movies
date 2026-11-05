@@ -1,41 +1,41 @@
 {
   "rules_version": "person_merge_v1.1",
-  "run_id": "run_etl_demo_02",
-  "generated_at_utc": "2026-11-04T15:10:18Z",
-  "elapsed_seconds": 4.9,
+  "run_id": "run_qa3_idem",
+  "generated_at_utc": "2026-11-05T07:06:31Z",
+  "elapsed_seconds": 58.2,
   "before": {
-    "nodes_imdb": 7819,
-    "nodes_page": 1157,
-    "candidate_pairs": 2099
+    "nodes_imdb": 10529,
+    "nodes_page": 1569,
+    "candidate_pairs": 3287
   },
   "decision_counts": {
-    "auto_merge": 853,
-    "manual_review": 885,
-    "no_merge": 361
+    "auto_merge": 1163,
+    "manual_review": 1470,
+    "no_merge": 654
   },
   "reason_breakdown": {
-    "initial_compatible_ceiling": 341,
-    "hard:death_before_other_works": 76,
-    "partial_signals": 540,
-    "conf_below_floor": 263,
-    "all_gates_pass": 853,
-    "hard:exclusive_works": 17,
-    "hard:death_before_other_works+exclusive_works": 5,
-    "era_gap_sparse": 4
+    "initial_compatible_ceiling": 605,
+    "hard:death_before_other_works": 136,
+    "partial_signals": 849,
+    "conf_below_floor": 489,
+    "all_gates_pass": 1163,
+    "hard:exclusive_works": 23,
+    "hard:death_before_other_works+exclusive_works": 6,
+    "era_gap_sparse": 16
   },
   "chain_check": {
-    "auto_edges": 853,
-    "accepted": 657,
-    "rejected": 196
+    "auto_edges": 1163,
+    "accepted": 860,
+    "rejected": 303
   },
   "after": {
     "person_entity_by_status": {
-      "merged": 657,
-      "singleton": 7662
+      "singleton": 10378,
+      "merged": 860
     },
-    "person_entity_total": 8319,
-    "merged_clusters": 657,
-    "movie_person_rows": 11054
+    "person_entity_total": 11238,
+    "merged_clusters": 860,
+    "movie_person_rows": 15452
   },
   "eval_sample": {
     "file": "C:\\Users\\28746\\Desktop\\etl-amazon\\logs\\summary\\person_eval_sample.csv",
@@ -46,7 +46,7 @@
       "person_id": "p_000001",
       "members": [
         "nm0000004",
-        "pg:john belushi:mv_000004"
+        "pg:john belushi:mv_000005"
       ],
       "names": [
         "John Belushi"
@@ -55,7 +55,7 @@
         "nm0000004"
       ],
       "shared_works_evidence": [
-        "mv_000004"
+        "mv_000005"
       ],
       "era": [
         {
@@ -80,7 +80,7 @@
       "person_id": "p_000002",
       "members": [
         "nm0000006",
-        "pg:ingrid bergman:mv_000069"
+        "pg:ingrid bergman:mv_000098"
       ],
       "names": [
         "Ingrid Bergman"
@@ -89,16 +89,16 @@
         "nm0000006"
       ],
       "shared_works_evidence": [
-        "mv_000069"
+        "mv_000098"
       ],
       "era": [
         {
           "start": 1915,
-          "end": 1982,
+          "end": 2009,
           "basis": "lifespan",
           "inferred": false,
           "confidence": 0.95,
-          "n_works": 1
+          "n_works": 4
         },
         {
           "start": null,
@@ -114,7 +114,7 @@
       "person_id": "p_000003",
       "members": [
         "nm0000007",
-        "pg:humphrey bogart:mv_000069"
+        "pg:humphrey bogart:mv_000098"
       ],
       "names": [
         "Humphrey Bogart"
@@ -123,7 +123,7 @@
         "nm0000007"
       ],
       "shared_works_evidence": [
-        "mv_000069"
+        "mv_000098"
       ],
       "era": [
         {
@@ -132,7 +132,7 @@
           "basis": "lifespan",
           "inferred": false,
           "confidence": 0.95,
-          "n_works": 5
+          "n_works": 6
         },
         {
           "start": null,
@@ -148,7 +148,7 @@
       "person_id": "p_000004",
       "members": [
         "nm0000026",
-        "pg:cary grant:mv_000008"
+        "pg:cary grant:mv_000019"
       ],
       "names": [
         "Cary Grant"
@@ -157,16 +157,16 @@
         "nm0000026"
       ],
       "shared_works_evidence": [
-        "mv_000008"
+        "mv_000019"
       ],
       "era": [
         {
           "start": 1904,
-          "end": 1999,
+          "end": 2009,
           "basis": "lifespan",
           "inferred": false,
           "confidence": 0.95,
-          "n_works": 5
+          "n_works": 7
         },
         {
           "start": null,
@@ -182,7 +182,7 @@
       "person_id": "p_000005",
       "members": [
         "nm0000030",
-        "pg:audrey hepburn:mv_000607"
+        "pg:audrey hepburn:mv_000645"
       ],
       "names": [
         "Audrey Hepburn"
@@ -191,7 +191,7 @@
         "nm0000030"
       ],
       "shared_works_evidence": [
-        "mv_000607"
+        "mv_000645"
       ],
       "era": [
         {
@@ -218,7 +218,7 @@
       "pair": "f w murnau × f w murnau",
       "keys": [
         "nm0003638",
-        "pg:f w murnau:mv_000587"
+        "pg:f w murnau:mv_000625"
       ],
       "decision": "manual_review",
       "reason": "partial_signals",
@@ -232,10 +232,10 @@
       },
       "works": [
         [
-          "mv_000043"
+          "mv_000063"
         ],
         [
-          "mv_000587"
+          "mv_000625"
         ]
       ],
       "era": [
@@ -275,10 +275,10 @@
       },
       "works": [
         [
-          "mv_000142"
+          "mv_000186"
         ],
         [
-          "mv_000294"
+          "mv_000335"
         ]
       ],
       "era": [
@@ -318,14 +318,14 @@
       },
       "works": [
         [
-          "mv_000230",
-          "mv_000360",
-          "mv_000419"
+          "mv_000271",
+          "mv_000401",
+          "mv_000459"
         ],
         [
-          "mv_000230",
-          "mv_000360",
-          "mv_000419"
+          "mv_000271",
+          "mv_000401",
+          "mv_000459"
         ]
       ],
       "era": [
@@ -365,10 +365,10 @@
       },
       "works": [
         [
-          "mv_000184"
+          "mv_000225"
         ],
         [
-          "mv_000082"
+          "mv_000118"
         ]
       ],
       "era": [
@@ -408,12 +408,13 @@
       },
       "works": [
         [
-          "mv_000184",
-          "mv_000467"
+          "mv_000225",
+          "mv_000506",
+          "mv_000862"
         ],
         [
-          "mv_000562",
-          "mv_000710"
+          "mv_000600",
+          "mv_000748"
         ]
       ],
       "era": [
@@ -423,7 +424,7 @@
           "basis": "lifespan",
           "inferred": false,
           "confidence": 0.95,
-          "n_works": 2
+          "n_works": 3
         },
         {
           "start": 1888,
