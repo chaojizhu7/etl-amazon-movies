@@ -111,3 +111,11 @@
 - **原始提示词**：ETL 整合六项要求；dedup 三问诊断（5 次 try 错误/当前 SQL/锁等待）先诊断再重试；修复三步批准（id 碰撞/37 并集重放/保持性检查）+ 输出对比/证据/幂等/commit
 - **被采纳的输出**：`etl/dags/movie_etl_dag.py`、`etl/ER_字段字典.md`、`sql/10/11`、`src/run_etl_local.py`、`src/quality_check.py`、`src/repair_manual_merges.py`、`src/clean_reviews.py`（3 修）；run_etl_demo_02 全管线 complete；32 人工组（87 asin）37 簇→32 簇全 OK；quality_check 10/10（含 manual_merge_preserved）
 - **人工验证方式**：①`etl_run_task WHERE run_id='run_etl_demo_02'` 看 try/时间；②manual_merge_repair.json 逐组对照（4 组错解修正）；③quality_check_report.json 的 manual_merge_preserved；④resume 全 SKIP 幂等
+
+## 2026-11-04 · QA-1 终态报告（数据质量与验收）
+
+- **工具/模型**：MiMoCode（mimo agent）+ psql/PG 17.11 + pypdf（读作业要求 PDF）+ git
+- **用途**：质量验收 QA-1——按作业第十节汇总终态：数量完整性核对（三量 MATCH、互斥状态和闭合）、评论有效/异常/重复、产品类别、合并前后作品人物、字段覆盖率（缺失/推断/已核实三分）、约束/血缘可追溯、人工复核覆盖率与待确认率、评价样本状态、采集终态
+- **原始提示词**：贴修复后结果（①37 并集对比 ②新检查项证据），没问题就继续质量验收 QA-1
+- **被采纳的输出**：`report/QA-1_终态报告.md`（10 节，全部实测口径）；修复结果复核输出（37 簇→32 簇 32/32 OK、quality_check 10/10）
+- **人工验证方式**：①对照报告 §1 两套互斥状态和=253,059；②§5 覆盖率分母口径（632 实体/985 识别产品）；③§7 待确认率（电影 26.5%/人物 44.9%）；④§8 评价样本 100+100 待标注
