@@ -1,0 +1,354 @@
+[
+ {
+  "pair": "B00004CYNY×B000TGJ7ZY",
+  "dec": "manual_merge",
+  "kind": "asin_key",
+  "asins_a": 1,
+  "asins_b": 1,
+  "co_clustered": true
+ },
+ {
+  "pair": "6302914485×B00005NBBJ",
+  "dec": "manual_merge",
+  "kind": "asin_key",
+  "asins_a": 1,
+  "asins_b": 1,
+  "co_clustered": true
+ },
+ {
+  "pair": "B00005NBBJ×B00005TPCG",
+  "dec": "manual_merge",
+  "kind": "asin_key",
+  "asins_a": 1,
+  "asins_b": 1,
+  "co_clustered": true
+ },
+ {
+  "pair": "B00005NBBJ×B005FOW9SW",
+  "dec": "manual_merge",
+  "kind": "asin_key",
+  "asins_a": 1,
+  "asins_b": 1,
+  "co_clustered": true
+ },
+ {
+  "pair": "B00005NBBJ×B008UY8FI2",
+  "dec": "manual_merge",
+  "kind": "asin_key",
+  "asins_a": 1,
+  "asins_b": 1,
+  "co_clustered": true
+ },
+ {
+  "pair": "B002ZG98VE×B006WXHJGC",
+  "dec": "manual_merge",
+  "kind": "asin_key",
+  "asins_a": 1,
+  "asins_b": 1,
+  "co_clustered": true
+ },
+ {
+  "pair": "mv_000256×mv_000257",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 4,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000061×mv_000307",
+  "dec": "no_merge",
+  "kind": "mv_key",
+  "asins_a": 2,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000010×mv_000181",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 5,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000012×mv_000239",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 3,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000022×mv_000299",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 6,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000030×mv_000293",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 7,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000039×mv_000159",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 5,
+  "asins_b": 0,
+  "co_clustered": null
+ },
+ {
+  "pair": "mv_000039×mv_000162",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 5,
+  "asins_b": 2,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000040×mv_000241",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 8,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000040×mv_000243",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 8,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000046×mv_000261",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 4,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000046×mv_000262",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 4,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000071×mv_000074",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 3,
+  "asins_b": 2,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000071×mv_000357",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 3,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000075×mv_000076",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 3,
+  "asins_b": 2,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000075×mv_000077",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 3,
+  "asins_b": 3,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000104×mv_000105",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 2,
+  "asins_b": 2,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000160×mv_000161",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 2,
+  "asins_b": 2,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000164×mv_000165",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 2,
+  "asins_b": 2,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000173×mv_000174",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 2,
+  "asins_b": 2,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000193×mv_000195",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 3,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000207×mv_000208",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 2,
+  "asins_b": 0,
+  "co_clustered": null
+ },
+ {
+  "pair": "mv_000223×mv_000224",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 2,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000226×mv_000228",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 3,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000226×mv_000229",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 3,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000247×mv_000248",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 2,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000267×mv_000268",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 2,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000273×mv_000275",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 2,
+  "asins_b": 0,
+  "co_clustered": null
+ },
+ {
+  "pair": "mv_000287×mv_000288",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 2,
+  "asins_b": 0,
+  "co_clustered": null
+ },
+ {
+  "pair": "mv_000308×mv_000309",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 3,
+  "asins_b": 0,
+  "co_clustered": null
+ },
+ {
+  "pair": "mv_000308×mv_000310",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 3,
+  "asins_b": 1,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000315×mv_000317",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 2,
+  "asins_b": 0,
+  "co_clustered": null
+ },
+ {
+  "pair": "mv_000326×mv_000327",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 3,
+  "asins_b": 0,
+  "co_clustered": null
+ },
+ {
+  "pair": "mv_000326×mv_000329",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 3,
+  "asins_b": 0,
+  "co_clustered": null
+ },
+ {
+  "pair": "mv_000084×mv_000085",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 2,
+  "asins_b": 2,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000093×mv_000094",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 2,
+  "asins_b": 2,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000116×mv_000117",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 3,
+  "asins_b": 2,
+  "co_clustered": false
+ },
+ {
+  "pair": "mv_000153×mv_000203",
+  "dec": "manual_merge",
+  "kind": "mv_key",
+  "asins_a": 3,
+  "asins_b": 0,
+  "co_clustered": null
+ }
+]

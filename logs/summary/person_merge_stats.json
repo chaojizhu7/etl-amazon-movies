@@ -1,8 +1,8 @@
 {
   "rules_version": "person_merge_v1.1",
-  "run_id": "run_qa3_idem",
-  "generated_at_utc": "2026-11-05T07:06:31Z",
-  "elapsed_seconds": 58.2,
+  "run_id": "run_qa3_idem2",
+  "generated_at_utc": "2026-11-06T10:54:11Z",
+  "elapsed_seconds": 7.3,
   "before": {
     "nodes_imdb": 10529,
     "nodes_page": 1569,
@@ -319,13 +319,13 @@
       "works": [
         [
           "mv_000271",
-          "mv_000401",
-          "mv_000459"
+          "mv_000459",
+          "mv_002228"
         ],
         [
           "mv_000271",
-          "mv_000401",
-          "mv_000459"
+          "mv_000459",
+          "mv_002228"
         ]
       ],
       "era": [
@@ -365,7 +365,7 @@
       },
       "works": [
         [
-          "mv_000225"
+          "mv_001167"
         ],
         [
           "mv_000118"
@@ -408,9 +408,9 @@
       },
       "works": [
         [
-          "mv_000225",
           "mv_000506",
-          "mv_000862"
+          "mv_000862",
+          "mv_001167"
         ],
         [
           "mv_000600",

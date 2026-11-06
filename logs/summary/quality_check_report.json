@@ -1,6 +1,6 @@
 {
-  "run_id": "run_etl_demo_02",
-  "generated_at_utc": "2026-11-04T15:10:20Z",
+  "run_id": "run_qa3_fixpoint2",
+  "generated_at_utc": "2026-11-06T09:40:05Z",
   "checks": [
     {
       "check": "queue_total",

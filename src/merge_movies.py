@@ -543,6 +543,16 @@ def build_clusters(acc_edges):
 
 def write_eval_sample(p, path):
     import random
+    if os.path.exists(path):                      # 防覆盖：已有人工标注的评价样本不重生成
+        try:
+            with open(path, encoding="utf-8") as f:
+                old = list(csv.DictReader(f))
+            n_anno = sum(1 for r in old if (r.get("human_verdict") or "").strip())
+            if n_anno:
+                print(f"[eval] {os.path.basename(path)} 含人工标注 {n_anno} 条，跳过重生成")
+                return 0
+        except Exception:
+            pass
     rng = random.Random(42)
     by_dec = {"auto_merge": [], "manual_review": [], "no_merge": []}
     for r in p["results"]:
@@ -598,19 +608,46 @@ def execute(run_id, expect_auto=125, tolerance=10):
     merged = [c for c in clusters if len(c) >= 2]
     cluster_of = {}
     movie_ids = {}
-    seq = 0
+    # 成员集签名 id 复用：成员集未变的簇保留原 movie_id（重跑不重铸，保 mv_/p_ 引用稳定）
+    old_sig = {}
+    all_old_ids = set()
+    old_unresolved = {}
+    with psycopg.connect(**DB) as conn:
+        for asin, mid, rel in conn.execute(
+                "SELECT asin, movie_id, relation_type FROM product_movie"):
+            all_old_ids.add(mid)
+            if rel == "single":
+                old_sig.setdefault(mid, set()).add(asin)
+        for mid, tc in conn.execute(
+                "SELECT movie_id, title_canonical FROM movie_entity "
+                "WHERE status='unresolved_candidate'"):
+            old_unresolved.setdefault(tc, mid)
+            all_old_ids.add(mid)
+    sig_to_id = {frozenset(v): k for k, v in old_sig.items()}
+    taken = set()
+    seq = max((int(m[3:]) for m in all_old_ids if m.startswith("mv_") and m[3:].isdigit()), default=0)
     def next_id():
         nonlocal seq
-        seq += 1
-        return f"mv_{seq:06d}"
+        while True:
+            seq += 1
+            cand = f"mv_{seq:06d}"
+            if cand not in all_old_ids and cand not in taken:
+                taken.add(cand)
+                return cand
+    def mint_id(members):
+        old = sig_to_id.get(frozenset(members))
+        if old and old not in taken:
+            taken.add(old)
+            return old
+        return next_id()
     for members in merged:
-        mid = next_id()
+        mid = mint_id(members)
         movie_ids[mid] = {"members": members, "status": "merged"}
         for m in members:
             cluster_of[m] = mid
     for n in p["nodes"]:
         if n["id"] not in cluster_of:
-            mid = next_id()
+            mid = mint_id([n["id"]])
             movie_ids[mid] = {"members": [n["id"]], "status": "singleton"}
             cluster_of[n["id"]] = mid
 
@@ -688,15 +725,26 @@ def execute(run_id, expect_auto=125, tolerance=10):
             c = canon(ct)
             mid = canon_to_mid.get(c)
             if mid is None:
-                mid = next_id()
-                movie_ids[mid] = {"members": [], "status": "unresolved_candidate"}
-                canon_to_mid[c] = mid
-                conn.execute(
-                    "INSERT INTO movie_entity (movie_id, title_canonical, external_ids, status, "
-                    "rules_version, run_id) VALUES (%s,%s,'{}'::jsonb,'unresolved_candidate',%s,%s) "
-                    "ON CONFLICT (movie_id) DO NOTHING",
-                    (mid, c, RULES_VERSION, run_id))
-                n_coll_unresolved += 1
+                mid = old_unresolved.get(c)      # 复用既有 unresolved 候选，防每轮重铸 id
+                if mid and mid not in taken:
+                    taken.add(mid)
+                    movie_ids[mid] = {"members": [], "status": "unresolved_candidate"}
+                    canon_to_mid[c] = mid
+                    conn.execute(                # 重建已 DELETE 全表，复用也须补插实体行
+                        "INSERT INTO movie_entity (movie_id, title_canonical, external_ids, status, "
+                        "rules_version, run_id) VALUES (%s,%s,'{}'::jsonb,'unresolved_candidate',%s,%s) "
+                        "ON CONFLICT (movie_id) DO NOTHING",
+                        (mid, c, RULES_VERSION, run_id))
+                else:
+                    mid = next_id()
+                    movie_ids[mid] = {"members": [], "status": "unresolved_candidate"}
+                    canon_to_mid[c] = mid
+                    conn.execute(
+                        "INSERT INTO movie_entity (movie_id, title_canonical, external_ids, status, "
+                        "rules_version, run_id) VALUES (%s,%s,'{}'::jsonb,'unresolved_candidate',%s,%s) "
+                        "ON CONFLICT (movie_id) DO NOTHING",
+                        (mid, c, RULES_VERSION, run_id))
+                    n_coll_unresolved += 1
             else:
                 n_coll_linked += 1
             conn.execute(

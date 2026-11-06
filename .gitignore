@@ -44,3 +44,9 @@ Thumbs.db
 .vscode/
 .idea/
 .scrapy/
+
+# ===== 个人准备材料与备份（不进仓库）=====
+report/演示提纲*
+report/答辩材料*
+*_backup_*
+logs/summary/qa3_snap_*.json

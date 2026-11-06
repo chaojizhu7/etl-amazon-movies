@@ -1,0 +1,14 @@
+{
+ "all": {
+  "auto_merge": 9388,
+  "manual_merge": 43,
+  "manual_review": 5575,
+  "no_merge": 5372
+ },
+ "latest": {
+  "auto_merge": 304,
+  "manual_merge": 37,
+  "manual_review": 184,
+  "no_merge": 182
+ }
+}

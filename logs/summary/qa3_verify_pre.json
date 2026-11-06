@@ -1,0 +1,18 @@
+{
+ "movie_entity": {
+  "rows": 964,
+  "md5": "9bf8ded10793478da77726459ab2b0e8"
+ },
+ "product_movie": {
+  "rows": 1244,
+  "md5": "a303c3d4cc7b851670d237b49c95654a"
+ },
+ "person_entity": {
+  "rows": 11239,
+  "md5": "2a88e0a5fb1954b2498e5966aa66dda5"
+ },
+ "movie_person": {
+  "rows": 15451,
+  "md5": "91ea08ea612381f7625374eb4588c1cd"
+ }
+}

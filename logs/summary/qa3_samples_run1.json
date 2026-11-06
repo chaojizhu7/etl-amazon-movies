@@ -1,0 +1,86 @@
+{
+  "movies": [
+    {
+      "movie_id": "mv_000006",
+      "asin_count": 5,
+      "asins": "6302914485,B00005NBBJ,B00005TPCG,B005FOW9SW,B008UY8FI2"
+    },
+    {
+      "movie_id": "mv_000084",
+      "asin_count": 2,
+      "asins": "B0006Z2KIY,B0036JQ7S6"
+    },
+    {
+      "movie_id": "mv_000204",
+      "asin_count": 2,
+      "asins": "B002ZG98VE,B006WXHJGC"
+    },
+    {
+      "movie_id": "mv_000212",
+      "asin_count": 2,
+      "asins": "B00004CYNY,B000TGJ7ZY"
+    },
+    {
+      "movie_id": "mv_001007",
+      "asin_count": 2,
+      "asins": "B00198X0UO,B003U6SJUY"
+    }
+  ],
+  "persons": [
+    {
+      "person_id": "p_006459",
+      "name": "lana wachowski"
+    },
+    {
+      "person_id": "p_006460",
+      "name": "lilly wachowski"
+    },
+    {
+      "person_id": "p_000010",
+      "name": "stanley kubrick"
+    },
+    {
+      "person_id": "p_010894",
+      "name": "stanley kubrick"
+    },
+    {
+      "person_id": "p_010656",
+      "name": "toshir&ocirc; mifune"
+    },
+    {
+      "person_id": "p_001731",
+      "name": "toshiro mifune"
+    }
+  ],
+  "asin_movie": [
+    {
+      "asin": "0767805690",
+      "movie_id": "mv_000001",
+      "relation_type": "single"
+    },
+    {
+      "asin": "B00198X0UO",
+      "movie_id": "mv_001007",
+      "relation_type": "collection_member"
+    },
+    {
+      "asin": "B00198X0UO",
+      "movie_id": "mv_001008",
+      "relation_type": "collection_member"
+    },
+    {
+      "asin": "B00198X0UO",
+      "movie_id": "mv_001009",
+      "relation_type": "collection_member"
+    },
+    {
+      "asin": "B002ZG98VE",
+      "movie_id": "mv_000204",
+      "relation_type": "single"
+    }
+  ],
+  "review_anomaly": {
+    "total": 129,
+    "distinct_content": 43
+  }
+}

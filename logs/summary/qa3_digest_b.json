@@ -1,0 +1,46 @@
+{
+  "movie_entity": {
+    "rows": 934,
+    "md5": "6d29e2a3995031c46be5582621ea87c8"
+  },
+  "product_movie": {
+    "rows": 1244,
+    "md5": "973fcfccccc343223b81f8fa39b4abd1"
+  },
+  "movie_alias": {
+    "rows": 2564,
+    "md5": "472c64feabb4c72ae493dda5fad8820b"
+  },
+  "person_entity": {
+    "rows": 11238,
+    "md5": "837de681e338ed0d7bd53095babc552e"
+  },
+  "movie_person": {
+    "rows": 15451,
+    "md5": "cf7a2fe006f46d00c32bb90f11321273"
+  },
+  "person_alias": {
+    "rows": 12098,
+    "md5": "bdf8dad3e595a08b1724aa177bdaa39d"
+  },
+  "review_mapping": {
+    "rows": 7911684,
+    "md5": "2a3cdba5930d40d73629dd50a6e139ba"
+  },
+  "release_facts": {
+    "rows": 11534,
+    "md5": "5f89750039db96bd7cd7a32b3f89b7fc"
+  },
+  "product_classification": {
+    "rows": 253059,
+    "md5": "d917b2fc5076a9912d3c2fa6988bff52"
+  },
+  "person_entity_by_content": {
+    "rows": 11238,
+    "md5": "35d1f48371c4cd5a1ec7966036f8ed67"
+  },
+  "movie_entity_by_content": {
+    "rows": 934,
+    "md5": "7e3063039a0d818b8e80e39c44bc5944"
+  }
+}

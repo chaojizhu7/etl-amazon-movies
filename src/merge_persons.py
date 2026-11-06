@@ -462,18 +462,36 @@ def execute(run_id):
         groups.setdefault(find(k), []).append(k)
     clusters = sorted((sorted(v) for v in groups.values()), key=lambda m: m[0])
     assigned = {}
-    seq = 0
     cluster_members = {}
+    # 成员集签名 pid 复用：节点集未变的人物簇保留原 person_id（重跑不重铸，保引用稳定）
+    old_sig = {}
+    with psycopg.connect(**DB) as conn:
+        for pid, loc in conn.execute("SELECT person_id, source_locator FROM person_alias"):
+            if loc:
+                old_sig.setdefault(pid, set()).add(loc)
+    sig_to_id = {frozenset(v): k for k, v in old_sig.items()}
+    taken = set()
+    seq = max((int(x[2:]) for x in old_sig if x.startswith("p_") and x[2:].isdigit()), default=0)
+    def mint_pid(members):
+        nonlocal seq
+        old = sig_to_id.get(frozenset(members))
+        if old and old not in taken:
+            taken.add(old)
+            return old
+        while True:
+            seq += 1
+            cand = f"p_{seq:06d}"
+            if cand not in old_sig and cand not in taken:
+                taken.add(cand)
+                return cand
     for members in clusters:
-        seq += 1
-        pid = f"p_{seq:06d}"
+        pid = mint_pid(members)
         cluster_members[pid] = members
         for m in members:
             assigned[m] = pid
     for n in nodes.values():
         if n["key"] not in assigned:
-            seq += 1
-            pid = f"p_{seq:06d}"
+            pid = mint_pid([n["key"]])
             cluster_members[pid] = [n["key"]]
             assigned[n["key"]] = pid
 
@@ -504,14 +522,21 @@ def execute(run_id):
             chosen.add((r["a"], r["b"]))
     picked = picked[:100]
     eval_path = os.path.join(OUT_DIR, "person_eval_sample.csv")
-    with open(eval_path, "w", encoding="utf-8", newline="") as f:
-        w = csv.writer(f)
-        w.writerow(["pair_id", "node_a", "name_a", "node_b", "name_b", "system_decision",
-                    "reason", "V", "conf", "signals_json", "human_verdict", "notes"])
-        for i, r in enumerate(picked, 1):
-            w.writerow([i, r["a"], nodes[r["a"]]["canon"], r["b"], nodes[r["b"]]["canon"],
-                        r["decision"], r["reason"], r["V"], r["conf"],
-                        json.dumps(r["signals"], ensure_ascii=False), "", ""])
+    _old = []
+    if os.path.exists(eval_path):                 # 防覆盖：已有人工标注的评价样本不重生成
+        with open(eval_path, encoding="utf-8") as _f:
+            _old = list(csv.DictReader(_f))
+    if any((r.get("human_verdict") or "").strip() for r in _old):
+        print("[eval] person_eval_sample.csv 含人工标注，跳过重生成")
+    else:
+        with open(eval_path, "w", encoding="utf-8", newline="") as f:
+            w = csv.writer(f)
+            w.writerow(["pair_id", "node_a", "name_a", "node_b", "name_b", "system_decision",
+                        "reason", "V", "conf", "signals_json", "human_verdict", "notes"])
+            for i, r in enumerate(picked, 1):
+                w.writerow([i, r["a"], nodes[r["a"]]["canon"], r["b"], nodes[r["b"]]["canon"],
+                            r["decision"], r["reason"], r["V"], r["conf"],
+                            json.dumps(r["signals"], ensure_ascii=False), "", ""])
 
     # ---- 落库 ----
     with psycopg.connect(**DB) as conn:

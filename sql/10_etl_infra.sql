@@ -43,3 +43,13 @@ ALTER TABLE movie_person DROP CONSTRAINT IF EXISTS movie_person_movie_id_fkey;
 ALTER TABLE movie_person DROP CONSTRAINT IF EXISTS movie_person_person_id_fkey;
 ALTER TABLE product_movie DROP CONSTRAINT IF EXISTS product_movie_movie_id_fkey;
 ALTER TABLE movie_alias DROP CONSTRAINT IF EXISTS movie_alias_movie_id_fkey;
+
+
+-- 人工清噪锚：movie_manual_split（传递吸收噪声防回摆，node_a=须拆出的噪声成员）
+CREATE TABLE IF NOT EXISTS movie_manual_split (
+    node_a      TEXT NOT NULL,
+    node_b      TEXT NOT NULL,
+    reason      TEXT NOT NULL,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+    PRIMARY KEY (node_a, node_b)
+);

@@ -1,0 +1,34 @@
+{
+  "label": "fp3",
+  "captured_at": "2026-11-06T16:37:13.319980+08:00",
+  "core": {
+    "movie_entity": 927,
+    "product_movie": 1244,
+    "movie_alias": 2564,
+    "movie_manual_group": 87,
+    "movie_merge_candidate": 2863,
+    "movie_merge_decision": 15709,
+    "person_entity": 11238,
+    "person_alias": 12098,
+    "movie_person": 15451,
+    "person_merge_candidate": 14579,
+    "person_merge_decision": 72504,
+    "review_mapping": 7911684,
+    "review_record_index": 7911684,
+    "review_anomaly": 172,
+    "product_classification": 253059,
+    "release_facts": 11497,
+    "field_assertion": 43707,
+    "lineage_source_record": 1485,
+    "lineage_field_assertion": 85541,
+    "lineage_field_final": 6082,
+    "lineage_process_step": 77382
+  },
+  "audit_total": {
+    "etl_run_task": 57,
+    "quality_issue": 9
+  },
+  "review_mapping_by_run": {
+    "run_qa3_idem2": 7911684
+  }
+}

@@ -1,8 +1,8 @@
 {
   "rules_version": "v0.1",
-  "run_id": "run_qa3_idem",
-  "generated_at_utc": "2026-11-05T07:04:37Z",
-  "elapsed_seconds": 362.0,
+  "run_id": "run_qa3_verify01",
+  "generated_at_utc": "2026-11-06T09:09:51Z",
+  "elapsed_seconds": 104.9,
   "queue_total": 253059,
   "crawl_queue_states": {
     "access_restricted": 19379,
@@ -12,10 +12,10 @@
     "success": 1439
   },
   "crawl_attempt_features": {
-    "error": 504,
-    "other": 122,
-    "product_page": 4881,
-    "verification_page": 64050
+    "error": 796,
+    "other": 198,
+    "product_page": 7759,
+    "verification_page": 102850
   },
   "snapshot_files_total": 20856,
   "snapshot_files_product_page_size": 1477,

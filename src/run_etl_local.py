@@ -62,10 +62,28 @@ def task_state(conn, run_id, task_id):
         "GROUP BY state ORDER BY 2 DESC LIMIT 1", (run_id, task_id)).fetchone()
 
 
-def move_table(conn, table, cols, keep, drop):
+def move_table(conn, table, cols, keep, drop, preserve_conflicts=False):
+    """迁移 drop→keep。撞 (cols) 键时：
+    - 整行（除 id/movie_id）全同 → 删 drop 侧（真重复）；
+    - 值不同且 preserve_conflicts=True（证据表）→ drop 侧 run_id 加 '#keep:<movie_id>'
+      后缀保留双方，禁止静默丢证据；
+    - 值不同且 preserve_conflicts=False（关系表）→ keep 侧胜出，删 drop 侧。"""
+    key = " AND ".join(f't."{c.strip()}" IS NOT DISTINCT FROM s."{c.strip()}"' for c in cols.split(","))
+    all_cols = [d.name for d in conn.execute(f"SELECT * FROM {table} WHERE false").description]
+    val = [c for c in all_cols if c not in ("id", "movie_id")]
+    val_eq = " AND ".join(f't."{c}" IS NOT DISTINCT FROM s."{c}"' for c in val)
     conn.execute(
-        f"DELETE FROM {table} WHERE movie_id=%s AND ({cols}) IN "
-        f"(SELECT {cols} FROM {table} WHERE movie_id=%s)", (drop, keep))
+        f"DELETE FROM {table} t USING {table} s WHERE t.movie_id=%s AND s.movie_id=%s "
+        f"AND {key} AND {val_eq}", (drop, keep))
+    if preserve_conflicts:
+        conn.execute(
+            f"UPDATE {table} t SET run_id = t.run_id || '#keep:' || t.movie_id "
+            f"WHERE t.movie_id=%s AND t.run_id NOT LIKE '%%#keep:%%' AND EXISTS "
+            f"(SELECT 1 FROM {table} s WHERE s.movie_id=%s AND {key})", (drop, keep))
+    else:
+        conn.execute(
+            f"DELETE FROM {table} t USING {table} s WHERE t.movie_id=%s AND s.movie_id=%s AND {key}",
+            (drop, keep))
     conn.execute(f"UPDATE {table} SET movie_id=%s WHERE movie_id=%s", (keep, drop))
 
 
@@ -81,6 +99,20 @@ def task_merge(run_id):
         for cid, a in conn.execute("SELECT canonical_movie_id, asin FROM movie_manual_group"):
             manual.setdefault(cid, set()).add(a)
         groups = [set(v) for v in old_clusters.values()] + list(manual.values())
+        # 决策并集锚定：曾经 auto_merge/manual_merge 的对进并集（合并历史单调累积，
+        # 后续重跑的系统判定不撤销已合并成果），仅人工后续 no_merge 可撤销；
+        # 防止重建+中断后并集成果只活在状态快照里（快照丢=并集丢）
+        for a, b in conn.execute(
+                "SELECT DISTINCT LEAST(node_a,node_b), GREATEST(node_a,node_b) "
+                "FROM movie_merge_decision d "
+                "WHERE d.decision IN ('auto_merge','manual_merge') "
+                "AND d.rules_version NOT LIKE '%v060%' AND d.rules_version NOT LIKE '%c45%' "          # 规则变更实验行不进并集（保证可回滚）
+                "AND NOT EXISTS (SELECT 1 FROM movie_merge_decision r "
+                " WHERE LEAST(r.node_a,r.node_b)=LEAST(d.node_a,d.node_b) "
+                " AND GREATEST(r.node_a,r.node_b)=GREATEST(d.node_a,d.node_b) "
+                " AND r.decision='no_merge' AND r.reason LIKE 'manual_confirm%' "
+                " AND r.id > d.id)").fetchall():
+            groups.append({a, b})
         merged_groups = []
         for g in groups:
             hit = [m for m in merged_groups if m & g]
@@ -108,12 +140,34 @@ def task_merge(run_id):
             ids = sorted({cur_map[a] for a in g if a in cur_map})
             if len(ids) <= 1:
                 continue
-            primary = ids[0]
-            for nid in ids[1:]:
+            # 稳定 id：优先取成员集所属旧簇 id（重跑不换号，保 mv_ 引用稳定）；
+            # 否则退回最小现 id（随后由 dance 对人工组回写 canonical）
+            olds = sorted(o for o, asins in old_clusters.items() if asins <= g)
+            primary = olds[0] if olds else ids[0]
+            # 修复（2026-11-06）：primary∉ids 时旧 id 无实体行，UPDATE 会 0 行命中
+            # → 补 INSERT（ON CONFLICT 置 merged），标题取首个 piece 实体
+            src_t = None
+            for cand in ids:
+                if cand != primary:
+                    r = conn.execute("SELECT title_canonical FROM movie_entity WHERE movie_id=%s", (cand,)).fetchone()
+                    if r:
+                        src_t = r[0]
+                        break
+            conn.execute(
+                "INSERT INTO movie_entity (movie_id, title_canonical, external_ids, status, rules_version, run_id) "
+                "VALUES (%s, %s, '{}'::jsonb, 'merged', 'merge_v1.3', %s) "
+                "ON CONFLICT (movie_id) DO UPDATE SET status='merged'",
+                (primary, src_t or primary, run_id))
+            # 修复（2026-11-06）：primary 可能不在 ids 里，必须搬"所有 ≠primary 的 id"，
+            # 否则 ids[0] 永远不搬导致人工组拆散（本次 32 组受损根因）
+            for nid in ids:
+                if nid == primary:
+                    continue
                 move_table(conn, "product_movie", "asin", primary, nid)
                 for tbl, cols in DEPENDENT_MOVIE_TABLES:
                     if tbl != "product_movie":
-                        move_table(conn, tbl, cols, primary, nid)
+                        move_table(conn, tbl, cols, primary, nid,
+                                   preserve_conflicts=tbl in ("release_facts", "field_assertion"))
                 conn.execute("DELETE FROM movie_entity WHERE movie_id=%s", (nid,))
                 conn.execute("UPDATE movie_entity SET status='merged' WHERE movie_id=%s", (primary,))
                 replayed += 1
@@ -126,6 +180,8 @@ def task_merge(run_id):
             "WHERE pm.asin=ma.source_locator AND pm.relation_type='single' AND ma.movie_id<>pm.movie_id")
         live = {r[0] for r in conn.execute("SELECT DISTINCT movie_id FROM product_movie")}
         stale_moved = 0
+        stale_ids = [o for o in old_clusters if o not in live]
+        log(f"merge: stale ids ({len(stale_ids)}): {stale_ids[:12]}")
         for old_id, asins in old_clusters.items():
             if old_id in live:
                 continue                       # 修复①：活 id 不动（防 id 空间碰撞误伤）
@@ -137,7 +193,8 @@ def task_merge(run_id):
                               ("field_assertion", "field_name,value_norm,value_role,source,run_id"),
                               ("movie_person", "person_id,role,nconst,source"),
                               ("movie_alias", "title_canon,source,source_locator")):
-                move_table(conn, tbl, cols, primary, old_id)
+                move_table(conn, tbl, cols, primary, old_id,
+                           preserve_conflicts=tbl in ("release_facts", "field_assertion"))
             conn.execute("DELETE FROM movie_entity WHERE movie_id=%s", (old_id,))
             stale_moved += 1
         # 3) 人工组 canonical id 回写（占用者挪临时号；用重放后映射）
@@ -161,6 +218,73 @@ def task_merge(run_id):
                         "movie_person", "movie_alias"):
                 conn.execute(f"UPDATE {tbl} SET movie_id=%s WHERE movie_id=%s", (cid, mid))
             renames += 1
+        # 4) mv_hold 影子 id 归位（canonical 占位迁移产物 → 正式 mv_ 编号；
+        #    成员集签名复用保证后续重跑沿用新号不再回摆）
+        hold_ids = [r[0] for r in conn.execute(
+            "SELECT DISTINCT movie_id FROM product_movie WHERE movie_id LIKE 'mv_hold%' ORDER BY 1")]
+        if hold_ids:
+            mx = conn.execute(
+                "SELECT coalesce(max(substring(movie_id from 4))::int, 0) FROM movie_entity "
+                "WHERE movie_id ~ '^mv_[0-9]{6}$'").fetchone()[0]
+            for hid in hold_ids:
+                mx += 1
+                nid = f"mv_{mx:06d}"
+                for tbl in ("movie_entity", "product_movie", "release_facts", "field_assertion",
+                            "movie_person", "movie_alias"):
+                    conn.execute(f"UPDATE {tbl} SET movie_id=%s WHERE movie_id=%s", (nid, hid))
+            log(f"merge: mv_hold normalized {len(hold_ids)} -> mv_{mx-len(hold_ids)+1:06d}..mv_{mx:06d}")
+        # 5) 人工清噪锚：movie_manual_split 的 (node_a × node_b) 不许同簇
+        #    （传递吸收噪声防回摆；node_a=须拆出的噪声成员）
+        n_desplit = 0
+        for a, b in conn.execute("SELECT node_a, node_b FROM movie_manual_split").fetchall():
+            rows = conn.execute(
+                "SELECT asin, movie_id FROM product_movie "
+                "WHERE asin IN (%s, %s) AND relation_type='single'", (a, b)).fetchall()
+            mid_of = dict(rows)
+            ma, mb = mid_of.get(a), mid_of.get(b)
+            if not ma or not mb or ma != mb:
+                continue
+            mx = conn.execute(
+                "SELECT coalesce(max(substring(movie_id from 4))::int, 0) FROM movie_entity "
+                "WHERE movie_id ~ '^mv_[0-9]{6}$'").fetchone()[0]
+            nid = f"mv_{mx+1:06d}"
+            conn.execute(
+                "INSERT INTO movie_entity (movie_id, title_canonical, external_ids, status, "
+                "rules_version, run_id) SELECT %s, "
+                "lower(regexp_replace(coalesce(pc.page_title_raw, %s), '[^a-zA-Z0-9 ]', ' ', 'g')), "
+                "'{}'::jsonb, 'singleton', 'merge_v1.3', %s "
+                "FROM product_classification pc WHERE pc.asin=%s "
+                "ON CONFLICT (movie_id) DO NOTHING", (nid, a, run_id, a))
+            for tbl in ("product_movie", "release_facts", "field_assertion", "movie_alias"):
+                col = "source_locator" if tbl in ("movie_alias", "field_assertion") else "asin"
+                conn.execute(
+                    f"UPDATE {tbl} SET movie_id=%s WHERE {col}=%s AND movie_id=%s", (nid, a, ma))
+            n_desplit += 1
+            log(f"merge: de-split noise {a} x {b}: {ma} -> {nid}")
+        if splits := conn.execute("SELECT count(*) FROM movie_manual_split").fetchone()[0]:
+            log(f"merge: manual_split anchors={splits}, de-split fired={n_desplit}")
+        # 6) 实体行自愈：merge_movies 重建会 DELETE 全表实体 → holding 与
+        #    无 piece 实体的 pm 引用 id 补建（防实体悬空成孤儿）
+        conn.execute(
+            "INSERT INTO movie_entity (movie_id, title_canonical, external_ids, status, rules_version, run_id) "
+            "VALUES ('mv_orphan_holding', 'orphaned evidence holding (thrash casualties)', '{}'::jsonb, "
+            "'manual_hold', 'merge_v1.3', %s) ON CONFLICT (movie_id) DO NOTHING", (run_id,))
+        n_heal = 0
+        for (mid,) in conn.execute(
+                "SELECT DISTINCT t.movie_id FROM product_movie t "
+                "WHERE NOT EXISTS (SELECT 1 FROM movie_entity m WHERE m.movie_id=t.movie_id)").fetchall():
+            conn.execute(
+                "INSERT INTO movie_entity (movie_id, title_canonical, external_ids, status, rules_version, run_id) "
+                "VALUES (%s, coalesce((SELECT lower(regexp_replace(coalesce(pc.page_title_raw, %s), "
+                "'[^a-zA-Z0-9 ]', ' ', 'g')) FROM product_movie p "
+                "JOIN product_classification pc ON pc.asin=p.asin "
+                "WHERE p.movie_id=%s ORDER BY p.asin LIMIT 1), %s), '{}'::jsonb, "
+                "(SELECT CASE WHEN count(*)>=2 THEN 'merged' ELSE 'singleton' END "
+                "FROM product_movie WHERE movie_id=%s), 'merge_v1.3', %s) "
+                "ON CONFLICT (movie_id) DO NOTHING", (mid, mid, mid, mid, mid, run_id))
+            n_heal += 1
+        if n_heal:
+            log(f"merge: entity self-heal rebuilt={n_heal} + holding")
         conn.commit()
         total = conn.execute("SELECT count(*) FROM movie_entity").fetchone()[0]
         log(f"merge: done, movie_entity={total}, replayed={replayed}, stale_moved={stale_moved}, canonical_restored={renames}")

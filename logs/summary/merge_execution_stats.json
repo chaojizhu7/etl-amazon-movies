@@ -1,7 +1,7 @@
 {
   "rules_version": "merge_v1.2",
-  "run_id": "run_qa3_idem",
-  "generated_at_utc": "2026-11-05T07:05:32Z",
+  "run_id": "run_qa3_idem2",
+  "generated_at_utc": "2026-11-06T10:54:03Z",
   "gate": {
     "expected_auto": 304,
     "tolerance": 5,
@@ -43,16 +43,16 @@
     "unresolved_candidates": 5,
     "product_movie_single": 1236,
     "product_movie_collection": 8,
-    "manual_review_queue": 184,
-    "no_merge": 179
+    "manual_review_queue": 4416,
+    "no_merge": 4296
   },
   "collection_links": {
     "linked_to_existing_movie": 3,
-    "unresolved_candidate": 5
+    "unresolved_candidate": 0
   },
   "eval_sample": {
     "file": "C:\\Users\\28746\\Desktop\\etl-amazon\\logs\\summary\\merge_eval_sample.csv",
-    "n": 100
+    "n": 0
   },
   "merged_examples": [
     {
@@ -96,7 +96,7 @@
       ]
     },
     {
-      "movie_id": "mv_000079",
+      "movie_id": "mv_002150",
       "members": [
         "B00004COW2",
         "B00004RUKM",
@@ -136,7 +136,7 @@
       ]
     },
     {
-      "movie_id": "mv_000028",
+      "movie_id": "mv_002147",
       "members": [
         "6302914485",
         "B00005TPCG",
